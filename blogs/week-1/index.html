@@ -1,0 +1,2536 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="We are making a game engine and documenting the process">
+      
+      
+        <link rel="canonical" href="https://isetta.io/blogs/week-1/">
+      
+      
+        <meta name="author" content="Caleb, Chaojie, Jacob, Jared, Yidi">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../images/isetta_icon.ico">
+      <meta name="generator" content="mkdocs-1.0.2, mkdocs-material-3.0.3">
+    
+    
+      
+        <title>[Week 1] The Building Blocks - Isetta Engine</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Source+Code+Pro">
+        <style>body,input{font-family:"Lato","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Source Code Pro","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="../../extra.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="light-blue" data-md-color-accent="cyan">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../../#the-building-blocks" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <!--
+  Copyright (c) 2016-2018 Martin Donath <martin.donath@squidfunk.com>
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Application header -->
+<header class="md-header" data-md-component="header">
+
+  <!-- Top-level navigation -->
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+
+      <!-- Link to home -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://isetta.io/" title="Isetta Engine" class="md-header-nav__button md-logo">
+          
+          <img id="isetta-logo" src="../../images/isetta_logo.png" width="24" height="24" />
+          
+        </a>
+      </div>
+
+      <!-- Button to toggle drawer -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+
+      <!-- Header title -->
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+          
+          <span class="md-header-nav__topic back_to_top cursor_pointer">
+            Isetta Engine
+          </span>
+          <span class="md-header-nav__topic back_to_top cursor_pointer">
+            [Week 1] The Building Blocks
+            <span style="padding-left: 10px;">⇫</span>
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <!-- Button to open search dialogue -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+        
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+
+        <!-- Search interface -->
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+        
+      </div>
+
+      <!-- Repository containing source -->
+      
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <div class="md-header-nav__source">
+          
+
+
+  
+
+
+  <a href="https://github.com/Isetta-Team/Isetta-Engine" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      Isetta Engine
+    </div>
+  </a>
+
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Tabs with outline
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../compendium/" title="Compendium" class="md-tabs__link">
+          Compendium
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../week-0/" title="Blogs" class="md-tabs__link md-tabs__link--active">
+          Blogs
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../interviews/" title="Interviews" class="md-tabs__link">
+          Interviews
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../engine_docs/home/" title="Usage" class="md-tabs__link">
+          Usage
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+       -->
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../compendium/" title="Compendium" class="md-tabs__link">
+          Compendium
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../week-0/" title="Blogs" class="md-tabs__link md-tabs__link--active">
+          Blogs
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../interviews/" title="Interviews" class="md-tabs__link">
+          Interviews
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../engine_docs/home/" title="Usage" class="md-tabs__link">
+          Usage
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://isetta.io/" title="Isetta Engine" class="md-nav__button md-logo">
+      
+        <img src="../../images/isetta_logo.png" width="48" height="48">
+      
+    </a>
+    Isetta Engine
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/Isetta-Team/Isetta-Engine" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      Isetta Engine
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../about/" title="About" class="md-nav__link">
+      About
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../team/" title="Team" class="md-nav__link">
+      Team
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../schedule/" title="Schedule" class="md-nav__link">
+      Schedule
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../resources/" title="Resources" class="md-nav__link">
+      Resources
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../glossary/" title="Glossary" class="md-nav__link">
+      Glossary
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../faq/" title="FAQ" class="md-nav__link">
+      FAQ
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Compendium
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Compendium
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2" type="checkbox" id="nav-8-2">
+    
+    <label class="md-nav__link" for="nav-8-2">
+      Engine Postmortem
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-8-2">
+        Engine Postmortem
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-1" type="checkbox" id="nav-8-2-1">
+    
+    <label class="md-nav__link" for="nav-8-2-1">
+      Lessons
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-1">
+        Lessons
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/BuildGames/" title="Build Games with Your Game Engine" class="md-nav__link">
+      Build Games with Your Game Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/RubberduckDeveloping/" title="Rubberduck Developing: Forced Explanation" class="md-nav__link">
+      Rubberduck Developing: Forced Explanation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/ItsNotThatHard/" title="It's Not That Hard" class="md-nav__link">
+      It's Not That Hard
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-2" type="checkbox" id="nav-8-2-2">
+    
+    <label class="md-nav__link" for="nav-8-2-2">
+      What went right
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-2">
+        What went right
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/HostingGameJam/" title="Hosting a Game Jam" class="md-nav__link">
+      Hosting a Game Jam
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/NoviceTeam/" title="Having a Team of Novices" class="md-nav__link">
+      Having a Team of Novices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/LeveragingProfessionals/" title="Leveraging Professionals for Input" class="md-nav__link">
+      Leveraging Professionals for Input
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-3" type="checkbox" id="nav-8-2-3">
+    
+    <label class="md-nav__link" for="nav-8-2-3">
+      What went wrong
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-3">
+        What went wrong
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/QuestionsForProfessionals/" title="Questions for the Professionals" class="md-nav__link">
+      Questions for the Professionals
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/SoftwareDevelopment/" title="Basic Software Development Practices" class="md-nav__link">
+      Basic Software Development Practices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/Crunch/" title="Crunch is Bad" class="md-nav__link">
+      Crunch is Bad
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/3rdParty/" title="3rd Party" class="md-nav__link">
+      3rd Party
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Build-ResourceManagement/" title="Build & Resource Management" class="md-nav__link">
+      Build & Resource Management
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Collisions/" title="Collisions" class="md-nav__link">
+      Collisions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Gameplay/" title="Gameplay" class="md-nav__link">
+      Gameplay
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Interviews/" title="Interviews" class="md-nav__link">
+      Interviews
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Memory/" title="Memory" class="md-nav__link">
+      Memory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Networking/" title="Networking" class="md-nav__link">
+      Networking
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Other/" title="Other Topics" class="md-nav__link">
+      Other Topics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Scene-Loop/" title="Scene & Engine Loop" class="md-nav__link">
+      Scene & Engine Loop
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Tools/" title="Tools" class="md-nav__link">
+      Tools
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9" checked>
+    
+    <label class="md-nav__link" for="nav-9">
+      Blogs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        Blogs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-0/" title="[Week 0] Preparation" class="md-nav__link">
+      [Week 0] Preparation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        [Week 1] The Building Blocks
+      </label>
+    
+    <a href="./" title="[Week 1] The Building Blocks" class="md-nav__link md-nav__link--active">
+      [Week 1] The Building Blocks
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#byte-sized-summary" title="Byte-Sized Summary" class="md-nav__link">
+    Byte-Sized Summary
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roadmap" title="Roadmap" class="md-nav__link">
+    Roadmap
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development" title="Development" class="md-nav__link">
+    Development
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#module-manager" title="Module Manager" class="md-nav__link">
+    Module Manager
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#singletons-globals-or-a-manager" title="Singletons, Globals, or a Manager" class="md-nav__link">
+    Singletons, Globals, or a Manager
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rendering" title="Rendering" class="md-nav__link">
+    Rendering
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audio" title="Audio" class="md-nav__link">
+    Audio
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#who-owns-the-sound" title="Who Owns the Sound?" class="md-nav__link">
+    Who Owns the Sound?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refactoring-broke-the-audio" title="Refactoring Broke the Audio" class="md-nav__link">
+    Refactoring Broke the Audio
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#networking" title="Networking" class="md-nav__link">
+    Networking
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debug-logging" title="Debug Logging" class="md-nav__link">
+    Debug Logging
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-we-need-a-file-system" title="Why We Need a File System" class="md-nav__link">
+    Why We Need a File System
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-handling" title="Error-Handling" class="md-nav__link">
+    Error-Handling
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#profiler" title="Profiler" class="md-nav__link">
+    Profiler
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#math" title="Math" class="md-nav__link">
+    Math
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-control" title="Version Control" class="md-nav__link">
+    Version Control
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coming-soonnext-week" title="Coming Soon/Next Week" class="md-nav__link">
+    Coming Soon/Next Week
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" title="Resources" class="md-nav__link">
+    Resources
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+        <li class="md-nav__item">
+          <a href="#__comments" title="Comments" class="md-nav__link md-nav__link--active">
+            Comments
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../engine-architecture/" title="Engine Architecture" class="md-nav__link">
+      Engine Architecture
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-2/" title="[Week 2] Ramping Up" class="md-nav__link">
+      [Week 2] Ramping Up
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-3/" title="[Week 3] "Completing" the Core" class="md-nav__link">
+      [Week 3] "Completing" the Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-4/" title="[Week 4] Buried in Comments" class="md-nav__link">
+      [Week 4] Buried in Comments
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-5/" title="[Week 5] Back in Business" class="md-nav__link">
+      [Week 5] Back in Business
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-6/" title="[Week 6] We Think It's Playable" class="md-nav__link">
+      [Week 6] We Think It's Playable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-7/" title="[Week 7] A Real Game Engine" class="md-nav__link">
+      [Week 7] A Real Game Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-8/" title="[Week 8] Patching Holes" class="md-nav__link">
+      [Week 8] Patching Holes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-9/" title="[Week 9] Hello from the West Coast" class="md-nav__link">
+      [Week 9] Hello from the West Coast
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-10/" title="[Week 10] Grab A Bucket" class="md-nav__link">
+      [Week 10] Grab A Bucket
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-11/" title="[Week 11] The One Where the Team Picks a Font" class="md-nav__link">
+      [Week 11] The One Where the Team Picks a Font
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-12/" title="[Week 12] Getting Ready for Game Jam!" class="md-nav__link">
+      [Week 12] Getting Ready for Game Jam!
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-13/" title="[Week 13] Is This a Game Engine?" class="md-nav__link">
+      [Week 13] Is This a Game Engine?
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-14/" title="[Week 14] The Last Blog." class="md-nav__link">
+      [Week 14] The Last Blog.
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
+    
+    <label class="md-nav__link" for="nav-10">
+      Interviews
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-10">
+        Interviews
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-2" type="checkbox" id="nav-10-2">
+    
+    <label class="md-nav__link" for="nav-10-2">
+      Elan Ruskin
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-2">
+        Elan Ruskin
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ElanRuskin-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ElanRuskin-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-3" type="checkbox" id="nav-10-3">
+    
+    <label class="md-nav__link" for="nav-10-3">
+      Shanee Nishry
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-3">
+        Shanee Nishry
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ShaneeNishry-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ShaneeNishry-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-4" type="checkbox" id="nav-10-4">
+    
+    <label class="md-nav__link" for="nav-10-4">
+      Jeff Preshing
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-4">
+        Jeff Preshing
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JeffPreshing-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JeffPreshing-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/MartinMiddleton-interview/" title="Martin Middleton" class="md-nav__link">
+      Martin Middleton
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-6" type="checkbox" id="nav-10-6">
+    
+    <label class="md-nav__link" for="nav-10-6">
+      Raymond Graham
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-6">
+        Raymond Graham
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/RaymondGraham-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/RaymondGraham-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-7" type="checkbox" id="nav-10-7">
+    
+    <label class="md-nav__link" for="nav-10-7">
+      Aras Pranckevicius
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-7">
+        Aras Pranckevicius
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ArasPranckevicius-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ArasPranckevicius-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-8" type="checkbox" id="nav-10-8">
+    
+    <label class="md-nav__link" for="nav-10-8">
+      Amandine Coget
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-8">
+        Amandine Coget
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmandineCoget-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmandineCoget-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-9" type="checkbox" id="nav-10-9">
+    
+    <label class="md-nav__link" for="nav-10-9">
+      Tommy Refenes
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-9">
+        Tommy Refenes
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/TommyRefenes-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/TommyRefenes-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-10" type="checkbox" id="nav-10-10">
+    
+    <label class="md-nav__link" for="nav-10-10">
+      Casey Muratori
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-10">
+        Casey Muratori
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-hmh-video/" title="Video Interview" class="md-nav__link">
+      Video Interview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-11" type="checkbox" id="nav-10-11">
+    
+    <label class="md-nav__link" for="nav-10-11">
+      Adam Serdar
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-11">
+        Adam Serdar
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AdamSerdar-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AdamSerdar-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-12" type="checkbox" id="nav-10-12">
+    
+    <label class="md-nav__link" for="nav-10-12">
+      Summarized Advice
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-12">
+        Summarized Advice
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AliceChing-advice/" title="Alice Ching" class="md-nav__link">
+      Alice Ching
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmitRob-advice/" title="Amit Patel & Rob Shillingsburg" class="md-nav__link">
+      Amit Patel & Rob Shillingsburg
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JasonGregory-advice/" title="Jason Gregory" class="md-nav__link">
+      Jason Gregory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/OliverFranzke-advice/" title="Oliver Franzke" class="md-nav__link">
+      Oliver Franzke
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/WaltDestler-advice/" title="Walt Destler" class="md-nav__link">
+      Walt Destler
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-11" type="checkbox" id="nav-11">
+    
+    <label class="md-nav__link" for="nav-11">
+      Usage
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-11">
+        Usage
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/home/" title="FAQs" class="md-nav__link">
+      FAQs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/basics/" title="Basics" class="md-nav__link">
+      Basics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/level/" title="Level" class="md-nav__link">
+      Level
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/entity/" title="Entity/Transform" class="md-nav__link">
+      Entity/Transform
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/component/" title="Component" class="md-nav__link">
+      Component
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/graphics/" title="Graphics" class="md-nav__link">
+      Graphics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/input/" title="Input" class="md-nav__link">
+      Input
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/debug_logging/" title="Debug Logging" class="md-nav__link">
+      Debug Logging
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/debug_draw/" title="Debug Draw" class="md-nav__link">
+      Debug Draw
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/gui/" title="GUI" class="md-nav__link">
+      GUI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/audio/" title="Audio" class="md-nav__link">
+      Audio
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/collisions/" title="Collisions" class="md-nav__link">
+      Collisions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/networking/" title="Networking" class="md-nav__link">
+      Networking
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#byte-sized-summary" title="Byte-Sized Summary" class="md-nav__link">
+    Byte-Sized Summary
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roadmap" title="Roadmap" class="md-nav__link">
+    Roadmap
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development" title="Development" class="md-nav__link">
+    Development
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#module-manager" title="Module Manager" class="md-nav__link">
+    Module Manager
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#singletons-globals-or-a-manager" title="Singletons, Globals, or a Manager" class="md-nav__link">
+    Singletons, Globals, or a Manager
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rendering" title="Rendering" class="md-nav__link">
+    Rendering
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audio" title="Audio" class="md-nav__link">
+    Audio
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#who-owns-the-sound" title="Who Owns the Sound?" class="md-nav__link">
+    Who Owns the Sound?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refactoring-broke-the-audio" title="Refactoring Broke the Audio" class="md-nav__link">
+    Refactoring Broke the Audio
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#networking" title="Networking" class="md-nav__link">
+    Networking
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debug-logging" title="Debug Logging" class="md-nav__link">
+    Debug Logging
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-we-need-a-file-system" title="Why We Need a File System" class="md-nav__link">
+    Why We Need a File System
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-handling" title="Error-Handling" class="md-nav__link">
+    Error-Handling
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#profiler" title="Profiler" class="md-nav__link">
+    Profiler
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#math" title="Math" class="md-nav__link">
+    Math
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-control" title="Version Control" class="md-nav__link">
+    Version Control
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coming-soonnext-week" title="Coming Soon/Next Week" class="md-nav__link">
+    Coming Soon/Next Week
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" title="Resources" class="md-nav__link">
+    Resources
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+        <li class="md-nav__item">
+          <a href="#__comments" title="Comments" class="md-nav__link md-nav__link--active">
+            Comments
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="the-building-blocks">The Building Blocks<a class="headerlink" href="#the-building-blocks" title="Permanent link">&para;</a></h1>
+<h3 id="byte-sized-summary">Byte-Sized Summary<a class="headerlink" href="#byte-sized-summary" title="Permanent link">&para;</a></h3>
+<ul>
+<li>General setup: Talk about our development using GitHub, linter, API design, and unit testing -- hint: we are relying on standards established by others.</li>
+<li><a href="#roadmap">Roadmap</a>: Roadmap of the engine’s development for the next 3 months, broken into thirds, each with systems we will building during it.</li>
+<li><a href="#version-control">Version Control</a>: Set up Github repo and decided on workflow.</li>
+<li><a href="#rendering">Rendering</a>: Chose Horde3D over Ogre and made a demo of it</li>
+<li><a href="#module-manager">Module Manager</a>: Made all initialization and deinitialization private and made the module manager a friend class of all modules</li>
+<li><a href="#audio">Audio</a>: Chose FMOD over OpenAL Soft, integrated it into our engine, and made a wrapper on it</li>
+<li><a href="#networking">Networking</a>: Built the GameNetworkingSockets library and successfully ran a sample test</li>
+<li><a href="#profiler">Profiler</a>: Selected Brofiler as the profiler and forked the repo in preparation of needed changes.</li>
+<li><a href="#debug-logging">Debug Logging</a>: Programmed a logger to output to VS output window and log files as well as masking messages for channel and verbosity.</li>
+<li><a href="#error-handling">Error-Handling</a>: Using Microsoft afx headers for assertions temporarily and using standard exceptions.</li>
+</ul>
+<p>It's hard to believe we technically started less than two weeks ago! During the summer, we pored over planning what the project would include, approximating how much we could accomplish in 3 months and preparing ourselves by reading relative materials. This week we started making decisions on our engine (we have a <a href="../engine-architecture/">separate blog</a> on this!) and actual development. Before full-on diving into programming, we set up three systems not directly related to our engine but can ease our development process.</p>
+<p>First, we set up the version control system with GitHub. We recommend you use version control in engine development just as you would with any kind of programming project. It preserves the project's history (so you can do crazy experiments without worrying about destroying your project!) and allows a team to work simultaneously on the same project together. We have broken our repository into development and feature branches, where each feature branch correspond to one "block" in our architecture diagram (as seen below).</p>
+<p>Second, we set up the Google Linter <sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> to ensure the coding style amongst the four programmers remain consistent. A number of professionals we spoke to told us that coding styles can cause arguments between programmers and thus slow down the project. To nip this in the bud, we decided to use an automated system and always default to what was established in the linter, rather than personal opinion. This would give us a consistent code base that someone, such as yourself, may be able to follow. Although we will do our best to follow best practices, we can't guarantee we will. We are more focused on developing our own engine than software engineering as a whole. </p>
+<p>We have found ourselves using fallbacks when designing since we aren’t experienced with architecture or API design. Our primary fall-back is The Game Engine Architecture book by Jason Gregory; although we don’t want this book to be a required reading for our audience, there are times when we are having discussions where we ask, “how was it done in the book?” When developing the systems themselves we will try to find other sources that we also think could be useful, these will be included on our <a href="../../resources/">Resources</a> page which will be linked and updated with each blog. With regards to API design, since we all have Unity experience and are comfortable with their API, some of our decisions will clearly be influenced by that.</p>
+<p>On this note, we will be trying to develop systems as they would in an engine, but there is no guarantee it will be correct—in fact, it most likely won't be. We will be pulling from our knowledge of the <em>Game Engine Architecture</em> book, since it is a book we have all read; however, we are writing about the topics from our understanding. We believe it is the journey of us talking about the topics, not necessarily the right decisions, which can be beneficial to you.</p>
+<p>Finally, we set up a unit testing framework. This won't be used by the engine but we see it as a valuable system that can prevent code regression as we add new features. However, as with the coding standards, testing in general can subtract a large chunk of development time. So we are only doing light testing on public functions rather than the more lengthy full-coverage. If you have the time, we suggest you do full-coverage testing for your own engine.</p>
+<h2 id="roadmap">Roadmap<a class="headerlink" href="#roadmap" title="Permanent link">&para;</a></h2>
+<p>We have broken our architecture into 3 deadlines, over the next 3 months. </p>
+<p>The first deadline is September 24, where the base layer, the memory layer, tools, and our imported modules will be completed. The base layer is the groundwork of the engine and thus must be completed because the other systems rely on at least one of these systems in one way or another. The memory layer is the base for all modules, and needs to be done well because of the strong reliance on it. Doing it early allows us the opportunity to struggle through it as well as ample time to optimize. The tools will also be used throughout the rest of the engine which is why it is important to get them ready early. The imported modules are good to bring in early because it ensures that they work (which gives time in the case they don't) and can be a spike in motivation/confidence. Finally, starting the networking as soon as possible is something that we have been advised to do by many because it is integrated deeply with most systems.</p>
+<p><img alt="Engine Architecture" src="../../images/engine_architecture/quarters.png" title="Quarters Architecture (9/24)" /></p>
+<p>The next deadline is October 22, where the utility layer, module layer, and networking will be completed. Networking is the biggest chunk of this roadmap phase because it's the largest unknown to us in our engine, and we want to prepare accordingly. The other systems being developed are in line with the future systems depending on them to function.</p>
+<p><img alt="Engine Architecture" src="../../images/engine_architecture/halves.png" title="Halves Architecture (10/22)" /></p>
+<p>The final deadline is November 26, when we'll enter the feature lock phase. During the weeks following, we will be polishing the code as well as completing the game being built alongside the engine. The gameplay systems are in the highest layer of our engine, which is why it can be held off until the end, and the build portions of our architecture will be focused on at this point. Asset processing and caching can be held off until the end because they are features which convert final assets into playable assets of the final build of the game for better performance.</p>
+<p><img alt="Engine Architecture" src="../../images/engine_architecture/finals.png" title="Final Architecture (11/26)" /></p>
+<h2 id="development">Development<a class="headerlink" href="#development" title="Permanent link">&para;</a></h2>
+<p>This architecture diagram shows the components we have completed, in-progress, and (hopefully never on here) failed. You can assume this to be what 3-4 man-weeks working full-time would look like, which could vary based on your skill. The code can be found on the <a href="https://github.com/Isetta-Team/Isetta-Engine/tree/week-1">GitHub repo</a> tagged with week-1.</p>
+<p><img alt="Engine Architecture" src="../../images/engine_architecture/week1.png" title="Week 1 Progress Architecture" /></p>
+<h3 id="module-manager">Module Manager<a class="headerlink" href="#module-manager" title="Permanent link">&para;</a></h3>
+<p>As shown in our <a href="../engine-architecture/#core">architecture blog</a>, the module manager takes charge of starting up and shutting down different modules like <code>AudioModule</code> and <code>RenderModule</code>. The design of modules seems to be straightforward. But when we got our hands dirty designing and implementing modules, we found that two factors affected our structure a lot: accessibility and initialization/deinitialization order.</p>
+<h4 id="singletons-globals-or-a-manager">Singletons, Globals, or a Manager<a class="headerlink" href="#singletons-globals-or-a-manager" title="Permanent link">&para;</a></h4>
+<p>One of the common design is to make modules as global variables. However, using global variables might be dangerous since not only the <code>ModuleManager</code>, but also anyone else has access to the modules and can accidentally create the same module twice or modify the modules. Also, the initialization order of global variables in different files is unspecified. These two drawbacks can totally break a game engine. To prevent that, Singleton seems to be a better solution: it can restrict the instance to one and with construct on-demand technique<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup>, we can also control the initialization order. </p>
+<p>We found that both of the methods allow engine users to get access to the modules, which should be hidden from them. Also, neither of them can control the deinitialization order. If there is any dependency between two modules, the nondeterministic deinitialization order can crash a game. To fix those two issues, we finally turned to a more complex solution: we make all the constructors, destructors, as well as <code>StartUp()</code> and <code>ShutDown()</code> methods private in the modules and make <code>ModuleManager</code> as a friend class to them to instantiate and destroy them. Since initialization and deinitialization functions are both private and only the <code>ModuleManager</code> is their friend, the creation of a module can be perfectly controlled. Moreover, now we can completely hide the module classes from the engine users.</p>
+<p>For naming methods, we chose to use <code>StartUp()</code> and <code>ShutDown()</code> functions for initialization and deinitialization instead of constructors and destructors because of readability. We would like to explicitly say that the module now is started or shut down, especially for the deinitialization which usually is done by calling the destructors implicitly.</p>
+<h3 id="rendering">Rendering<a class="headerlink" href="#rendering" title="Permanent link">&para;</a></h3>
+<p>From our research, we narrowed our candidate libraries down to two: one is <a href="https://www.ogre3d.org/">Ogre</a> and the other one is <a href="http://horde3d.org/">Horde3D</a>. Ogre is a powerful and flexible 3D graphics engine. It has a long history and is well known in the game industry for a while. In <em>Game Engine Architecture</em>, Jason Gregory described it as a well-architected, easy-to-learn and easy-to-use 3D rendering engine. Horde3D, relatively, is a younger 3D rendering engine, which just released its first stable release last year (2017). </p>
+<p>Choosing between these two libraries was hard. Both are well-designed, well-implemented, and can bring good visual capacity to the game engine. Thus, we thought about it more from our project's perspective:</p>
+<ul>
+<li>Importing the rendering library is supposed to simplify our workload. <strong>Building the library should be easy, the documentation should be clear, and the interface should be easy to use.</strong></li>
+<li>We are not building a game engine around the rendering library, but using the rendering library as a replaceable module. We would like the rendering library to fit in our engine design. <strong>The library should be lightweight, flexible and ideally ECS<sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">3</a></sup>-friendly</strong></li>
+</ul>
+<p>With the criteria above, we went through the building process and made simple demos with both libraries. For Ogre, we used Ogre 2.1 instead of the popular Ogre 1.x because Ogre 2.x fixed the architecture and performance issues pointed out by Mike Acton<sup id="fnref:4"><a class="footnote-ref" href="#fn:4" rel="footnote">4</a></sup>.</p>
+<p>After some experiments, we decided to use Horde3D as our rendering library. We don't think that Ogre is a bad library (its popularity disproves that!), but we believe that Horde3D fits better with the game engine itself for the following reasons:</p>
+<ul>
+<li><strong>Building Horde3D is much easier than building Ogre 2.1.</strong> The build process of Horde3D is so friendly that with one single click in CMake, we can have both GLFW (its dependency library) and Horde3D built. For Ogre, we need to download the dependency and core library from separate repos and build each of them separately. We also had to set the optimization of some components to /Od level (optimization disabled) to make it build successfully! Also, the official documentation for getting started was unclear and provides two sets of non-identical instructions in two different places.</li>
+<li><strong>Horde3D is more lightweight and designed as components.</strong> Ogre 2.1 has already encapsulated the rendering APIs into GameState and RenderSystem. To integrate it into our game engine, we will have to derive our solution from there. Instead, Horde3D only provides a small set of procedure interfaces, which allows us to implement the wrapper module by ourselves.</li>
+</ul>
+<p>In the first week, we made a simple wrapper around the Horde3D as a proof-of-concept (see the HordeDemo folder). We will finish the wrapper as a module in the upcoming week.</p>
+<p><img alt="Horde3D Test" src="../../images/blogs/week-1/horde3d_Isetta_test.png" title="Horde3D Test Render" /></p>
+<h3 id="audio">Audio<a class="headerlink" href="#audio" title="Permanent link">&para;</a></h3>
+<p>With the requirements listed in our <a href="../engine-architecture/#audio">architecture blog</a> (a library which allows us to allocate the used memory ourselves and is widely used in the game industry) we started our research and found two strong candidates: OpenAL Soft and FMOD.</p>
+<p>OpenAL caught our eyes first because it seemed related to OpenGL (it's not, but they do have other things in common), and we found an open source implementation of the standard named <a href="https://github.com/kcat/openal-soft">OpenAL Soft</a>. On the other hand, we had heard of <a href="https://www.fmod.com/">FMOD</a> because Unity uses it on several platforms, and we think it's a good candidate purely from the <a href="https://www.fmod.com/games">huge list of games</a> (with some hit titles) that use it.</p>
+<p>We chose to give OpenAL Soft a try first because it's open source, while FMOD is owned by a commercial company and is not free (however, it does provide a free license for indie games with a budget under 500k). However, the team member who was assigned the task failed to get anything working in three hours, by the end of which he was still confused and stuck. This is partially due to the lack of Getting Started documentation and tutorials online, and partially because he is not experienced with audio APIs at all.</p>
+<p>Then we decided to experiment with FMOD. It turns out that FMOD's low-level API is surprisingly easy to integrate and use, and has a <a href="https://www.fmod.com/resources/documentation-api">comprehensive documentation</a>. We were able to get the library integrated and play our first audio clip in 2 hours, with the help of some Getting Started tutorials <sup id="fnref:5"><a class="footnote-ref" href="#fn:5" rel="footnote">5</a></sup>. We think that, for novice engine programmers, these kind of tutorials are invaluable. They are a great way to introduce you to a new field and get you up and running quickly. Also, thanks to the FMOD documentation, we easily found the way to control its memory usage with <a href="https://www.fmod.com/resources/documentation-api?page=content/generated/FMOD_Memory_Initialize.html#/"><code>Memory_Initialize()</code></a>. FMOD also provides a <a href="https://www.fmod.com/resources/documentation-api?page=content/generated/overview/memorysaving.html#/">tutorial</a> on managing its memory!</p>
+<p>After stitching the FMOD API into our project, we continued using it to create a minimal audio engine. It takes care of loading sound files, managing loaded sound assets (with the help of <a href="../engine-architecture/#core">string-id</a>), playing sound, managing a sound's play mode, managing a sound's lifetime with pause/continue/stop, and prevent memory leaks. You can take a look at the source code: <a href="https://github.com/Isetta-Team/Isetta-Engine/blob/week-1/Isetta/Isetta/Core/Audio/Audio.h"><code>Audio.h</code></a>, <a href="https://github.com/Isetta-Team/Isetta-Engine/blob/week-1/Isetta/Isetta/Core/Audio/Audio.cpp"><code>Audio.cpp</code></a></p>
+<h4 id="who-owns-the-sound">Who Owns the Sound?<a class="headerlink" href="#who-owns-the-sound" title="Permanent link">&para;</a></h4>
+<p>In the current design,  every <code>AudioSource</code> owns an instance of <code>FMOD::Sound</code> and is responsible for loading their own audio clip. However, this prevents the same loaded <code>FMOD::Sound</code> from playing in multiple instances. For example, if we have a gunfire sound, which can possibly be played 3 times every second, we need to make a new <code>AudioSource</code> and load the same sound by calling <code>FMOD:System::createSound</code> again. This is clearly not what we want and definitely won’t satisfy the game’s requirements.
+Solution
+<code>AudioModule</code> now load all audio clips at startup and keep a SoundClipID to loaded <code>FMOD::Sound</code> <code>unordered_map</code> for later access. This guarantees that each audio clip won’t be loaded multiple times. 
+On the <code>AudioSource</code> side, each <code>AudioSource</code> no longer owns an <code>FMOD::Sound</code>. Instead, they only contain a pointer to an <code>FMOD::Sound</code> instance that is managed by the <code>AudioModule</code>, and the instance that the pointer points to can be changed easily. This allows <code>AudioSource</code>s to be reused and allow a single <code>FMOD::Sound</code> to be referenced by multiple <code>AudioSource</code>s and play at the same time.
+In this design, if the user wants to play a sound, they can create a new instance of <code>AudioSource</code>, and set that <code>AudioSource</code>’s pointer to the already created <code>FMOD::Sound</code> by passing in the name of the sound file, and call <code>AudioSource::Play()</code>.
+A side note: the SoundClipID mentioned before is the hashed string id (of type <code>int64</code>) from the sound clip’s file name, by utilizing the StringID we brought in. </p>
+<h4 id="refactoring-broke-the-audio">Refactoring Broke the Audio<a class="headerlink" href="#refactoring-broke-the-audio" title="Permanent link">&para;</a></h4>
+<p><code>AudioModule</code> was written as a singleton class and <code>AudioSource</code> was using it heavily, because <code>AudioModule</code> is the only class to interface with <code>FMOD::System</code>. After refactoring <code>AudioModule</code> to be part of <code>ModuleManager</code>, the <code>AudioSource</code>’s will no longer have direct access to FMOD. In order to save our sound, a static pointer to  <code>AudioModule</code> was placed in <code>AudioSource</code> allowing access to the FMOD system.</p>
+<h3 id="networking">Networking<a class="headerlink" href="#networking" title="Permanent link">&para;</a></h3>
+<p>Our original plan for running low-level networking sockets was to use <a href="https://github.com/ValveSoftware/GameNetworkingSockets">Valve's GameNetworkingSockets</a> because of the feature set it lists, which we hoped is extensive enough for us to avoid pitfalls in network programming. Other options were either too flimsy or too low-level, and since none of us have game networking experience, we want the most straightforward option possible.</p>
+<p>At the time of writing this, the GameNetworkingSockets library is a pretty big pain to build, involving several installs and build steps. One of us even took a couple of days automating the build process, and it's still not 100% consistent! Beyond this, the resulting API seems to cover our engine's use case, which is as minor as we can possibly make it without removing networking entirely. Unfortunately, the codebase is still heavily in clean-up mode, and that makes it less accessible for integrating our own allocators and APIs with it. Not to mention that very little exists for documentation.</p>
+<p><img alt="Networking" src="../../images/blogs/week-1/game_networking_sockets_test.png" title="Successful Build of GameNetworkingSockets" /></p>
+<p>Recently, we found another heavily featured networking library named <a href="https://github.com/networkprotocol/yojimbo">yojimbo</a>, built by <a href="https://gafferongames.com/">Glenn Fiedler</a> of game network programming fame. This library appears to be more ready for integrating into our own engine, albeit with equally as poor documentation (there's a bit of Doxygen to use, I guess). One big plus to this library is that it's not riddled with commented-out code like the GameNetworkingSockets one is at the time of this writing, which makes us lean more toward yojimbo.</p>
+<p>We've yet to determine the fate of networking in our engine, so you'll likely hear more on that progress from us next time.</p>
+<h3 id="debug-logging">Debug Logging<a class="headerlink" href="#debug-logging" title="Permanent link">&para;</a></h3>
+<p>The logging system can be the quickest form of debugging and getting information about the state of the engine and game. The requirements of our engine are:
+1. Be able to pass a formatted string
+2. Have different channels and verbosity levels and mask which display
+3. Write the logs to a file
+4. Write to the Visual Studio output window (not the console)</p>
+<p>A channel is simply a category the message can be grouped with, such as animation &amp; audio, which helps when multiple programmers are on a project from seeing logs of the other features. The verbosity level is for determining whether the message is important enough to be displayed or whether the programmer wants to see messages which have less priority/consequence. Channel and verbosity are both enums, but the logger implements a mask for both to determine if a log message should be displayed. The logger can also write to a file, but requires the destination to passed to a setter in the case logging to a file is wanted. There was originally only going to be one file where all messages were written to regardless of whether it matched the channel and verbosity masks, because in the case of a crash we would want as much information as possible to debug where the crash might have occurred. This was expanded to having a file where only messages from specific channels are written, in the case you are only interested in that information. There cannot only be a channel file, ie. without an engine file, since the engine file will contain all information including overlapping information with the channel. The channel file is more convenience, but can lack information that we wouldn’t know is necessary in the case of a crash.</p>
+<h4 id="why-we-need-a-file-system">Why We Need a File System<a class="headerlink" href="#why-we-need-a-file-system" title="Permanent link">&para;</a></h4>
+<p>During a later discussion on debug logger, we realized that we were intertwining a file system (including file paths) with the logger which felt wrong.  After talking about this, the file system was decided to be extracted and made into its own system, which is still in development. The logger now waits for a pointer to a stream to use rather than keeping track of its own.</p>
+<h3 id="error-handling">Error-Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h3>
+<p>There are 2 main types of error handling in our engine: assertions and exceptions. </p>
+<p>Assertions are points in code that expect an expression to evaluate to true, otherwise, crash the program, or break into the debugger in Debug mode. Typically, assertions are removed in release builds to avoid unnecessary crashes, but are a useful tool in debug mode to ensure the code is acting as expected, as it can immediately direct the person’s attention to the place where things might be wrong. Assertions should be primarily used for checking bugs rather than checking things involving user input, where user input for an engine is the developer of the game. We are currently using Microsoft’s afx library as it offers many features, but it requires MFC <sup id="fnref:6"><a class="footnote-ref" href="#fn:6" rel="footnote">6</a></sup> and we are not sure if it will cause problems in the future</p>
+<p>For checking errors possibly caused by bad user input (a programmers not understanding a function use), such as trying to access the 4<sup>th</sup> element of a Vector3, we use exceptions. We are defaulting to standard library <a href="https://en.cppreference.com/w/cpp/error/exception">exceptions</a>, and in the case we need a more specific error we will extend the exception class.</p>
+<h3 id="profiler">Profiler<a class="headerlink" href="#profiler" title="Permanent link">&para;</a></h3>
+<p>For the profiler, we imported <a href="http://brofiler.com/">Brofiler</a>, a C++ game profiler developed by Vadim Slyusarev. We picked Brofiler because is it is a lightweight and made specifically for games (not software in general) and has an easy-to-read UI. The library is open-source and relatively easy to integrate, although it's a bit outdated and requires some rework for our project. To help keep followers of our work from reworking the profiler with their own engine, we created a fork of the original Brofiler repo with the necessary changes to get it running. It can be found <a href="https://github.com/Isetta-Team/brofiler">here</a> and will likely make integration in your engine easier!</p>
+<p>The Brofiler tool has also been used on the game <em>Skyforge</em> and has been integrated into CryEngine, although CryEngine creates a wrapper around Brofiler. With more time, we would do the same, but it doesn't seem necessary for basic usage. Examples and the original repo can be found on the <a href="https://github.com/bombomby/brofiler">Brofiler github</a>.</p>
+<p><img alt="Brofiler" src="../../images/blogs/week-1/brofiler.png" title="Brofiler" /></p>
+<h3 id="math">Math<a class="headerlink" href="#math" title="Permanent link">&para;</a></h3>
+<p>Math isn’t a very complicated system, it’s all the components you would need in a typical math library. Our methodology with the Math library is to create what we need now as well as what we foresee needing but not more. For our math library, we have followed Unity’s API design fairly closely.</p>
+<h3 id="version-control">Version Control<a class="headerlink" href="#version-control" title="Permanent link">&para;</a></h3>
+<p>We chose Github as our version control platform as we are open sourcing the game engine and hosting a website with all the documents along with the engine.</p>
+<p>We also established a workflow to help us collaborate effectively. We decided to open a new branch for each feature and only merge it back to the "trunk" when finished, because a game engine is really a feature-heavy product. This strategy enables us to work on multiple features at a time without interfering with each other. The common use case is like this:</p>
+<p><img alt="Workflow Diagram" src="../../images/blogs/week-1/workflow_diagram.png" title="Workflow Diagram" /></p>
+<h2 id="coming-soonnext-week">Coming Soon/Next Week<a class="headerlink" href="#coming-soonnext-week" title="Permanent link">&para;</a></h2>
+<p>We enjoyed this round of blogging! If you have comments about how you think we could improve as well as if we said anything wrong, we would be very grateful to hear about them in the <strong>comments</strong> section below. On Saturday, September 8, 2018, 3pm Eastern time, we will be live-streaming an interview with Casey Muratori on his channel <a href="https://www.twitch.tv/handmade_hero">HandmadeHero</a> on Twitch. We will be posting an edited transcription of the interview at a later time in case you missed it.</p>
+<p>We'll be checking in again with another progress update soon so stay tuned, and subscribe to our mailing list to get notified!</p>
+<h2 id="resources"><a href="../../resources/">Resources</a><a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
+<p>The <a href="../../resources/">resource page</a> has been updated to include links we found useful this week, too!</p>
+<p><em>Originally published September 7, 2018.</em></p>
+<p><br></p>
+<!-- Begin MailChimp Signup Form -->
+
+<p><link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+<div id="mc_embed_signup" style="margin-top: -20px">
+    <form action="https://isetta.us19.list-manage.com/subscribe/post?u=1d83cb806c55e205be26db856&amp;id=860c7d79cf" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+            <h3>Subscribe to our mailing list</h3>
+            <p style="margin-bottom: -22px;">Get notifications about the upcoming blogs and interviews!</p>
+            <br><br>
+            <div class="mc-field-group">
+                <label for="mce-EMAIL"> </label>
+                <input type="email" placeholder="Email Address..." name="EMAIL" class="required email" id="mce-EMAIL">
+            </div>
+            <div id="mce-responses" class="clear">
+                <div class="response" id="mce-error-response" style="display:none"></div>
+                <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <input type="text" name="b_1d83cb806c55e205be26db856_860c7d79cf" tabindex="-1" value="">
+            </div>
+            <div class="clear" id="submit-button">
+                <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+            </div>
+        </div>
+    </form>
+</div>
+<!--End mc_embed_signup--></p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>A <strong>linter</strong> is a tool that flags code for errors, bugs, stylistic errors, and suspicious constructs.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>The <strong>construct on-demand technique</strong> in the context of the <a href="http://gameprogrammingpatterns.com/singleton.html">singleton pattern</a> means that the single instance is only constructed when first requested. We can utilize this nature to control initialization order by manually invoking the getter for the singletons in the right order.&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p><strong>Entity-component-system (ECS)</strong> is an architectural pattern that follows composition over inheritance principle and is mostly used in games.&#160;<a class="footnote-backref" href="#fnref:3" rev="footnote" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p><strong>Mike Acton</strong> once made some notes on Ogre's source code: <a href="https://www.bounceapp.com/116414">bounceapp</a>&#160;<a class="footnote-backref" href="#fnref:4" rev="footnote" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:5">
+<p>We referred to two tutorials by Cody Claborn when integrating FMOD API. <a href="https://codyclaborn.me/tutorials/setting-up-xcode-and-visual-studio-for-fmod-development/">Setting Up Xcode and Visual Studio for FMOD Development</a> and <a href="https://codyclaborn.me/tutorials/making-a-basic-fmod-audio-engine-in-c/">Making a Basic FMOD Audio Engine in C++</a>&#160;<a class="footnote-backref" href="#fnref:5" rev="footnote" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:6">
+<p>The <strong>Microsoft Foundation Class</strong> library is an object-oriented C++ library that contains useful macros for exceptions, run-time type identification, serialization, and more.
+Math
+Math isn’t a very complicated system, it’s all the components you would need in a typical math library. Our methodology with the Math library is to create what we need now as well as what we foresee needing but not more. For our math library, we have followed Unity’s API design fairly closely.&#160;<a class="footnote-backref" href="#fnref:6" rev="footnote" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+                
+                  
+                
+              
+              
+                
+
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://isetta.io/blogs/week-1/";
+      this.page.identifier =
+        "blogs/week-1/";
+    };
+    (function() {
+      var d = document, s = d.createElement("script");
+      s.src = "//isetta-engine.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../week-0/" title="[Week 0] Preparation" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                [Week 0] Preparation
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../engine-architecture/" title="Engine Architecture" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Engine Architecture
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2019 Isetta Team
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.css">
+    
+      <a href="mailto:isetta.engine@gmail.com" class="md-footer-social__link fa fa-envelope"></a>
+    
+      <a href="https://twitter.com/IsettaEngine" class="md-footer-social__link fa fa-twitter"></a>
+    
+      <a href="https://github.com/Isetta-Team" class="md-footer-social__link fa fa-github"></a>
+    
+  </div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      
+      <script>app.initialize({version:"1.0.2",url:{base:"../.."}})</script>
+      
+        <script src="../../extra.js"></script>
+      
+    
+    
+      
+        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-124729724-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      
+    
+  </body>
+</html>

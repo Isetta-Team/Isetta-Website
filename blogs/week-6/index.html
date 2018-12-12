@@ -1,0 +1,2806 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="We are making a game engine and documenting the process">
+      
+      
+        <link rel="canonical" href="https://isetta.io/blogs/week-6/">
+      
+      
+        <meta name="author" content="Caleb, Chaojie, Jacob, Jared, Yidi">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../images/isetta_icon.ico">
+      <meta name="generator" content="mkdocs-1.0.2, mkdocs-material-3.0.3">
+    
+    
+      
+        <title>[Week 6] We Think It's Playable - Isetta Engine</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Source+Code+Pro">
+        <style>body,input{font-family:"Lato","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Source Code Pro","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="../../extra.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="light-blue" data-md-color-accent="cyan">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../../#i-think-its-playable" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <!--
+  Copyright (c) 2016-2018 Martin Donath <martin.donath@squidfunk.com>
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Application header -->
+<header class="md-header" data-md-component="header">
+
+  <!-- Top-level navigation -->
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+
+      <!-- Link to home -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://isetta.io/" title="Isetta Engine" class="md-header-nav__button md-logo">
+          
+          <img id="isetta-logo" src="../../images/isetta_logo.png" width="24" height="24" />
+          
+        </a>
+      </div>
+
+      <!-- Button to toggle drawer -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+
+      <!-- Header title -->
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+          
+          <span class="md-header-nav__topic back_to_top cursor_pointer">
+            Isetta Engine
+          </span>
+          <span class="md-header-nav__topic back_to_top cursor_pointer">
+            [Week 6] We Think It's Playable
+            <span style="padding-left: 10px;">⇫</span>
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <!-- Button to open search dialogue -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+        
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+
+        <!-- Search interface -->
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+        
+      </div>
+
+      <!-- Repository containing source -->
+      
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <div class="md-header-nav__source">
+          
+
+
+  
+
+
+  <a href="https://github.com/Isetta-Team/Isetta-Engine" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      Isetta Engine
+    </div>
+  </a>
+
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Tabs with outline
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../compendium/" title="Compendium" class="md-tabs__link">
+          Compendium
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../week-0/" title="Blogs" class="md-tabs__link md-tabs__link--active">
+          Blogs
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../interviews/" title="Interviews" class="md-tabs__link">
+          Interviews
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../engine_docs/home/" title="Usage" class="md-tabs__link">
+          Usage
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+       -->
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../compendium/" title="Compendium" class="md-tabs__link">
+          Compendium
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../week-0/" title="Blogs" class="md-tabs__link md-tabs__link--active">
+          Blogs
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../interviews/" title="Interviews" class="md-tabs__link">
+          Interviews
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../engine_docs/home/" title="Usage" class="md-tabs__link">
+          Usage
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://isetta.io/" title="Isetta Engine" class="md-nav__button md-logo">
+      
+        <img src="../../images/isetta_logo.png" width="48" height="48">
+      
+    </a>
+    Isetta Engine
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/Isetta-Team/Isetta-Engine" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      Isetta Engine
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../about/" title="About" class="md-nav__link">
+      About
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../team/" title="Team" class="md-nav__link">
+      Team
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../schedule/" title="Schedule" class="md-nav__link">
+      Schedule
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../resources/" title="Resources" class="md-nav__link">
+      Resources
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../glossary/" title="Glossary" class="md-nav__link">
+      Glossary
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../faq/" title="FAQ" class="md-nav__link">
+      FAQ
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Compendium
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Compendium
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2" type="checkbox" id="nav-8-2">
+    
+    <label class="md-nav__link" for="nav-8-2">
+      Engine Postmortem
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-8-2">
+        Engine Postmortem
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-1" type="checkbox" id="nav-8-2-1">
+    
+    <label class="md-nav__link" for="nav-8-2-1">
+      Lessons
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-1">
+        Lessons
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/BuildGames/" title="Build Games with Your Game Engine" class="md-nav__link">
+      Build Games with Your Game Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/RubberduckDeveloping/" title="Rubberduck Developing: Forced Explanation" class="md-nav__link">
+      Rubberduck Developing: Forced Explanation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/ItsNotThatHard/" title="It's Not That Hard" class="md-nav__link">
+      It's Not That Hard
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-2" type="checkbox" id="nav-8-2-2">
+    
+    <label class="md-nav__link" for="nav-8-2-2">
+      What went right
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-2">
+        What went right
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/HostingGameJam/" title="Hosting a Game Jam" class="md-nav__link">
+      Hosting a Game Jam
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/NoviceTeam/" title="Having a Team of Novices" class="md-nav__link">
+      Having a Team of Novices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/LeveragingProfessionals/" title="Leveraging Professionals for Input" class="md-nav__link">
+      Leveraging Professionals for Input
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-3" type="checkbox" id="nav-8-2-3">
+    
+    <label class="md-nav__link" for="nav-8-2-3">
+      What went wrong
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-3">
+        What went wrong
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/QuestionsForProfessionals/" title="Questions for the Professionals" class="md-nav__link">
+      Questions for the Professionals
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/SoftwareDevelopment/" title="Basic Software Development Practices" class="md-nav__link">
+      Basic Software Development Practices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/Crunch/" title="Crunch is Bad" class="md-nav__link">
+      Crunch is Bad
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/3rdParty/" title="3rd Party" class="md-nav__link">
+      3rd Party
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Build-ResourceManagement/" title="Build & Resource Management" class="md-nav__link">
+      Build & Resource Management
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Collisions/" title="Collisions" class="md-nav__link">
+      Collisions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Gameplay/" title="Gameplay" class="md-nav__link">
+      Gameplay
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Interviews/" title="Interviews" class="md-nav__link">
+      Interviews
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Memory/" title="Memory" class="md-nav__link">
+      Memory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Networking/" title="Networking" class="md-nav__link">
+      Networking
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Other/" title="Other Topics" class="md-nav__link">
+      Other Topics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Scene-Loop/" title="Scene & Engine Loop" class="md-nav__link">
+      Scene & Engine Loop
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Tools/" title="Tools" class="md-nav__link">
+      Tools
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9" checked>
+    
+    <label class="md-nav__link" for="nav-9">
+      Blogs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        Blogs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-0/" title="[Week 0] Preparation" class="md-nav__link">
+      [Week 0] Preparation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-1/" title="[Week 1] The Building Blocks" class="md-nav__link">
+      [Week 1] The Building Blocks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../engine-architecture/" title="Engine Architecture" class="md-nav__link">
+      Engine Architecture
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-2/" title="[Week 2] Ramping Up" class="md-nav__link">
+      [Week 2] Ramping Up
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-3/" title="[Week 3] "Completing" the Core" class="md-nav__link">
+      [Week 3] "Completing" the Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-4/" title="[Week 4] Buried in Comments" class="md-nav__link">
+      [Week 4] Buried in Comments
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-5/" title="[Week 5] Back in Business" class="md-nav__link">
+      [Week 5] Back in Business
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        [Week 6] We Think It's Playable
+      </label>
+    
+    <a href="./" title="[Week 6] We Think It's Playable" class="md-nav__link md-nav__link--active">
+      [Week 6] We Think It's Playable
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#byte-sized-updates" title="Byte-Sized Updates" class="md-nav__link">
+    Byte-Sized Updates
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debug-drawing" title="Debug Drawing" class="md-nav__link">
+    Debug Drawing
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#foray-into-opengl" title="Foray into OpenGL" class="md-nav__link">
+    Foray into OpenGL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-asset-pipeline" title="Model Asset Pipeline" class="md-nav__link">
+    Model Asset Pipeline
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#good-things-to-know-with-regards-to-horde3dgraphics" title="Good Things to Know with regards to Horde3D/Graphics" class="md-nav__link">
+    Good Things to Know with regards to Horde3D/Graphics
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-scene-graph" title="Level (Scene Graph)" class="md-nav__link">
+    Level (Scene Graph)
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#level-entity-component-design" title="Level-Entity-Component Design" class="md-nav__link">
+    Level-Entity-Component Design
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loading-a-level" title="Loading a Level" class="md-nav__link">
+    Loading a Level
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#template-black-magic" title="Template Black Magic!" class="md-nav__link">
+    Template Black Magic!
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#level-auto-registration" title="Level Auto-Registration" class="md-nav__link">
+    Level Auto-Registration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fake-concepts" title="Fake "Concepts"" class="md-nav__link">
+    Fake "Concepts"
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transform" title="Transform" class="md-nav__link">
+    Transform
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-functionality" title="The Functionality" class="md-nav__link">
+    The Functionality
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-matrix-that-knows-everything" title="The Matrix that Knows Everything" class="md-nav__link">
+    The Matrix that Knows Everything
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-conventions-to-respect" title="The Conventions To Respect" class="md-nav__link">
+    The Conventions To Respect
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#handedness" title="Handedness" class="md-nav__link">
+    Handedness
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#columnrow-vector" title="Column/Row Vector" class="md-nav__link">
+    Column/Row Vector
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-dirty-flag" title="The Dirty Flag" class="md-nav__link">
+    The Dirty Flag
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-one-who-owns-all-children" title="The One Who Owns All Children" class="md-nav__link">
+    The One Who Owns All Children
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-small-step" title="The Small Step!" class="md-nav__link">
+    The Small Step!
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dll" title="DLL" class="md-nav__link">
+    DLL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patch-notes" title="Patch Notes" class="md-nav__link">
+    Patch Notes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unit-testing-just-got-a-bigger-unit" title="Unit Testing Just Got a Bigger "Unit"" class="md-nav__link">
+    Unit Testing Just Got a Bigger "Unit"
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coming-soon" title="Coming Soon" class="md-nav__link">
+    Coming Soon
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" title="Resources" class="md-nav__link">
+    Resources
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+        <li class="md-nav__item">
+          <a href="#__comments" title="Comments" class="md-nav__link md-nav__link--active">
+            Comments
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-7/" title="[Week 7] A Real Game Engine" class="md-nav__link">
+      [Week 7] A Real Game Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-8/" title="[Week 8] Patching Holes" class="md-nav__link">
+      [Week 8] Patching Holes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-9/" title="[Week 9] Hello from the West Coast" class="md-nav__link">
+      [Week 9] Hello from the West Coast
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-10/" title="[Week 10] Grab A Bucket" class="md-nav__link">
+      [Week 10] Grab A Bucket
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-11/" title="[Week 11] The One Where the Team Picks a Font" class="md-nav__link">
+      [Week 11] The One Where the Team Picks a Font
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-12/" title="[Week 12] Getting Ready for Game Jam!" class="md-nav__link">
+      [Week 12] Getting Ready for Game Jam!
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-13/" title="[Week 13] Is This a Game Engine?" class="md-nav__link">
+      [Week 13] Is This a Game Engine?
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-14/" title="[Week 14] The Last Blog." class="md-nav__link">
+      [Week 14] The Last Blog.
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
+    
+    <label class="md-nav__link" for="nav-10">
+      Interviews
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-10">
+        Interviews
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-2" type="checkbox" id="nav-10-2">
+    
+    <label class="md-nav__link" for="nav-10-2">
+      Elan Ruskin
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-2">
+        Elan Ruskin
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ElanRuskin-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ElanRuskin-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-3" type="checkbox" id="nav-10-3">
+    
+    <label class="md-nav__link" for="nav-10-3">
+      Shanee Nishry
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-3">
+        Shanee Nishry
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ShaneeNishry-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ShaneeNishry-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-4" type="checkbox" id="nav-10-4">
+    
+    <label class="md-nav__link" for="nav-10-4">
+      Jeff Preshing
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-4">
+        Jeff Preshing
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JeffPreshing-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JeffPreshing-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/MartinMiddleton-interview/" title="Martin Middleton" class="md-nav__link">
+      Martin Middleton
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-6" type="checkbox" id="nav-10-6">
+    
+    <label class="md-nav__link" for="nav-10-6">
+      Raymond Graham
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-6">
+        Raymond Graham
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/RaymondGraham-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/RaymondGraham-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-7" type="checkbox" id="nav-10-7">
+    
+    <label class="md-nav__link" for="nav-10-7">
+      Aras Pranckevicius
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-7">
+        Aras Pranckevicius
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ArasPranckevicius-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ArasPranckevicius-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-8" type="checkbox" id="nav-10-8">
+    
+    <label class="md-nav__link" for="nav-10-8">
+      Amandine Coget
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-8">
+        Amandine Coget
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmandineCoget-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmandineCoget-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-9" type="checkbox" id="nav-10-9">
+    
+    <label class="md-nav__link" for="nav-10-9">
+      Tommy Refenes
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-9">
+        Tommy Refenes
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/TommyRefenes-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/TommyRefenes-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-10" type="checkbox" id="nav-10-10">
+    
+    <label class="md-nav__link" for="nav-10-10">
+      Casey Muratori
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-10">
+        Casey Muratori
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-hmh-video/" title="Video Interview" class="md-nav__link">
+      Video Interview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-11" type="checkbox" id="nav-10-11">
+    
+    <label class="md-nav__link" for="nav-10-11">
+      Adam Serdar
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-11">
+        Adam Serdar
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AdamSerdar-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AdamSerdar-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-12" type="checkbox" id="nav-10-12">
+    
+    <label class="md-nav__link" for="nav-10-12">
+      Summarized Advice
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-12">
+        Summarized Advice
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AliceChing-advice/" title="Alice Ching" class="md-nav__link">
+      Alice Ching
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmitRob-advice/" title="Amit Patel & Rob Shillingsburg" class="md-nav__link">
+      Amit Patel & Rob Shillingsburg
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JasonGregory-advice/" title="Jason Gregory" class="md-nav__link">
+      Jason Gregory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/OliverFranzke-advice/" title="Oliver Franzke" class="md-nav__link">
+      Oliver Franzke
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/WaltDestler-advice/" title="Walt Destler" class="md-nav__link">
+      Walt Destler
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-11" type="checkbox" id="nav-11">
+    
+    <label class="md-nav__link" for="nav-11">
+      Usage
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-11">
+        Usage
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/home/" title="FAQs" class="md-nav__link">
+      FAQs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/basics/" title="Basics" class="md-nav__link">
+      Basics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/level/" title="Level" class="md-nav__link">
+      Level
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/entity/" title="Entity/Transform" class="md-nav__link">
+      Entity/Transform
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/component/" title="Component" class="md-nav__link">
+      Component
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/graphics/" title="Graphics" class="md-nav__link">
+      Graphics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/input/" title="Input" class="md-nav__link">
+      Input
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/debug_logging/" title="Debug Logging" class="md-nav__link">
+      Debug Logging
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/debug_draw/" title="Debug Draw" class="md-nav__link">
+      Debug Draw
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/gui/" title="GUI" class="md-nav__link">
+      GUI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/audio/" title="Audio" class="md-nav__link">
+      Audio
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/collisions/" title="Collisions" class="md-nav__link">
+      Collisions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/networking/" title="Networking" class="md-nav__link">
+      Networking
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#byte-sized-updates" title="Byte-Sized Updates" class="md-nav__link">
+    Byte-Sized Updates
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debug-drawing" title="Debug Drawing" class="md-nav__link">
+    Debug Drawing
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#foray-into-opengl" title="Foray into OpenGL" class="md-nav__link">
+    Foray into OpenGL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-asset-pipeline" title="Model Asset Pipeline" class="md-nav__link">
+    Model Asset Pipeline
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#good-things-to-know-with-regards-to-horde3dgraphics" title="Good Things to Know with regards to Horde3D/Graphics" class="md-nav__link">
+    Good Things to Know with regards to Horde3D/Graphics
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-scene-graph" title="Level (Scene Graph)" class="md-nav__link">
+    Level (Scene Graph)
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#level-entity-component-design" title="Level-Entity-Component Design" class="md-nav__link">
+    Level-Entity-Component Design
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loading-a-level" title="Loading a Level" class="md-nav__link">
+    Loading a Level
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#template-black-magic" title="Template Black Magic!" class="md-nav__link">
+    Template Black Magic!
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#level-auto-registration" title="Level Auto-Registration" class="md-nav__link">
+    Level Auto-Registration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fake-concepts" title="Fake "Concepts"" class="md-nav__link">
+    Fake "Concepts"
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transform" title="Transform" class="md-nav__link">
+    Transform
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-functionality" title="The Functionality" class="md-nav__link">
+    The Functionality
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-matrix-that-knows-everything" title="The Matrix that Knows Everything" class="md-nav__link">
+    The Matrix that Knows Everything
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-conventions-to-respect" title="The Conventions To Respect" class="md-nav__link">
+    The Conventions To Respect
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#handedness" title="Handedness" class="md-nav__link">
+    Handedness
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#columnrow-vector" title="Column/Row Vector" class="md-nav__link">
+    Column/Row Vector
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-dirty-flag" title="The Dirty Flag" class="md-nav__link">
+    The Dirty Flag
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-one-who-owns-all-children" title="The One Who Owns All Children" class="md-nav__link">
+    The One Who Owns All Children
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-small-step" title="The Small Step!" class="md-nav__link">
+    The Small Step!
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dll" title="DLL" class="md-nav__link">
+    DLL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patch-notes" title="Patch Notes" class="md-nav__link">
+    Patch Notes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unit-testing-just-got-a-bigger-unit" title="Unit Testing Just Got a Bigger "Unit"" class="md-nav__link">
+    Unit Testing Just Got a Bigger "Unit"
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coming-soon" title="Coming Soon" class="md-nav__link">
+    Coming Soon
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" title="Resources" class="md-nav__link">
+    Resources
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+        <li class="md-nav__item">
+          <a href="#__comments" title="Comments" class="md-nav__link md-nav__link--active">
+            Comments
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="i-think-its-playable">I Think It's Playable<a class="headerlink" href="#i-think-its-playable" title="Permanent link">&para;</a></h1>
+<h2 id="byte-sized-updates">Byte-Sized Updates<a class="headerlink" href="#byte-sized-updates" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#debug-drawing">Debug Drawing</a>: Implemented our entire visual debug drawing system, which has already revealed a mistake!</li>
+<li><a href="#level-scene-graph">Level (Scene Graph)</a>: Designed the scene graph architecture as Level-Entity-Component, and created a reflection system for loading user-defined levels.</li>
+<li><a href="#transform">Transform</a>: Began development on our transform hierarchy, and implemented some gameplay features with it like a flyby camera.</li>
+<li><a href="#dll">DLL</a>: The engine was built into a DLL (well, sort of), and we were able to run the engine in another project.</li>
+</ul>
+<p><img alt="Engine Architecture" src="../../images/engine_architecture/week6.png" title="Week 6 Progress Architecture" /></p>
+<h2 id="debug-drawing">Debug Drawing<a class="headerlink" href="#debug-drawing" title="Permanent link">&para;</a></h2>
+<p>Debug drawing is the visual equivalent to a print statement, and it is a good immediate check on whether a system you've programmed "looks" right. It is much easier to debug something through drawing than it is through text output; in fact, it even helped us discover a problem with our assets! (We'll cover this in a bit)</p>
+<p>What we want is some primitive types: lines, rays, planes, cubes, and spheres. We initially looked into Horde3D's capabilities for drawing these primitives, but we thought it made no sense to import models for these simple drawings—how would we even render a line <em>model</em>?! As in the past weeks, Horde3D's lightweightedness gave us no immediate way of doing this. The Horde forums offered solutions for generating procedural geometry and using OpenGL<sup id="fnref:101"><a class="footnote-ref" href="#fn:101" rel="footnote">1</a></sup> with Qt<sup id="fnref:97"><a class="footnote-ref" href="#fn:97" rel="footnote">2</a></sup>, but they each had their own flaws, either using legacy functionality or bringing in libraries that mostly replicate our existing libraries. What we really wanted was to be able to write raw OpenGL code.</p>
+<h3 id="foray-into-opengl">Foray into OpenGL<a class="headerlink" href="#foray-into-opengl" title="Permanent link">&para;</a></h3>
+<p>Getting OpenGL working with Horde required a decent understanding of Horde's render loop. Firstly, any OpenGL drawing needs to happen after Horde's <code>h3dRender</code> and <code>h3dFinalizeFrame</code>. In <code>h3dRender</code>, 'glClear' is called to blank the screen (clearing any drawings done prior to the functions), and between these two functions, OpenGL's state is being changed, and any changes between the two function calls could tamper with Horde's rendering. To begin using OpenGL, we followed some simple OpenGL <a href="https://learnopengl.com/Getting-started/Hello-Triangle">tutorials</a> on setting up a camera, viewport<sup id="fnref:70"><a class="footnote-ref" href="#fn:70" rel="footnote">3</a></sup>, and rendering to the screen using vertex arrays and buffers<sup id="fnref:12"><a class="footnote-ref" href="#fn:12" rel="footnote">4</a></sup>. This was done in isolation of the engine project as a primer to the updated OpenGL4.0. When bringing this into our engine, we removed the <code>RenderModule</code> and <code>GUIModule</code>'s <code>StartUp</code>, <code>Update</code>, and <code>ShutDown</code> so the only class utilizing OpenGL would our new system. With only the new system calling OpenGL code, we were able to get a triangle rendered in screen space in our engine relatively quickly. And it looks magnificent!</p>
+<p><img alt="OpenGL Triangle" src="../../images/blogs/week-6/OpenGL_Triangle.PNG" /></p>
+<p>Well, it's a start. From there, we implemented the element buffer<sup id="fnref:39"><a class="footnote-ref" href="#fn:39" rel="footnote">5</a></sup> so that we could reuse the vertices, because although we are generating simple primitives, we want 2 versions: a solid and a wireframe. An element buffer allows us to avoid creating different lists of vertices for our primitives because we can just specify the ordering in which the same vertices are used to draw the primitive. The order of the vertices is particularly important for solid objects because it determines which "side" of the primitive is drawn, one of which is typically invisible! This vertex order can be clockwise or counterclockwise, so it's known as the <em>winding order</em> (kind of like how you wind a toy).</p>
+<p><img alt="Winding Order" src="../../images/blogs/week-6/winding_order.PNG" /></p>
+<p>With an understanding of OpenGL 4.0, proof that it was working in our solution, and a triangle in hand, we decided to break everything by reintroducing the <code>RenderModule</code> but not the <code>GUIModule</code> just yet—we aren't that crazy! The reason to remove GUI to begin with was because it has OpenGL calls which could change the OpenGL state. We wanted to ensure the only system interfacing with OpenGL was DebugDraw. Although GUI happens after the <code>DebugDraw</code>, so the debug drawings don't appear over the UI, it was reintroduced to keep the errors only associated with debug drawer and not possible integration bugs. As you'd expect if you've done graphics work before, the screen was black, and our triangle was totally gone. After rigorous debugging (i.e. commenting things out to determine the source of the problem), we figured out that the element buffer was the source of the problem! The vertex buffer was able to render both wireframes and solid primitives, but the element buffer only rendered wireframes, as with the quad:</p>
+<p><img alt="OpenGL Wireframe Quad" src="../../images/blogs/week-6/OpenGL_WireframeQuad.PNG" /></p>
+<p>Initially, we thought we didn't need the element buffer for debug drawing because it was so simple. However, being engineers, we also had the frustration of not knowing why it didn't work.  After hours of more debugging, the answer was relatively simple: a reversed winding order. Rather than using the same winding order that the OpenGL test scene was using (clockwise), Horde had a reversed winding order (counterclockwise). So really, the back of the object was being "rendered", which actually means it was culled<sup id="fnref:49"><a class="footnote-ref" href="#fn:49" rel="footnote">6</a></sup> instead of drawn! From here, implementing all the debug drawing just required accurate counting of vertex indices and lots of hand-drawn pictures with counter-clockwise swirls on the shapes.</p>
+<p><img alt="Winding Order Drawing" src="../../images/blogs/week-6/winding_order_drawing.jpg" /></p>
+<p>Our next problem was rendering things <em>beyond</em> the screen, in the 3D world. With our modest understanding of graphics, we knew we needed a model-view matrix<sup id="fnref:440"><a class="footnote-ref" href="#fn:440" rel="footnote">7</a></sup> to translate the drawings. But before we got to that, we recognized that our row-major<sup id="fnref:9021"><a class="footnote-ref" href="#fn:9021" rel="footnote">15</a></sup> array order could cause a problem because OpenGL is column-major<sup id="fnref2:9021"><a class="footnote-ref" href="#fn:9021" rel="footnote">15</a></sup>  (which can be less intuitive initially to think about) and programmers typically create arrays as <code>[row][column]</code>. Looking at our <code>Matrix4</code> class, we had done just that.  This fix is to transpose<sup id="fnref:1123"><a class="footnote-ref" href="#fn:1123" rel="footnote">8</a></sup> the matrix when we pass our information to OpenGL or Horde—and we dodged a major bullet by figuring that out first!</p>
+<p>The drawings were now being placed at the right position (well, it was fairly hard to tell with not much of a frame of reference. Oh, the woes of initial graphics!). However, the squares on screen then became oddly rectangular, and by that we mean they were rectangles and not squares. The vertex positions are hardcoded, so we did a quick sanity check against the numbers and found that we do indeed have the vertices for a unit plane/cube. However, to move the hardcoded drawings throughout the scene, the vertex positions are shifted via a vertex shader<sup id="fnref:9098"><a class="footnote-ref" href="#fn:9098" rel="footnote">9</a></sup>. The shader multiplies the vertex's homogenous<sup id="fnref:932"><a class="footnote-ref" href="#fn:932" rel="footnote">10</a></sup> position with the object's local to world matrix, known as the <em>model matrix</em>, which allows the developer to specify position, rotation and scale. Then the shader multiplies the resultant <code>Vector4</code>by the <em>view matrix</em> (that is, the position, rotation, and scale) of the camera. What was missing was the <em>projection matrix</em>, the matrix that defines the camera's frustum<sup id="fnref:324"><a class="footnote-ref" href="#fn:324" rel="footnote">11</a></sup> and thus what the camera sees. This fix was as simple as grabbing the projection matrix from Horde (set by us on when initializing the camera) and passing it into the shader. The rectangle became square and is now positioned in the 3D world, rather than directly on the 2D screen!</p>
+<h3 id="model-asset-pipeline">Model Asset Pipeline<a class="headerlink" href="#model-asset-pipeline" title="Permanent link">&para;</a></h3>
+<p>The rendering of the debug objects was nearing completion, but when the <code>RenderModule</code> reintroduced the "pushing man" animated model back to our scene, it gave us some pause. The camera had been put out at <code>Z=600</code> and the man at <code>Z=-100</code> just so that the man was properly rendered on the screen. Our initial thought was the model had an offset pivot<sup id="fnref:587"><a class="footnote-ref" href="#fn:587" rel="footnote">12</a></sup>, so we imported him into Maya to check, but the pivot seemed okay. Luckily, we were smart enough to import him into Unity and compared him with a cube— and turns out, he was <em>massive</em>! Pulling in an experienced artist to help us shrink the model without breaking the rig and animation, we were eventually able to export him at an appropriate scale (closer to the size of a unit cube and not a skyscraper). This also re-exposed us to our asset pipeline that requires the models to be pre-processed by Horde into .geo<sup id="fnref:4533"><a class="footnote-ref" href="#fn:4533" rel="footnote">13</a></sup> models, which we expedited with a batch script. We brought the "normal"-sized man back into the scene and compared him to the other sized model we had originally:</p>
+<p><img alt="Pushing Man" src="../../images/blogs/week-6/giant_guy.PNG" /></p>
+<p>The one on the left is actually the giant, because he was pushed out to <code>Z=-600</code>, the camera is at <code>Z=2</code>, and the new model at <code>Z=0</code>. The fact that the left model is visible at that distance depicts how large it really was. And so, our debug drawing was already proving to be valuable, as that problem could have taken much longer to solve if we didn't have something to immediately compare our model with.</p>
+<p>For convenience, we also implemented a grid, point, axis and gimble (3-orthogonal circles). Using debug drawing also revealed some error in our logic. Firstly, without <code>RenderModule</code>'s <code>Update</code> function, <code>glClear</code> was never being called. Therefore, once an object was rendered, it remained on the screen even when we rendered a new frame. The simple fix: reenable <code>RenderModule</code>. Next, once this was put into one of the other developer's hands to use within an actual level component, it became apparent that the debug drawing needed to be refactored. The original debug drawing code would draw the primitive, and if a duration was passed into the function, it was added to a list to be rendered in future frames. This worked with the debug drawing demo, which was only executed after the <code>RenderModule</code> in our execution order, but any debug drawing called before then such as within a <code>Level</code>'s <code>Update</code> function wouldn't be drawn. As we mentioned before, the <code>h3dRender</code> function in <code>RenderModule</code>'s <code>Update</code> function clears the screen before any drawing in <code>Level</code>'s <code>Update</code> function could appear. We refactored this to chambering all draw calls until after <code>RenderModule</code>'s <code>Update</code> function is called, then we execute each of the draw calls within <code>DebugDraw</code>'s <code>Update</code> function. Here is a sample of the debug drawings in action!</p>
+<p><img alt="Pushing Man" src="../../images/blogs/week-6/dynamic_plane_ray.PNG" /></p>
+<div style="width:100%;height:0;padding-bottom:56%;position:relative;"><iframe src="https://giphy.com/embed/3PzfXCegCDzAPMPRht" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
+
+<p><a href="https://giphy.com/gifs/3PzfXCegCDzAPMPRht"></a></p>
+
+<p>Although this wrapped up nicely, getting debug drawing to work was taxing because debugging the drawing code wasn't easy (no pun intended). There was always an uncertainty of whether the object wasn't being rendered because of a Horde snafu or because it was 100 light years behind the camera. We relied on checking the error messages from OpenGL and making incremental steps so that the source of a problem was quick to suss out. As part of this development, we fleshed out the <code>Matrix4</code> and <code>Vector4</code> classes more, as well as added C++ <code>union</code><sup id="fnref:2354"><a class="footnote-ref" href="#fn:2354" rel="footnote">14</a></sup>s to them which caused issues when binding multiple elements to an array (turns out, you must wrap them in a struct within the union).</p>
+<h3 id="good-things-to-know-with-regards-to-horde3dgraphics">Good Things to Know with regards to Horde3D/Graphics<a class="headerlink" href="#good-things-to-know-with-regards-to-horde3dgraphics" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Check the winding order of your drawings</li>
+<li>Horde3D and OpenGL use column-major<sup id="fnref3:9021"><a class="footnote-ref" href="#fn:9021" rel="footnote">15</a></sup> matrices, our Matrix4 is row-major<sup id="fnref4:9021"><a class="footnote-ref" href="#fn:9021" rel="footnote">15</a></sup>, this distinction is important</li>
+<li>Horde3D renders down the negative z-axis, as do many computer graphics programs, but this isn't intuitive for developers used to Unity which is the opposite. This is something we may also decide to "change" by offsetting the camera's rotation by 180° always, so it would effectively be looking down our positive z-axis.</li>
+<li>Have a good understanding of transformations (matrix and vector math)</li>
+</ul>
+<h2 id="level-scene-graph">Level (Scene Graph)<a class="headerlink" href="#level-scene-graph" title="Permanent link">&para;</a></h2>
+<h3 id="level-entity-component-design">Level-Entity-Component Design<a class="headerlink" href="#level-entity-component-design" title="Permanent link">&para;</a></h3>
+<p>Since all of us agreed on object-oriented composition<sup id="fnref:90865"><a class="footnote-ref" href="#fn:90865" rel="footnote">16</a></sup> approach for our scene graph object model, this week we began development on the scene graph system. We designed the structure of the scene graph to be Level-Entity-Component (similar to Unity's Scene-GameObject-Component).</p>
+<p><img alt="Level Structure" src="../../images/blogs/week-6/level_structure.png" title="Level Structure" /></p>
+<p><code>LevelManager</code> manages all the entities in this level and updates them one by one (the order depends on when the entity is spawned in this level) in its <code>Update</code> function. An <em>entity</em> is an object that exists in the current level. It's more like a data entry which only includes a name, pointers to its components, and a transform object (we spent a long time debating if the transform should own the children or the entity should own them; see this <a href="#the-small-step">later section</a> for details). <code>Entity</code> also has some lifetime-related functions like <code>OnEnable</code>, <code>Update</code>, and <code>LateUpdate</code>. Any user-declared component or built-in component (like <code>MeshComponent</code>) inherits from <code>Component</code> class and will be activated, updated and destroyed by its entity.</p>
+<h3 id="loading-a-level">Loading a Level<a class="headerlink" href="#loading-a-level" title="Permanent link">&para;</a></h3>
+<p>We are making this engine to support a twin-stick shooter, but we also want other game developers to be able to use it for other genres, so the engine definitely needs something for developers to customize the level for the game to load. Modern game engines all have their own level data files for the game developers to edit (by using the editor) and for the game to load, like <code>.scene</code> files for Unity and <code>.umap</code> files for Unreal. Knowing this, how should we load level in our engine?</p>
+<p>Sure, we can follow what modern engines do (again!) and design a formatted text file to hold all the information we need to load the level. However, it involves a parser and RTTI<sup id="fnref:215"><a class="footnote-ref" href="#fn:215" rel="footnote">17</a></sup>  (at least the ability to instantiate an object or a member variable from a string), which we think are quite costly to implement or find an appropriate library to import. Also, hooking the classes with RTTI can be very tedious (have you used <code>UCLASS()</code> and <code>UPROPERTY()</code> in Unreal Engine?).</p>
+<p>We decided to let the game developers write C++ startup scripts to load the level (similar to <a href="https://docs.unrealengine.com/en-US/Gameplay/Framework/GameMode">GameMode</a> scripts in Unreal). Game developers need to create a class that inherits the <code>Level</code> class and implement the <code>LoadLevel()</code> function. The <code>EngineLoop</code> class will run the load level function after all module managers have started up and then run the actual game loop. This allows us the flexibility to be able to implement an actual scene file down the road, given enough time, without significant technical debt or concern for breaking older level files of the engine.</p>
+<h3 id="template-black-magic">Template Black Magic!<a class="headerlink" href="#template-black-magic" title="Permanent link">&para;</a></h3>
+<h4 id="level-auto-registration">Level Auto-Registration<a class="headerlink" href="#level-auto-registration" title="Permanent link">&para;</a></h4>
+<p>But this begs the question: now that we have a bunch of user-defined levels, how can the <code>EngineLoop</code> or the <code>LevelManager</code> know which class or which instance it should instantiate and load? Of course, we can have a string in the config file to specify which level to read, but it will still require some sort of RTTI. Luckily, we don't need the full information for the whole class including its member functions and member variables. All we really need is the name of the class and how to instantiate an instance of this class, so we can just use a static map with the name and the corresponding creating function inside of the <code>LevelManager</code> and let all user-defined levels register themselves. </p>
+<p>But we still haven't answered our question of how! How can we run a register function without having the instance of a class? Well, use static variables and static functions! The static variable initialization can call a static function which seems to be the best place to put our code for registering levels. Then, since each class needs some additional code, is there a way that we can handle it quietly and neatly? In fact, there is! Use macros and templates! Thanks to this <a href="https://www.bfilipek.com/2018/02/factory-selfregister.html#templates">article</a>, we are finally able to expose the whole automatic registration with a single macro<sup id="fnref:1238"><a class="footnote-ref" href="#fn:1238" rel="footnote">18</a></sup>: <code>CREATE_LEVEL(NAME)</code>.</p>
+<div class="codehilite"><pre><span></span><span class="k">namespace</span> <span class="n">Isetta</span> <span class="p">{</span>
+<span class="n">CREATE_LEVEL</span><span class="p">(</span><span class="n">ExampleLevel</span><span class="p">)</span>
+  <span class="kt">void</span> <span class="n">LoadLevel</span><span class="p">()</span> <span class="k">override</span> <span class="p">{</span>
+    <span class="n">InitializeCamera</span><span class="p">();</span>    
+    <span class="n">SpawnPlayer</span><span class="p">();</span>
+    <span class="p">...</span><span class="n">other</span> <span class="n">level</span> <span class="n">code</span>
+  <span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+
+<h4 id="fake-concepts">Fake "Concepts"<a class="headerlink" href="#fake-concepts" title="Permanent link">&para;</a></h4>
+<p>Just like <em>The Boy Who Cried Wolf</em>, <a href="https://en.cppreference.com/w/cpp/language/constraints">"concepts"</a> have been delayed from C++14 again(released in 2014) and are still not yet released with our version of C++17. However, for <code>AddComponent&lt;T&gt;</code>, we really need a way to constrain the template parameter to be a child class of <code>Component</code>. In Java, this is called <a href="https://docs.oracle.com/javase/tutorial/java/generics/bounded.html">Bounded Type Parameters</a>. In the example from Oracle's<sup id="fnref:85213"><a class="footnote-ref" href="#fn:85213" rel="footnote">19</a></sup> official tutorial (shown below), the template <code>U</code> is restricted to be a class that implements the <code>Number</code> interface.</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="o">&lt;</span><span class="n">U</span> <span class="kd">extends</span> <span class="n">Number</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="nf">inspect</span><span class="o">(</span><span class="n">U</span> <span class="n">u</span><span class="o">){</span>
+  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;T: &quot;</span> <span class="o">+</span> <span class="n">t</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;U: &quot;</span> <span class="o">+</span> <span class="n">u</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+<span class="o">}</span>
+</pre></div>
+
+<p>The good news is, now in C++17, we can use the built-in RTTI and <code>constexpr if</code> to achieve similar feature.:</p>
+<div class="codehilite"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+<span class="n">T</span><span class="o">*</span> <span class="n">Entity</span><span class="o">::</span><span class="n">AddComponent</span><span class="p">(</span><span class="kt">bool</span> <span class="n">isActive</span><span class="p">,</span> <span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="k">constexpr</span> <span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_base_of</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Component</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">throw</span> <span class="n">std</span><span class="o">::</span><span class="n">logic_error</span><span class="p">(</span><span class="s">&quot;%s is not a derived class from Component class&quot;</span><span class="p">,</span> 
+      <span class="k">typeid</span><span class="p">(</span><span class="n">T</span><span class="p">).</span><span class="n">name</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="p">...</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>As we can see in this code snippet from <a href="https://github.com/Isetta-Team/Isetta-Engine/blob/week-6/Isetta/IsettaEngine/Scene/Entity.h"><code>Entity.h</code></a>, the <code>if</code> statement is checking if <code>Component</code> class is the base class of the template <code>typename T</code>. Since all of the information can be calculated during compile time (templates are unfolded during the compilation), we can use the new <code>constexpr</code> keyword (<code>enable_if</code> in C++14) to specify different behaviors in compile time.</p>
+<blockquote>
+<p><a href="https://twitter.com/mike_acton">@mike_action</a>: Templates are a slippery slope of insanity. Plus compile times are horrid.</p>
+</blockquote>
+<p>It's true that templates can largely increase the compile time. For a three-month project, though, templates are a convenient and handy tool to generate more code for special cases. To control the power of the templates, we should always be clear why we need a template and what the template is doing in our code.</p>
+<h2 id="transform">Transform<a class="headerlink" href="#transform" title="Permanent link">&para;</a></h2>
+<p>As our scene graph and entity-component model take shape, we finally got the foundation for implementing our transform class and hierarchy. The transform class in game engines is pretty well established, so we didn't have to do a ton of research on how to do it—we just need to implement a plain old transform class that supports hierarchy, translation, rotation, and scale. Oh, and we need to make sure it's not terribly slow or eats up 10 gigs of memory. If you want a review of vectors, matrices, and coordinate spaces, <em>Game Engine Architecture</em>'s chapter on 3D math and <a href="http://mathfor3dgameprogramming.com/">this book</a>'s chapters 2-4 are good references. If you are not experienced with 3D math in game engines, here are some good APIs to look at as references: <a href="https://docs.unity3d.com/ScriptReference/Transform.html">Unity's Transform API</a>, <a href="https://api.unrealengine.com/INT/API/Runtime/Core/Math/FTransform/index.html">Unreal's FTransform class</a>, <a href="https://docs.cryengine.com/display/CPP/IEntity#a11ad017533c8aa8ea8b2161737153e08">CryEngine's Entity class</a> (different from Unity and Unreal, CryEngine doesn't have a dedicated <code>transform</code> class, its <code>IEntity</code> class takes care of transformation functions), and <a href="http://docs.godotengine.org/en/3.0/classes/class_transform.html">Godot Engine's transform class</a>.</p>
+<h3 id="the-functionality">The Functionality<a class="headerlink" href="#the-functionality" title="Permanent link">&para;</a></h3>
+<p>Since the birth of the first "true 3D" game, requirements for transform classes haven't really changed much. So this time we are not looking at our game to see what we need, rather, we extensively referenced the APIs listed above and added things that we think would be nice to have (like the <code>ForChildren(Action&lt;Transform*&gt;)</code> function that accepts a lambda and executes it on each child of a transform). Basically, we support:</p>
+<ul>
+<li>Setting and getting world position and local position</li>
+<li>Setting and getting world rotation and local rotation</li>
+<li>Setting and getting local scale, getting world scale (tentative): Local scale is pretty intuitive but world scale is kinda tricky, because if the parent is rotated arbitrarily, the "world scale" of the child is actually not well defined. We are still looking into it.</li>
+<li>Keeping track of hierarchy</li>
+<li>Setting and getting parent</li>
+<li>Looking at a certain point</li>
+<li>Converting a point/vector from local space to world space and the opposite</li>
+</ul>
+<h3 id="the-matrix-that-knows-everything">The Matrix that Knows Everything<a class="headerlink" href="#the-matrix-that-knows-everything" title="Permanent link">&para;</a></h3>
+<p>Matrices are extremely helpful when representing transformations in 3D space, especially when you have a transformation hierarchy - when you want to transform a point from local space to world space, just multiply it with the parent's "local to world matrix 4x4" and tada! You've got the point in world space. </p>
+<p>Matrices also pack some other information in it, like world position of the object and its three basis vectors. Our implementation is following <em>column-vector</em> convention (explained <a href="#the-conventions-to-respect">down below</a>). So the world position of a transform is easily accessible by extracting the first three elements of its fourth column, and the first three elements of the first three columns are the local direction x, y, and z vectors respectively. The three direction vectors happen to be pointing to the left, forward, and up from the direction of the object (we are using a right-handed coordinate system, again, see explanation <a href="#the-conventions-to-respect">below</a>). Once you normalize the vectors, you can get the unit basis vectors, which are super useful when doing gameplay programming! This information can be visualized as below:</p>
+<p><img alt="Matrix information" src="../../images/blogs/week-6/matrix_information.PNG" title="Matrix information" />
+<em>Matrix for an object at world origin with no rotation and uniform scale of 1</em></p>
+<h3 id="the-conventions-to-respect">The Conventions To Respect<a class="headerlink" href="#the-conventions-to-respect" title="Permanent link">&para;</a></h3>
+<p>In 3D math, we have the boon (or bane?) to arbitrarily define and follow two conventions that are capable of making a huge difference in the code base: the <em>handedness</em> of our coordinate system, and whether or not we represent vectors as <em>row vector</em> or <em>column vector</em>. They don't change the underlying mathematical meaning of things, but we need to be aware of them to make things right.</p>
+<h4 id="handedness">Handedness<a class="headerlink" href="#handedness" title="Permanent link">&para;</a></h4>
+<p>The <em>handedness</em> defines where the world basis vectors are pointing to, and affects the result of vector cross product. In a left-handed coordinate, the x-axis points to the right of the screen, y points up, and z points into the screen. Using your left hand, your pointer finger points in the direction of x (to the right of the screen), your middle finger points in y (to the top of the screen), then your thumb points into the screen. Well, on the other hand (literally!), keeping your index and middle fingers pointing in the same directions your thumb will point in the direction of the screen. By rotating your index to point to the left of the screen, rather than the right, your thumb (z-axis) now points into the screen again. See image below for a visualization.</p>
+<p><img alt="Handedness" src="../../images/blogs/week-6/handedness.png" /></p>
+<p>This convention also has implications on our gameplay code. In local space, let's define the z vector to be the <em>forward</em> vector, and the y vector to be the <em>up</em> vector. In a left-handed coordinate, the x vector will turn out to be the <em>right</em> vector. While in a right-handed coordinate, the x vector will be the <em>left</em> vector. This is why in the last section we said the first three elements of the matrix's first column is the <em>left</em> vector - it's always "the x vector", but the "left" or "right" is some meaning we impose on it.</p>
+<h4 id="columnrow-vector">Column/Row Vector<a class="headerlink" href="#columnrow-vector" title="Permanent link">&para;</a></h4>
+<p>This is another convention we can arbitrarily define and follow and call it a day. The difference is that when we are multiplying a matrix and a vector together, we're not sure how to represent the vector in matrix form. We can either represent it with a <code>1xn</code> matrix known as <em>row vector</em> or <code>nx1</code> matrix known as <em>column vector</em>. </p>
+<p>This decision will impact which side of the equation we put the vector on when we multiply it with a 4x4 matrix. Recall that the multiplication between matrix A and matrix B is only defined when A's number of rows is equal to B's number of columns. Thus, column vector goes left while row vector goes right.</p>
+<p><img alt="Column/Row Vector" src="../../images/blogs/week-6/col_row_vector.png" /></p>
+<p>Furthermore, this convention changes how we store data in a matrix. For example, for the elements that represent translation in a <code>Matrix4</code> to be picked up properly during multiplication, they need to be put on the fourth row if we are using row vectors, and on the fourth column if we are using column vectors. You can do a multiplication manually to prove this. This is also why in an earlier section we explained how the first three elements of each column carry some meaning (base vector directions, and translation). If we choose to use column vectors, their meaning would change, as shown in the picture below.</p>
+<p><img alt="Matrix Information for Column Vector" src="../../images/blogs/week-6/matrix_information_column_vector.png" /></p>
+<p>Another implied impact would be how we chain matrix multiplication together. If using row vector, matrix should be chained in the order in which transformations are applied, i.e., if we do Transformation #1 first, then Transformation #2 and Transformation #3, the way we express that in formula is <code>V x M1 x M2 x M3</code>. While it's the opposite way if using column vector, which would be <code>M3 x M2 x M1 x V</code>. </p>
+<h3 id="the-dirty-flag">The Dirty Flag<a class="headerlink" href="#the-dirty-flag" title="Permanent link">&para;</a></h3>
+<p>This section is about optimization rather than functionality. Dirty flag is trying to solve two problems with transformations:</p>
+<ol>
+<li>We need objects' latest "local to world" matrices every time we render those objects. To keep those matrices up-to-date, we can simply recalculate them every time we need them. But the recalculation can be expensive, especially when the object has a parent as it involves matrix multiplication. Also, a lot of the objects in the scene don't move at all or very seldom during their lifetime, like walls and terrains. Therefore, recalculating matrices every time can be a huge performance waste. </li>
+<li>Components of the matrix, like local position, local rotation, and local scale, may be updated very frequently, but the world matrix may be needed once a frame. For example, a developer can modify an object's local position, scale, and rotation in a single <code>Update</code> function, but the <code>RenderUpdate</code> only needs it once when it tries to draw the object. Therefore, if we recalculate the matrix everytime something changed, we may end up doing useless work (the matrix is only needed once but we recalculated it <em>three</em> times, the cost could be worse if doing multiple local updates in a frame).</li>
+</ol>
+<p>To solve these problems, we can introduce a "dirty flag" (which is simply a bool variable). The flag is set to dirty when something local is changed and the matrix needs to be updated. When the matrix is needed, if the dirty flag is set, it will perform the recalculation and clear the flag, otherwise just grab the matrix—the fact that the dirty flag is not set implies that the matrix is up-to-date.</p>
+<p>By doing this, the matrix of those non-movable objects would only be calculated once in their lifetime versus calculated every frame. This can bring us a big performance boost. But the downside is that we need to keep a <code>Matrix4</code> on each instance of the transform class, which obviously increases our memory usage.</p>
+<p>For a more in-depth view of dirty flag, you can read <a href="http://gameprogrammingpatterns.com/dirty-flag.html">the chapter on it</a> from the <em>Game Programming Patterns</em>.</p>
+<p>We had a stupid bug with dirty flags in the following code (modified for better display), can you spot it?</p>
+<div class="codehilite"><pre><span></span><span class="kt">void</span> <span class="n">Transform</span><span class="o">::</span><span class="n">SetParent</span><span class="p">(</span><span class="n">Transform</span><span class="o">*</span> <span class="n">transform</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">parent</span> <span class="o">==</span> <span class="n">transform</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">parent</span> <span class="o">!=</span> <span class="k">nullptr</span><span class="p">)</span> <span class="n">parent</span><span class="o">-&gt;</span><span class="n">RemoveChild</span><span class="p">(</span><span class="k">this</span><span class="p">);</span> 
+  <span class="k">if</span> <span class="p">(</span><span class="n">transform</span> <span class="o">!=</span> <span class="k">nullptr</span><span class="p">)</span> <span class="n">transform</span><span class="o">-&gt;</span><span class="n">AddChild</span><span class="p">(</span><span class="k">this</span><span class="p">);</span> 
+  <span class="n">parent</span> <span class="o">=</span> <span class="n">transform</span><span class="p">;</span>
+  <span class="n">isDirty</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Only this transform's <code>isDirty</code> flag is set to true, while its children's are not! When you set the parent of an object, its children's matrices will also become outdated, cause their hierarchy changed! So, what we should do instead, is something like this:</p>
+<div class="codehilite"><pre><span></span><span class="n">ForSelfAndDescendents</span><span class="p">([](</span><span class="n">Transform</span><span class="o">*</span> <span class="n">trans</span><span class="p">)</span> <span class="p">{</span> <span class="n">trans</span><span class="o">-&gt;</span><span class="n">isDirty</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span> <span class="p">});</span>
+</pre></div>
+
+<h3 id="the-one-who-owns-all-children">The One Who Owns All Children<a class="headerlink" href="#the-one-who-owns-all-children" title="Permanent link">&para;</a></h3>
+<p>We had a discussion (well, more like a war) on who should keep track of the hierarchy—the <code>Entity</code>, or the <code>Transform</code>. The reason for letting <code>Entity</code> keep it is that the <code>Entity</code> needs functions like <code>GetComponentsInChildren</code> and <code>GetComponentsInParent</code>. The reason for letting <code>Transform</code> keep it is that it needs the hierarchy information more frequently as they are calculating matrices, and the <code>Entity</code> should really just keep a bunch of different components (including the <code>Transform</code>) and let the components bring functionalities.</p>
+<p>For now, we decided to let the <code>Transform</code> class have it. This might be a wrong decision, but we'll figure that out down the line.</p>
+<blockquote>
+<p>There is actually another argument involved in this: Should the <code>Transform</code> class be just a data class? As in, it would just hold the data but not provide any functionality, and the <code>Entity</code> class would handle the functionality. This approach is actually adopted by CryEngine, but we decided to let <code>Transform</code> also hold the functionality. We really don't have a super strong reason for this, other than "the entity should just be a component container". It's more like a philosophy question.</p>
+</blockquote>
+<h3 id="the-small-step">The Small Step!<a class="headerlink" href="#the-small-step" title="Permanent link">&para;</a></h3>
+<p>We implemented a fly camera control with our component and transform system, for both demoing and testing (and of course it's super buggy!). Here is what we got (<strong>the gif is motion-sick prone, watch with caution</strong>)!</p>
+<div style="width:100%;height:0;padding-bottom:79%;position:relative;"><iframe src="https://giphy.com/embed/x4c08LvgMo25dWoBGS" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
+
+<p><a href="https://giphy.com/gifs/x4c08LvgMo25dWoBGS"></a></p>
+
+<p>That's all from <code>Transform</code> this week. We will spend the next week debugging and adding to it when we discover missing features.</p>
+<h2 id="dll">DLL<a class="headerlink" href="#dll" title="Permanent link">&para;</a></h2>
+<p>So before this point, it might be fair to say we didn't really have an engine because all of our tests and code was hardcoded into the engine. With the scene graph (<code>Level</code> and <code>Transform</code>) updates to our engine, we are technically ready to start building a game! We could continue to build within the engine, but that doesn't seem like any fun. Instead, we want to make a DLL; that way, other people can just use the engine's DLL without needing to modify the engine source code.</p>
+<p>To build a DLL was fairly straightforward, we created a new configuration strictly for the DLL because we wanted to be able to still run/debug the engine from within the engine project without having to switch to the game project. Then within the engine, we defined a macro to export specific functions to dll which import the functions with the DLL. The only snag was with regards to starting the engine: The <code>EngineLoop</code> variable needs to be declared and the <code>Run</code> function must be called. So although the developer can declare variables and classes prior to calling <code>Run</code>, there is no way to hook those declarations into the engine, so we are fine with this for now.</p>
+<p>The game development can now officially begin in a separate project to the engine, but there is the added benefit that this also lets us start having more persistent test harnesses<sup id="fnref:675"><a class="footnote-ref" href="#fn:675" rel="footnote">20</a></sup>  (labeled IsettaTestbed within our engine). The tests can occur in different levels thus don't need to be removed to keep the main scene from becoming cluttered. Although this will be useful, there is a catch similar to how we had to go back and add comments to our code. We need to go back and add our new macro to all of the public functions that we want to be usable and exposed to the game developer! So in all honesty, the testbed is not ready to be tested in quite yet.</p>
+<h2 id="patch-notes">Patch Notes<a class="headerlink" href="#patch-notes" title="Permanent link">&para;</a></h2>
+<h3 id="unit-testing-just-got-a-bigger-unit">Unit Testing Just Got a Bigger "Unit"<a class="headerlink" href="#unit-testing-just-got-a-bigger-unit" title="Permanent link">&para;</a></h3>
+<p>This week, we decided to run our unit tests once again.</p>
+<p>...two weeks after the last time. You might be able to guess the results:</p>
+<p><img alt="Unit Test Fail" src="../../images/blogs/week-6/unit_test_fail.png" /></p>
+<p>After some digging, we found that the failures were not because we're terrible engineers and broke an entire module, but rather that every unit test attempted to do something it could not: use the game engine. Particularly, we've begun refactoring all engine code to use its own utilities like memory, so for us to run unit tests on it, <em>we need to run the engine first</em>.</p>
+<p>We quickly looked online for a solution, and found that you can indeed run some code before each testing module by using the <code>TEST_MODULE_INITIALIZE</code> macro from the <a href="https://docs.microsoft.com/en-us/visualstudio/test/using-microsoft-visualstudio-testtools-cppunittestframework?view=vs-2015">CppUnitTestFramework</a> namespace. Our fix is literally about 30 lines:</p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;CppUnitTest.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;EngineLoop.h&quot;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">Microsoft</span><span class="o">::</span><span class="n">VisualStudio</span><span class="o">::</span><span class="n">CppUnitTestFramework</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="n">Isetta</span> <span class="p">{</span>
+<span class="k">class</span> <span class="nc">TestInitialization</span> <span class="p">{</span>
+ <span class="k">public</span><span class="o">:</span>
+  <span class="n">TestInitialization</span><span class="p">();</span>
+  <span class="k">static</span> <span class="kt">void</span> <span class="nf">TestClassInitialize</span><span class="p">()</span> <span class="p">{</span> <span class="n">engineLoop</span><span class="p">.</span><span class="n">StartUp</span><span class="p">();</span> <span class="p">};</span>
+  <span class="k">static</span> <span class="kt">void</span> <span class="nf">TestClassCleanup</span><span class="p">()</span> <span class="p">{</span> <span class="n">engineLoop</span><span class="p">.</span><span class="n">ShutDown</span><span class="p">();</span> <span class="p">};</span>
+
+ <span class="k">private</span><span class="o">:</span>
+  <span class="k">static</span> <span class="n">EngineLoop</span> <span class="n">engineLoop</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">TestInitialization</span><span class="o">::</span><span class="n">TestInitialization</span><span class="p">(){};</span>
+
+<span class="n">EngineLoop</span> <span class="n">TestInitialization</span><span class="o">::</span><span class="n">engineLoop</span><span class="p">;</span>
+
+<span class="n">TEST_MODULE_INITIALIZE</span><span class="p">(</span><span class="n">ModuleInitialize</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">TestInitialization</span><span class="o">::</span><span class="n">TestClassInitialize</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="n">TEST_MODULE_CLEANUP</span><span class="p">(</span><span class="n">ModuleCleanup</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">TestInitialization</span><span class="o">::</span><span class="n">TestClassCleanup</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="p">}</span>  <span class="c1">// namespace Isetta</span>
+</pre></div>
+
+<p>Once that was added, we ran the tests again and got flying colors!</p>
+<p><img alt="Unit Test Pass" src="../../images/blogs/week-6/unit_test_pass.PNG" /></p>
+<p>Unfortunately, this has left some heavy implications. From here on out, our unit tests will be dependent on the engine running beneath them unless we spent a lot of time on separating out that code. And because we use the engine, we need to bring in <em>all</em> of our engine code into the unit testing project, which can be a headache to maintain when we rename and move things around.</p>
+<p>As a result, we've decided to leave unit testing for something to consider further down the project timeline if we want to try it at all during the 15-week period. We'll still be developing testing harnesses to make sure our engine features don't regress, but a unit testing system is beginning to require an investment that we just can't provide.</p>
+<p>Hey, at least our current tests still pass! The jury may still be out on us not being terrible programmers, though...</p>
+<h2 id="coming-soon">Coming Soon<a class="headerlink" href="#coming-soon" title="Permanent link">&para;</a></h2>
+<p>This week we released our conversation with Alice Ching of Funomena as well as the great advice she was able to give to us! We interviewed Aras Pranckevičius (<a href="https://twitter.com/aras_p">@aras_p</a>) from Unity's build team (as well as many other accomplishments) this week, and had a great talk about Unity's history and evolution.</p>
+<h2 id="resources"><a href="../../resources/">Resources</a><a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
+<p>There were lots of great resources gathered this week that we've chronicled on our resource page. If you're building your own engine and have deeper burning questions you may want to start there!</p>
+<p><em>Originally Published October 12, 2018.</em></p>
+<!-- GD2md-html version 1.0β13 -->
+
+<p><br></p>
+<!-- Begin MailChimp Signup Form -->
+
+<p><link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+<div id="mc_embed_signup" style="margin-top: -20px">
+    <form action="https://isetta.us19.list-manage.com/subscribe/post?u=1d83cb806c55e205be26db856&amp;id=860c7d79cf" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+            <h3>Subscribe to our mailing list</h3>
+            <p style="margin-bottom: -22px;">Get notifications about the upcoming blogs and interviews!</p>
+            <br><br>
+            <div class="mc-field-group">
+                <label for="mce-EMAIL"> </label>
+                <input type="email" placeholder="Email Address..." name="EMAIL" class="required email" id="mce-EMAIL">
+            </div>
+            <div id="mce-responses" class="clear">
+                <div class="response" id="mce-error-response" style="display:none"></div>
+                <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <input type="text" name="b_1d83cb806c55e205be26db856_860c7d79cf" tabindex="-1" value="">
+            </div>
+            <div class="clear" id="submit-button">
+                <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+            </div>
+        </div>
+    </form>
+</div>
+<!--End mc_embed_signup--></p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:101">
+<p><strong>OpenGL</strong> is an open source graphics library for rendering 2D and 3D vector graphics.&#160;<a class="footnote-backref" href="#fnref:101" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:97">
+<p><strong>Qt</strong> is a framework for creating retained GUI applications.&#160;<a class="footnote-backref" href="#fnref:97" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:70">
+<p>A <strong>viewport</strong> is the "window" which the camera will render content to the screen, it is specified with an (x,y) offset from the top-left in OpenGL and a width and height.&#160;<a class="footnote-backref" href="#fnref:70" rev="footnote" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:12">
+<p><strong>Vertex arrays</strong> and <strong>buffers</strong> hold the vertex information such as vertex positions, normals, color, etc and are stored within the OpenGL state.&#160;<a class="footnote-backref" href="#fnref:12" rev="footnote" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:39">
+<p><strong>Element buffers</strong> hold additional information regarding the vertices, specifically what index the pertinent information is located within the vertex array.&#160;<a class="footnote-backref" href="#fnref:39" rev="footnote" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:49">
+<p><strong>Culling</strong> is the early rejection of objects being passed through the <a href="https://en.wikipedia.org/wiki/Graphics_pipeline">render pipeline</a>, because they don't contribute to the final image.&#160;<a class="footnote-backref" href="#fnref:49" rev="footnote" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:440">
+<p><strong>Model-view matrix</strong> refers to the matrix which transforms a position in local space to world space, then to camera space.&#160;<a class="footnote-backref" href="#fnref:440" rev="footnote" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+<li id="fn:1123">
+<p>The <strong>transpose</strong> of a matrix is when the entries on the diagonals are flipped about the center diagonal.&#160;<a class="footnote-backref" href="#fnref:1123" rev="footnote" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+</li>
+<li id="fn:9098">
+<p>A <strong>vertex shader</strong> is a graphics program that alters information associated to the vertices, it is one of the first stages in the graphics pipeline.&#160;<a class="footnote-backref" href="#fnref:9098" rev="footnote" title="Jump back to footnote 9 in the text">&#8617;</a></p>
+</li>
+<li id="fn:932">
+<p><strong>Homogeneous</strong> coordinates differentiate points from vectors by expanding the traditional <code>Vector3</code> to a <code>Vector4</code> and placing a 0 in the 4<sup>th</sup> element for vectors and 1 in the 4<sup>th</sup> element for points.&#160;<a class="footnote-backref" href="#fnref:932" rev="footnote" title="Jump back to footnote 10 in the text">&#8617;</a></p>
+</li>
+<li id="fn:324">
+<p><strong>Frustum</strong> is the portion of the world which is viewable by a camera. It is typically shaped like a pyramid with near and far planes clipping the volume. What is rendered is the volume between the 2 planes.&#160;<a class="footnote-backref" href="#fnref:324" rev="footnote" title="Jump back to footnote 11 in the text">&#8617;</a></p>
+</li>
+<li id="fn:587">
+<p><strong>Pivot</strong> refers to the local position of the model which is the zero position. When transforming the model in the world space, all changes are relative to this point. An offset pivot is when the pivot is placed in a position that isn't about the model, for example offset in <code>X=100</code> from the model.&#160;<a class="footnote-backref" href="#fnref:587" rev="footnote" title="Jump back to footnote 12 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4533">
+<p><strong>.geo</strong> files are Horde3D's processed file for model and animations, optimized for more efficient rendering. The file is processed through the Horde3DUtil library and done prior to runtime.&#160;<a class="footnote-backref" href="#fnref:4533" rev="footnote" title="Jump back to footnote 13 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2354">
+<p>In C++, a <strong><a href="https://en.cppreference.com/w/cpp/language/union">union</a></strong> is a special class type that can hold only one of its non-static data members at a time. Similar to a struct, you can declare multiple variables in a union, but only one is available at the same time. Another distinction is that the size of a struct is the sum of all of its members, but the size of a union is the size of the biggest member. The way the author understands it is that union gives you different ways to interpret the same memory values.&#160;<a class="footnote-backref" href="#fnref:2354" rev="footnote" title="Jump back to footnote 14 in the text">&#8617;</a></p>
+</li>
+<li id="fn:9021">
+<p>Every Matrix4 has 16 numbers is it, and the 16 numbers are usually stored in a big array in a specific order. <strong>Column-major</strong> and <strong>row-major</strong> are two different orders of storing them. In Column-row matrices, numbers are put in the array "column by column", i.e., the 4 numbers in the first column occupy the first 4 slots in the array. While row-column matrices store them "row by row" - the first 4 slots in the array correspond to the first row in the matrix.&#160;<a class="footnote-backref" href="#fnref:9021" rev="footnote" title="Jump back to footnote 15 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:9021" rev="footnote" title="Jump back to footnote 15 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:9021" rev="footnote" title="Jump back to footnote 15 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:9021" rev="footnote" title="Jump back to footnote 15 in the text">&#8617;</a></p>
+</li>
+<li id="fn:90865">
+<p>In Object Oriented Programming, object composition is a way to combine simple objects or data types into more complex ones. The <a href="http://gameprogrammingpatterns.com/component.html"><em>Component</em></a> pattern in <em>Game Programming Patterns</em> book describes this in detail.&#160;<a class="footnote-backref" href="#fnref:90865" rev="footnote" title="Jump back to footnote 16 in the text">&#8617;</a></p>
+</li>
+<li id="fn:215">
+<p>RTTI stands for <strong>Runtime type information</strong>, which is a language feature that exposes information about an object's data type at runtime. For example, if you want to get the type name of some object as <code>string</code>, you would need RTTI.&#160;<a class="footnote-backref" href="#fnref:215" rev="footnote" title="Jump back to footnote 17 in the text">&#8617;</a></p>
+</li>
+<li id="fn:1238">
+<p><strong><a href="https://en.cppreference.com/w/cpp/preprocessor/replace">Macros</a></strong> are a way of automatically substituting text for some other during the compiling process. In C++, they are defined as <code>#define TEXT_IN_CODE TEXT_TO_COPY OVER</code>. For example, if you define <code>#define SPEED 5</code> and write <code>mySpeed = SPEED</code>, SPEED will be substituted by 5 during compile time and the compiler will actually see <code>mySpeed = 5</code>.&#160;<a class="footnote-backref" href="#fnref:1238" rev="footnote" title="Jump back to footnote 18 in the text">&#8617;</a></p>
+</li>
+<li id="fn:85213">
+<p><strong>Oracle</strong> is a computer technology corporation headquartered in Redwood Shores, California, who acquired Java from Sun Microsystems and is now maintaining it.&#160;<a class="footnote-backref" href="#fnref:85213" rev="footnote" title="Jump back to footnote 19 in the text">&#8617;</a></p>
+</li>
+<li id="fn:675">
+<p><strong>Test harnesses</strong> is a test framework which can ensure the progression of the software. In the Isetta Engine case, they will act as sample levels to demo features of the engine and as versioning happens to ensure old features aren't broken on accident.&#160;<a class="footnote-backref" href="#fnref:675" rev="footnote" title="Jump back to footnote 20 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+                
+                  
+                
+              
+              
+                
+
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://isetta.io/blogs/week-6/";
+      this.page.identifier =
+        "blogs/week-6/";
+    };
+    (function() {
+      var d = document, s = d.createElement("script");
+      s.src = "//isetta-engine.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../week-5/" title="[Week 5] Back in Business" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                [Week 5] Back in Business
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../week-7/" title="[Week 7] A Real Game Engine" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                [Week 7] A Real Game Engine
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2019 Isetta Team
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.css">
+    
+      <a href="mailto:isetta.engine@gmail.com" class="md-footer-social__link fa fa-envelope"></a>
+    
+      <a href="https://twitter.com/IsettaEngine" class="md-footer-social__link fa fa-twitter"></a>
+    
+      <a href="https://github.com/Isetta-Team" class="md-footer-social__link fa fa-github"></a>
+    
+  </div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      
+      <script>app.initialize({version:"1.0.2",url:{base:"../.."}})</script>
+      
+        <script src="../../extra.js"></script>
+      
+    
+    
+      
+        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-124729724-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      
+    
+  </body>
+</html>

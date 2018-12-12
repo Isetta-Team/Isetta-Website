@@ -1,0 +1,2632 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="We are making a game engine and documenting the process">
+      
+      
+        <link rel="canonical" href="https://isetta.io/blogs/week-8/">
+      
+      
+        <meta name="author" content="Caleb, Chaojie, Jacob, Jared, Yidi">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../images/isetta_icon.ico">
+      <meta name="generator" content="mkdocs-1.0.2, mkdocs-material-3.0.3">
+    
+    
+      
+        <title>[Week 8] Patching Holes - Isetta Engine</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Source+Code+Pro">
+        <style>body,input{font-family:"Lato","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Source Code Pro","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="../../extra.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="light-blue" data-md-color-accent="cyan">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../../#patching-holes" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <!--
+  Copyright (c) 2016-2018 Martin Donath <martin.donath@squidfunk.com>
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Application header -->
+<header class="md-header" data-md-component="header">
+
+  <!-- Top-level navigation -->
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+
+      <!-- Link to home -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://isetta.io/" title="Isetta Engine" class="md-header-nav__button md-logo">
+          
+          <img id="isetta-logo" src="../../images/isetta_logo.png" width="24" height="24" />
+          
+        </a>
+      </div>
+
+      <!-- Button to toggle drawer -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+
+      <!-- Header title -->
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+          
+          <span class="md-header-nav__topic back_to_top cursor_pointer">
+            Isetta Engine
+          </span>
+          <span class="md-header-nav__topic back_to_top cursor_pointer">
+            [Week 8] Patching Holes
+            <span style="padding-left: 10px;">⇫</span>
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <!-- Button to open search dialogue -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+        
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+
+        <!-- Search interface -->
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+        
+      </div>
+
+      <!-- Repository containing source -->
+      
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <div class="md-header-nav__source">
+          
+
+
+  
+
+
+  <a href="https://github.com/Isetta-Team/Isetta-Engine" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      Isetta Engine
+    </div>
+  </a>
+
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Tabs with outline
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../compendium/" title="Compendium" class="md-tabs__link">
+          Compendium
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../week-0/" title="Blogs" class="md-tabs__link md-tabs__link--active">
+          Blogs
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../interviews/" title="Interviews" class="md-tabs__link">
+          Interviews
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../engine_docs/home/" title="Usage" class="md-tabs__link">
+          Usage
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+       -->
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../compendium/" title="Compendium" class="md-tabs__link">
+          Compendium
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../week-0/" title="Blogs" class="md-tabs__link md-tabs__link--active">
+          Blogs
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../interviews/" title="Interviews" class="md-tabs__link">
+          Interviews
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../engine_docs/home/" title="Usage" class="md-tabs__link">
+          Usage
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://isetta.io/" title="Isetta Engine" class="md-nav__button md-logo">
+      
+        <img src="../../images/isetta_logo.png" width="48" height="48">
+      
+    </a>
+    Isetta Engine
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/Isetta-Team/Isetta-Engine" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      Isetta Engine
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../about/" title="About" class="md-nav__link">
+      About
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../team/" title="Team" class="md-nav__link">
+      Team
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../schedule/" title="Schedule" class="md-nav__link">
+      Schedule
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../resources/" title="Resources" class="md-nav__link">
+      Resources
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../glossary/" title="Glossary" class="md-nav__link">
+      Glossary
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../faq/" title="FAQ" class="md-nav__link">
+      FAQ
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Compendium
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Compendium
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2" type="checkbox" id="nav-8-2">
+    
+    <label class="md-nav__link" for="nav-8-2">
+      Engine Postmortem
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-8-2">
+        Engine Postmortem
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-1" type="checkbox" id="nav-8-2-1">
+    
+    <label class="md-nav__link" for="nav-8-2-1">
+      Lessons
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-1">
+        Lessons
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/BuildGames/" title="Build Games with Your Game Engine" class="md-nav__link">
+      Build Games with Your Game Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/RubberduckDeveloping/" title="Rubberduck Developing: Forced Explanation" class="md-nav__link">
+      Rubberduck Developing: Forced Explanation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/ItsNotThatHard/" title="It's Not That Hard" class="md-nav__link">
+      It's Not That Hard
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-2" type="checkbox" id="nav-8-2-2">
+    
+    <label class="md-nav__link" for="nav-8-2-2">
+      What went right
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-2">
+        What went right
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/HostingGameJam/" title="Hosting a Game Jam" class="md-nav__link">
+      Hosting a Game Jam
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/NoviceTeam/" title="Having a Team of Novices" class="md-nav__link">
+      Having a Team of Novices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/LeveragingProfessionals/" title="Leveraging Professionals for Input" class="md-nav__link">
+      Leveraging Professionals for Input
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-3" type="checkbox" id="nav-8-2-3">
+    
+    <label class="md-nav__link" for="nav-8-2-3">
+      What went wrong
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-3">
+        What went wrong
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/QuestionsForProfessionals/" title="Questions for the Professionals" class="md-nav__link">
+      Questions for the Professionals
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/SoftwareDevelopment/" title="Basic Software Development Practices" class="md-nav__link">
+      Basic Software Development Practices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/Crunch/" title="Crunch is Bad" class="md-nav__link">
+      Crunch is Bad
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/3rdParty/" title="3rd Party" class="md-nav__link">
+      3rd Party
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Build-ResourceManagement/" title="Build & Resource Management" class="md-nav__link">
+      Build & Resource Management
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Collisions/" title="Collisions" class="md-nav__link">
+      Collisions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Gameplay/" title="Gameplay" class="md-nav__link">
+      Gameplay
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Interviews/" title="Interviews" class="md-nav__link">
+      Interviews
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Memory/" title="Memory" class="md-nav__link">
+      Memory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Networking/" title="Networking" class="md-nav__link">
+      Networking
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Other/" title="Other Topics" class="md-nav__link">
+      Other Topics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Scene-Loop/" title="Scene & Engine Loop" class="md-nav__link">
+      Scene & Engine Loop
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Tools/" title="Tools" class="md-nav__link">
+      Tools
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9" checked>
+    
+    <label class="md-nav__link" for="nav-9">
+      Blogs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        Blogs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-0/" title="[Week 0] Preparation" class="md-nav__link">
+      [Week 0] Preparation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-1/" title="[Week 1] The Building Blocks" class="md-nav__link">
+      [Week 1] The Building Blocks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../engine-architecture/" title="Engine Architecture" class="md-nav__link">
+      Engine Architecture
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-2/" title="[Week 2] Ramping Up" class="md-nav__link">
+      [Week 2] Ramping Up
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-3/" title="[Week 3] "Completing" the Core" class="md-nav__link">
+      [Week 3] "Completing" the Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-4/" title="[Week 4] Buried in Comments" class="md-nav__link">
+      [Week 4] Buried in Comments
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-5/" title="[Week 5] Back in Business" class="md-nav__link">
+      [Week 5] Back in Business
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-6/" title="[Week 6] We Think It's Playable" class="md-nav__link">
+      [Week 6] We Think It's Playable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-7/" title="[Week 7] A Real Game Engine" class="md-nav__link">
+      [Week 7] A Real Game Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        [Week 8] Patching Holes
+      </label>
+    
+    <a href="./" title="[Week 8] Patching Holes" class="md-nav__link md-nav__link--active">
+      [Week 8] Patching Holes
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#byte-sized-updates" title="Byte-Sized Updates" class="md-nav__link">
+    Byte-Sized Updates
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-registry" title="Component Registry" class="md-nav__link">
+    Component Registry
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-do-we-need-a-component-registry" title="Why Do We Need a Component Registry?" class="md-nav__link">
+    Why Do We Need a Component Registry?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#approaching-a-solution" title="Approaching a Solution" class="md-nav__link">
+    Approaching a Solution
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#first-try-another-registration-pattern" title="First Try: Another Registration Pattern" class="md-nav__link">
+    First Try: Another Registration Pattern
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#second-try-manual-template-specialization" title="Second Try: Manual Template Specialization" class="md-nav__link">
+    Second Try: Manual Template Specialization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#third-try-introducing-dummy-template-parameter" title="Third Try: Introducing "Dummy" Template Parameter" class="md-nav__link">
+    Third Try: Introducing "Dummy" Template Parameter
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collisions" title="Collisions" class="md-nav__link">
+    Collisions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#collision-handling" title="Collision Handling" class="md-nav__link">
+    Collision Handling
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#box-capsule-collisions-will-be-the-death-of-us" title="Box-Capsule Collisions Will be the Death of Us" class="md-nav__link">
+    Box-Capsule Collisions Will be the Death of Us
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raycasting-functionality" title="Raycasting Functionality" class="md-nav__link">
+    Raycasting Functionality
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ignoring-collisions" title="Ignoring Collisions" class="md-nav__link">
+    Ignoring Collisions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wrap-up" title="Wrap-up" class="md-nav__link">
+    Wrap-up
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-todo-to-die-today-at-a-minute-or-two-til-two" title=""What TODO to die today, at a minute or two 'til two"" class="md-nav__link">
+    "What TODO to die today, at a minute or two 'til two"
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patch-notes" title="Patch Notes" class="md-nav__link">
+    Patch Notes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exiting-the-engine-loop" title="Exiting the Engine Loop" class="md-nav__link">
+    Exiting the Engine Loop
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hunting-memory-leaks" title="Hunting Memory Leaks" class="md-nav__link">
+    Hunting Memory Leaks
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coming-soon" title="Coming Soon" class="md-nav__link">
+    Coming Soon
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" title="Resources" class="md-nav__link">
+    Resources
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+        <li class="md-nav__item">
+          <a href="#__comments" title="Comments" class="md-nav__link md-nav__link--active">
+            Comments
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-9/" title="[Week 9] Hello from the West Coast" class="md-nav__link">
+      [Week 9] Hello from the West Coast
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-10/" title="[Week 10] Grab A Bucket" class="md-nav__link">
+      [Week 10] Grab A Bucket
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-11/" title="[Week 11] The One Where the Team Picks a Font" class="md-nav__link">
+      [Week 11] The One Where the Team Picks a Font
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-12/" title="[Week 12] Getting Ready for Game Jam!" class="md-nav__link">
+      [Week 12] Getting Ready for Game Jam!
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-13/" title="[Week 13] Is This a Game Engine?" class="md-nav__link">
+      [Week 13] Is This a Game Engine?
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-14/" title="[Week 14] The Last Blog." class="md-nav__link">
+      [Week 14] The Last Blog.
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
+    
+    <label class="md-nav__link" for="nav-10">
+      Interviews
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-10">
+        Interviews
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-2" type="checkbox" id="nav-10-2">
+    
+    <label class="md-nav__link" for="nav-10-2">
+      Elan Ruskin
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-2">
+        Elan Ruskin
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ElanRuskin-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ElanRuskin-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-3" type="checkbox" id="nav-10-3">
+    
+    <label class="md-nav__link" for="nav-10-3">
+      Shanee Nishry
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-3">
+        Shanee Nishry
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ShaneeNishry-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ShaneeNishry-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-4" type="checkbox" id="nav-10-4">
+    
+    <label class="md-nav__link" for="nav-10-4">
+      Jeff Preshing
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-4">
+        Jeff Preshing
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JeffPreshing-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JeffPreshing-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/MartinMiddleton-interview/" title="Martin Middleton" class="md-nav__link">
+      Martin Middleton
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-6" type="checkbox" id="nav-10-6">
+    
+    <label class="md-nav__link" for="nav-10-6">
+      Raymond Graham
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-6">
+        Raymond Graham
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/RaymondGraham-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/RaymondGraham-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-7" type="checkbox" id="nav-10-7">
+    
+    <label class="md-nav__link" for="nav-10-7">
+      Aras Pranckevicius
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-7">
+        Aras Pranckevicius
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ArasPranckevicius-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ArasPranckevicius-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-8" type="checkbox" id="nav-10-8">
+    
+    <label class="md-nav__link" for="nav-10-8">
+      Amandine Coget
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-8">
+        Amandine Coget
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmandineCoget-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmandineCoget-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-9" type="checkbox" id="nav-10-9">
+    
+    <label class="md-nav__link" for="nav-10-9">
+      Tommy Refenes
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-9">
+        Tommy Refenes
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/TommyRefenes-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/TommyRefenes-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-10" type="checkbox" id="nav-10-10">
+    
+    <label class="md-nav__link" for="nav-10-10">
+      Casey Muratori
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-10">
+        Casey Muratori
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-hmh-video/" title="Video Interview" class="md-nav__link">
+      Video Interview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-11" type="checkbox" id="nav-10-11">
+    
+    <label class="md-nav__link" for="nav-10-11">
+      Adam Serdar
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-11">
+        Adam Serdar
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AdamSerdar-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AdamSerdar-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-12" type="checkbox" id="nav-10-12">
+    
+    <label class="md-nav__link" for="nav-10-12">
+      Summarized Advice
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-12">
+        Summarized Advice
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AliceChing-advice/" title="Alice Ching" class="md-nav__link">
+      Alice Ching
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmitRob-advice/" title="Amit Patel & Rob Shillingsburg" class="md-nav__link">
+      Amit Patel & Rob Shillingsburg
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JasonGregory-advice/" title="Jason Gregory" class="md-nav__link">
+      Jason Gregory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/OliverFranzke-advice/" title="Oliver Franzke" class="md-nav__link">
+      Oliver Franzke
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/WaltDestler-advice/" title="Walt Destler" class="md-nav__link">
+      Walt Destler
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-11" type="checkbox" id="nav-11">
+    
+    <label class="md-nav__link" for="nav-11">
+      Usage
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-11">
+        Usage
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/home/" title="FAQs" class="md-nav__link">
+      FAQs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/basics/" title="Basics" class="md-nav__link">
+      Basics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/level/" title="Level" class="md-nav__link">
+      Level
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/entity/" title="Entity/Transform" class="md-nav__link">
+      Entity/Transform
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/component/" title="Component" class="md-nav__link">
+      Component
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/graphics/" title="Graphics" class="md-nav__link">
+      Graphics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/input/" title="Input" class="md-nav__link">
+      Input
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/debug_logging/" title="Debug Logging" class="md-nav__link">
+      Debug Logging
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/debug_draw/" title="Debug Draw" class="md-nav__link">
+      Debug Draw
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/gui/" title="GUI" class="md-nav__link">
+      GUI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/audio/" title="Audio" class="md-nav__link">
+      Audio
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/collisions/" title="Collisions" class="md-nav__link">
+      Collisions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/networking/" title="Networking" class="md-nav__link">
+      Networking
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#byte-sized-updates" title="Byte-Sized Updates" class="md-nav__link">
+    Byte-Sized Updates
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-registry" title="Component Registry" class="md-nav__link">
+    Component Registry
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-do-we-need-a-component-registry" title="Why Do We Need a Component Registry?" class="md-nav__link">
+    Why Do We Need a Component Registry?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#approaching-a-solution" title="Approaching a Solution" class="md-nav__link">
+    Approaching a Solution
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#first-try-another-registration-pattern" title="First Try: Another Registration Pattern" class="md-nav__link">
+    First Try: Another Registration Pattern
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#second-try-manual-template-specialization" title="Second Try: Manual Template Specialization" class="md-nav__link">
+    Second Try: Manual Template Specialization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#third-try-introducing-dummy-template-parameter" title="Third Try: Introducing "Dummy" Template Parameter" class="md-nav__link">
+    Third Try: Introducing "Dummy" Template Parameter
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collisions" title="Collisions" class="md-nav__link">
+    Collisions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#collision-handling" title="Collision Handling" class="md-nav__link">
+    Collision Handling
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#box-capsule-collisions-will-be-the-death-of-us" title="Box-Capsule Collisions Will be the Death of Us" class="md-nav__link">
+    Box-Capsule Collisions Will be the Death of Us
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raycasting-functionality" title="Raycasting Functionality" class="md-nav__link">
+    Raycasting Functionality
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ignoring-collisions" title="Ignoring Collisions" class="md-nav__link">
+    Ignoring Collisions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wrap-up" title="Wrap-up" class="md-nav__link">
+    Wrap-up
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-todo-to-die-today-at-a-minute-or-two-til-two" title=""What TODO to die today, at a minute or two 'til two"" class="md-nav__link">
+    "What TODO to die today, at a minute or two 'til two"
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patch-notes" title="Patch Notes" class="md-nav__link">
+    Patch Notes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exiting-the-engine-loop" title="Exiting the Engine Loop" class="md-nav__link">
+    Exiting the Engine Loop
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hunting-memory-leaks" title="Hunting Memory Leaks" class="md-nav__link">
+    Hunting Memory Leaks
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coming-soon" title="Coming Soon" class="md-nav__link">
+    Coming Soon
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" title="Resources" class="md-nav__link">
+    Resources
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+        <li class="md-nav__item">
+          <a href="#__comments" title="Comments" class="md-nav__link md-nav__link--active">
+            Comments
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="patching-holes">Patching Holes<a class="headerlink" href="#patching-holes" title="Permanent link">&para;</a></h1>
+<h2 id="byte-sized-updates">Byte-Sized Updates<a class="headerlink" href="#byte-sized-updates" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#component-registry">Component Registry</a>: To add component inheritance support, we added a component registration mechanism for the components to store their type hierarchy.</li>
+<li><a href="#collisions">Collisions</a>: Third week working with collisions and things seem to be wrapping up, main focus was on how to handle collision events when one occurs.</li>
+</ul>
+<p><img alt="Engine Architecture" src="../../images/engine_architecture/week8.png" title="Week 8 Progress Architecture" />
+<em>You may not notice a difference from last week...as it turns out, high-level architecture diagrams aren't great at showing progress after the early stages of development!</em></p>
+<h2 id="component-registry">Component Registry<a class="headerlink" href="#component-registry" title="Permanent link">&para;</a></h2>
+<h3 id="why-do-we-need-a-component-registry">Why Do We Need a Component Registry?<a class="headerlink" href="#why-do-we-need-a-component-registry" title="Permanent link">&para;</a></h3>
+<p>When we were implementing the entity class, we saved the <code>std::type_index</code> for every component added to the entity by a array to allow the game developer to call <code>GetComponent&lt;T&gt;()</code> without dynamic casting the type each call (which is quite expensive). This meant that inside of an entity, we had two array to save the information for a component: an array for the <code>type_index</code> as mentioned, and another array for the pointers to the components themselves. </p>
+<p><img alt="Component arrays" src="../../images/blogs/week-8/component-arrays.png" title="Component arrays" /></p>
+<p>When the game developer calls <code>GetComponent&lt;T&gt;</code>, the function first searches through the type index array to see if the array contains this specific type index. If so, it returns the corresponding component pointer (sharing the same index). However, it became problematic when we were implementing the collider components.</p>
+<p>We are supporting multiple types of colliders, like <code>BoxCollider</code>, <code>SphereCollider</code>, and <code>CapsuleCollider</code>. Being different shapes, these colliders require different operations and calculations, but they have the same interface as colliders; they all have functions like <code>RayCast</code> or <code>CollisionCheck</code>. To avoid repeating ourselves, we created an abstract <code>Collider</code> component for the specific types of colliders to inherit from. For the same purpose, whenever we call <code>GetComponent&lt;Collider&gt;</code>, we also expect the function to return either a <code>BoxCollider</code>, a <code>SphereCollider</code> or a <code>CapsuleCollider</code> since they are all children classes of the <code>Collider</code> class. However, the <code>std::type_index</code> of those classes are different based on the fact that they are actually different classes. Thus, the <code>GetComponent&lt;Collider&gt;</code> function cannot find its corresponding type index from the type index array, since no exact <code>Collider</code>component is ever attached to the entity. This will happen for any type that inherits from another class of component. We tried to convince our collision programmer that this was fine, but he wasn't having it—we had to find a way to fix it.</p>
+<h3 id="approaching-a-solution">Approaching a Solution<a class="headerlink" href="#approaching-a-solution" title="Permanent link">&para;</a></h3>
+<p>After lengthy discussion, we decided that we want to make a similar system like the level registration. If you remember from <a href="../week-6/#template-black-magic">Template Black Magic! in Week 6</a>, we used a template with a static variable that calls a static register function to register the level into the engine so that the level could be loaded by name later. We wanted to use the same technique to save the components' hierarchy metadata before the engine is started. To do that, we need a key-value map<sup id="fnref:8383"><a class="footnote-ref" href="#fn:8383" rel="footnote">1</a></sup> whose key is a type index of a component and the value is a list of type indices that indicate the subclass components (including itself) of the key component. We are using a linked list instead of an array here for two reasons: one, we don't need random access for the list, and two, we can simply use <code>push_front</code> to make sure the component itself is always the first one of its subcomponent list.</p>
+<p><img alt="Component map" src="../../images/blogs/week-8/component-map.png" title="Component map" /></p>
+<p>The registration process seems straightforward, since it's just adding the type index to the corresponding list. But how do we call the register function before the engine/game starts? Again, we wanted to make use of the static initialization phase.</p>
+<h4 id="first-try-another-registration-pattern">First Try: Another Registration Pattern<a class="headerlink" href="#first-try-another-registration-pattern" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Curr</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Base</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">ComponentRegistry</span> <span class="p">{</span>
+ <span class="k">protected</span><span class="o">:</span>
+  <span class="k">static</span> <span class="kt">bool</span> <span class="n">registered</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">MeshComponent</span><span class="o">:</span> <span class="k">public</span> <span class="n">Component</span><span class="p">,</span> <span class="k">public</span> <span class="n">ComponentRegistry</span><span class="o">&lt;</span><span class="n">MeshComponent</span><span class="p">,</span> <span class="n">Component</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="k">static</span> <span class="kt">bool</span> <span class="n">IsRegistered</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">registered</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// required</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Curr</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Base</span><span class="o">&gt;</span>
+<span class="kt">bool</span> <span class="n">ComponentRegistry</span> <span class="o">&lt;</span><span class="n">Curr</span><span class="p">,</span> <span class="n">Base</span><span class="o">&gt;::</span><span class="n">registered</span> <span class="o">=</span>
+  <span class="n">Component</span><span class="o">::</span><span class="n">Register</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">type_index</span><span class="p">{</span><span class="n">typeof</span><span class="p">(</span><span class="n">Curr</span><span class="p">)},</span> <span class="n">std</span><span class="o">::</span><span class="n">type_index</span><span class="p">{</span><span class="n">typeof</span><span class="p">(</span><span class="n">Base</span><span class="p">)});</span>
+</pre></div>
+
+<p>Just like what we did for the level registration, we created a template to run the static initialization process. Each component inherited from the template will have a static <code>registered</code> variable which registers the component to the type hierarchy map. It works perfectly well with levels and most components. However, it breaks when a component is inheriting an existing component like this:</p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Collider</span><span class="o">:</span> <span class="k">public</span> <span class="n">Component</span><span class="p">,</span> <span class="k">public</span> <span class="n">ComponentRegistry</span><span class="o">&lt;</span><span class="n">Collider</span><span class="p">,</span> <span class="n">Component</span><span class="o">&gt;</span> <span class="p">{...}</span>
+<span class="k">class</span> <span class="nc">BoxCollider</span><span class="o">:</span> <span class="k">public</span> <span class="n">Component</span><span class="p">,</span> <span class="k">public</span> <span class="n">ComponentRegistry</span><span class="o">&lt;</span><span class="n">BoxCollider</span><span class="p">,</span> <span class="n">Collider</span><span class="o">&gt;</span> <span class="p">{...}</span>
+</pre></div>
+
+<p>Yes, it can still register the type to the type hierarchy map, but the <code>BoxCollider</code> now contains two <code>registered</code> variables— one from its base class <code>Collider</code>, and one from the template class <code>ComponentRegistery&lt;BoxCollider, Collider&gt;</code>. There's no way to tell the compiler which is which, and this results in a compilation error!</p>
+<h4 id="second-try-manual-template-specialization">Second Try: Manual Template Specialization<a class="headerlink" href="#second-try-manual-template-specialization" title="Permanent link">&para;</a></h4>
+<p>So let's recap the problem: Every template specialization has the same variable name, <code>registered</code>, and this leads to the problem of having an ambiguous symbol. Since we were using macros in level registration, why not utilize macros further to provide a unique variable name for each component? Or specifically, for each template specialization?</p>
+<div class="codehilite"><pre><span></span><span class="cp">#define CREATE_COMPONENT_BEGIN(NAME, BASE)                    \</span>
+<span class="cp">  template &lt;&gt;                                                 \</span>
+<span class="cp">  class ISETTA_API_DECLARE                                    \</span>
+<span class="cp">      ComponentRegistry&lt;class NAME, BASE&gt; {                   \</span>
+<span class="cp">   protected:                                                 \</span>
+<span class="cp">    static bool NAME##Registered;                             \</span>
+<span class="cp">  };                                                          \</span>
+<span class="cp">  class ISETTA_API_DECLARE NAME                               \</span>
+<span class="cp">      : public BASE,                                          \</span>
+<span class="cp">        public ComponentRegistry&lt;NAME, BASE&gt; {                \</span>
+<span class="cp">   protected:                                                 \</span>
+<span class="cp">    static bool isRegistered() { return NAME##Registered; }   \</span>
+<span class="cp">                                                              \</span>
+<span class="cp">   private:</span>
+
+<span class="cp">#define CREATE_COMPONENT_END(NAME, BASE)                                 \</span>
+<span class="cp">  }                                                                      \</span>
+<span class="cp">  ;                                                                      \</span>
+<span class="cp">  bool ComponentRegistry&lt;NAME, BASE&gt;::NAME##Registered =                 \</span>
+<span class="cp">      Component::RegisterComponent(std::type_index(typeid(NAME)),        \</span>
+<span class="cp">                                   std::type_index(typeid(BASE)));</span>
+</pre></div>
+
+<p>Now we are manually specializing the template and defining different <code>registered</code> variables with different names by macros. The ambiguous symbol issue should be all good and ironed out now.</p>
+<p>But actually, it brought us another issue! When defining the value of the static variable of a fully specialized template, the definition statement <sup id="fnref:9583"><a class="footnote-ref" href="#fn:9583" rel="footnote">2</a></sup> should actually be written in the .cpp file instead of the header file. However, this would requires game developers to write two different macros in two different files, which is easily forgettable and could cause quite a bit of headache if forgotten. So we had to find a way to keep the definition statement in the header file.</p>
+<h4 id="third-try-introducing-dummy-template-parameter">Third Try: Introducing "Dummy" Template Parameter<a class="headerlink" href="#third-try-introducing-dummy-template-parameter" title="Permanent link">&para;</a></h4>
+<p>Since the problem is mainly caused by fully specialized templates, we thought, "What about adding a dummy parameter to keep the templates partially specialized?" As long as the template is not <em>fully</em> specialized, the definition statement can be kept in the header file with the other macros!</p>
+<div class="codehilite"><pre><span></span><span class="cp">#define CREATE_COMPONENT_BEGIN(NAME, BASE)                    \</span>
+<span class="cp">  template &lt;typename Dummy&gt;                                   \</span>
+<span class="cp">  class ISETTA_API_DECLARE                                    \</span>
+<span class="cp">      ComponentRegistry&lt;class NAME, BASE, Dummy&gt; {            \</span>
+<span class="cp">   protected:                                                 \</span>
+<span class="cp">    static bool NAME##Registered;                             \</span>
+<span class="cp">  };                                                          \</span>
+<span class="cp">  class ISETTA_API_DECLARE NAME                               \</span>
+<span class="cp">      : public BASE,                                          \</span>
+<span class="cp">        public ComponentRegistry&lt;NAME, BASE, void&gt; {          \</span>
+<span class="cp">   protected:                                                 \</span>
+<span class="cp">    static bool isRegistered() { return NAME##Registered; }   \</span>
+<span class="cp">                                                              \</span>
+<span class="cp">   private:</span>
+
+<span class="cp">#define CREATE_COMPONENT_END(NAME, BASE)                                 \</span>
+<span class="cp">  }                                                                      \</span>
+<span class="cp">  ;                                                                      \</span>
+<span class="cp">  template &lt;typename Dummy&gt;                                              \</span>
+<span class="cp">  bool ComponentRegistry&lt;NAME, BASE, Exclude, Dummy&gt;::NAME##Registered = \</span>
+<span class="cp">      Component::RegisterComponent(std::type_index(typeid(NAME)),        \</span>
+<span class="cp">                                   std::type_index(typeid(BASE)));</span>
+</pre></div>
+
+<p>This idea might just be stupid enough to work...and it does! With this trick, we can now declare a new component like this:</p>
+<div class="codehilite"><pre><span></span><span class="n">CREATE_COMPONENT_BEGIN</span><span class="p">(</span><span class="n">GUIComponent</span><span class="p">,</span> <span class="n">Component</span><span class="p">)</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="p">...</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="p">...</span>
+
+<span class="n">CREATE_COMPONENT_END</span><span class="p">(</span><span class="n">GUIComponent</span><span class="p">,</span> <span class="n">Component</span><span class="p">)</span>
+</pre></div>
+
+<p>As we move forward with our engine development, we're becoming more and more of C++ Magicians™!</p>
+<h2 id="collisions">Collisions<a class="headerlink" href="#collisions" title="Permanent link">&para;</a></h2>
+<h3 id="collision-handling">Collision Handling<a class="headerlink" href="#collision-handling" title="Permanent link">&para;</a></h3>
+<p>So, as promised, we can provide an update on the collision system's development! Unfortunately, it isn't quite as exciting as what we promised <a href="../week-7/#collsions">last week</a>. We are still working on the BVTree (see last week for more details); since it's just an optimization (although a necessary one!), we put it off again this week to work on other bug fixes that were needed more immediately. The other decision we left from <a href="../week-7/#sending-collision-events">last week</a> was how to handle the collisions once they happen, and we will be answering that this week.</p>
+<p>The collisions system architecture that remains unchanged from last week is how we determine the event from collisions, i.e. the collision just began, it's continued, or it just ended. After the broad- and narrow-phase<sup id="fnref:65"><a class="footnote-ref" href="#fn:65" rel="footnote">3</a></sup> determine a intersection between colliders has occurred, the collision-pair is searched for in a hashed collision-set to determine whether the colliders just entered one another, are still intersecting from a previous frame, or, in the case the pair exists in the set but are no longer intersecting, the collision has ended. What wasn't clear from last week, however, was how the collision callbacks (on enter/stay/exit) were called in the respective event. For details on the options we considered, you can read <a href="../week-7/#sending-collision-events">last week</a>'s blog, but our actual implementation now is a variation of having a collisions handler component. The collisions handler component, labeled <code>CollisionHandler</code>, holds the callbacks which other components can subscribe/unsubscribe from. Rather than the handler holding a list of collider pointers like suggested, the <code>Collider</code> component now holds a reference to the <code>CollisionHandler</code>. This is advantageous as compared to a list of colliders because, when checking intersections, the <code>CollisionModule</code> explicitly has <code>Collider</code> pointers, not <code>CollisionHandler</code> pointers. And in comparison with the solution proposed last week, where the list was publicly available for colliders to subscribe to, this system stops colliders that aren't on the same entity or its children from subscribing to the <code>CollisionHandler</code>. So no weird sibling-entity colliders. The <code>CollisionHandler</code>, when enabled, walks down the hierarchy tree looking for <code>Collider</code> and <code>CollisionHandler</code> components; when a <code>CollisionHandler</code> component is found, the depth-first search down that path of children is stopped, and in the case a <code>Collider</code> component is found, that collider's handler is assigned to be the collision handler that was just enabled. When the <code>CollisionHandler</code> is disabled, it walks up the tree to get a reference of some ancestor <code>CollisionHandler</code>, which is then assigned to the children colliders in the same fashion as we describe above for enabling.</p>
+<p>A couple of other decisions had to be made regarding the collision handling design, as well. When the <code>CollisionModule</code> is iterating through the list of colliders for intersection tests, it now needs to check the <code>CollisionHandler</code> for each collider because detecting collisions between colliders of the same handler seems like a bad day just waiting to happen! This also allows for child colliders to create a complex collision shape with only the basic primitives, which is a pretty neat benefit.</p>
+<p>While writing about this topic, our team actually broke out into an in-depth discussion about the behaviour when a collider's ancestors are changed. In the case that an entity above the root <code>CollisionHandler</code> (the collision handler that the collider has reference to) in the scene hierarchy was moved, no additional behaviour is needed because the collider reference to the collision handler remains unchanged. But in the case the handler isn't moved but the collider is, the collider now holds a reference to an invalid handler, one not in its ancestor tree! To fix this, we have a callback event for when a parent is changed, <code>OnHierarchyChanged</code>, that the <code>Collider</code> components subscribe to. When that event is fired, each of the colliders walks up the hierarchy tree looking for a <code>CollisionHandler</code> to store a reference of. We even got some early optimizations going with this solution, too: this process can be short circuited by also looking at <code>Collider</code>s while we're walking up the tree and using their reference to the <code>CollisionHandler</code> instead. This system is also still in development because it is tied with the event-messaging system.</p>
+<p><img alt="CollisionHandler" src="../../images/blogs/week-8/collision-handler.PNG" title="Collision Handler Entity" /></p>
+<h3 id="box-capsule-collisions-will-be-the-death-of-us">Box-Capsule Collisions Will be the Death of Us<a class="headerlink" href="#box-capsule-collisions-will-be-the-death-of-us" title="Permanent link">&para;</a></h3>
+<p>On another note, the box-capsule collision intersection test was iterated on this week. This particular test was by far the most complicated to rationalize in 3D, and is the scariest with regards to performance. All intersection tests were done geometrically rather than using an algorithm like GJK<sup id="fnref:1324"><a class="footnote-ref" href="#fn:1324" rel="footnote">4</a></sup>, which might have been a mistake on our part. Most of the intersection tests had readable/followable code, however some like box-box and box-capsule quickly became large and difficult to follow. By trying to brute-force the box-capsule test with geometry rather than with an algorithm (or maybe just a better understanding of the topic), we were only able to produce a intersection test that works when the capsule line-segment is perpendicular to at least one of the local axes of the box. If none of the three axes of the capsule line-segment are perpendicular to any of the local axes of the box, the test simply doesn't work. This was left as an exercise to the reader…well that's not really fair, but we decided that wasting additional time right now on this case isn't worth it, especially because we don't expect to have this case appear in our target game. It's pretty disappointing for us and you might write off this engine as unusable now (it took you <em>this</em> long to figure that out?), but because of strict time commitment we have to keep moving. It mostly works (see below!) and will work for our game, because the show must go on.</p>
+<div class="video-wrapper">
+
+<video playsinline autoplay muted loop>
+
+ <source src="../../images/blogs/week-8/box-capsule.webm" type="video/webm">
+
+Your browser does not support the video tag.
+
+</video>
+
+</div>
+
+<p><em>This was when we finally got the capsule with 2 non-perpendicular axes working!</em></p>
+<div class="video-wrapper">
+
+<video playsinline autoplay muted loop>
+
+ <source src="../../images/blogs/week-8/all-collisions.webm" type="video/webm">
+
+Your browser does not support the video tag.
+
+</video>
+
+</div>
+
+<h3 id="raycasting-functionality">Raycasting Functionality<a class="headerlink" href="#raycasting-functionality" title="Permanent link">&para;</a></h3>
+<p>The other system developed this week was raycasting. A benefit of doing this after the intersection testing was a lot of the code used in testing intersection was able to be reused for the raycasting system. Something that also arose from the raycasting system was the need of a way to convert a mouse click point (or any point on screen) to a ray, which got us sidetracked from actually adding in raycasting functionality! (Some <code>TODO</code>s for other features were also added to the <code>CameraComponent</code> that would be nice) This wasn't necessary in the basic sense, but it made testing the raycasting functionality much easier and is a nice feature that can be used in other places as well.</p>
+<div class="video-wrapper">
+
+<video playsinline autoplay muted loop>
+
+ <source src="../../images/blogs/week-8/raycasting.webm" type="video/webm">
+
+Your browser does not support the video tag.
+
+</video>
+
+</div>
+
+<h3 id="ignoring-collisions">Ignoring Collisions<a class="headerlink" href="#ignoring-collisions" title="Permanent link">&para;</a></h3>
+<p>The final feature we started working on this week regarding our collisions system was ignoring collisions and collision layers. Ignoring collisions was a straightforward addition to the <code>CollisionModule</code> by adding a hash set of collider pointers. The rationale of keeping the hash set on the <code>CollisionModule</code> versus the <code>Collider</code> components themselves was to avoid having to search on the components. Since we already have the pair, it is simpler to store on the module. We will also have a collision layer system used to allow groups of entities, or "layers", to ignore collisions of entities on another layer rather than having to specify and store collisions of all the other colliders. The actual implementation of layers is still in the works, so before we say too much more, we'll hold off for future weeks for additional updates.</p>
+<h3 id="wrap-up">Wrap-up<a class="headerlink" href="#wrap-up" title="Permanent link">&para;</a></h3>
+<p>This was the third week developing the collisions system, and the rationale to choose an existing collision/physics system is becoming more clear. This is a mentally complicated system which can have a serious impact on performance; it's not that just the math that has difficult and complicated parts, but the entire system that can be a complex mess (we are trying our best to avoid this). We can already tell that this system will require more profiling than other systems in the engine. We will be able to better tell once its integrated into our game—more to come in future weeks!</p>
+<h2 id="what-todo-to-die-today-at-a-minute-or-two-til-two">"What <a href="https://thatwritinglady.files.wordpress.com/2012/07/tongue-twisters1.pdf">TODO</a> to die today, at a minute or two 'til two"<a class="headerlink" href="#what-todo-to-die-today-at-a-minute-or-two-til-two" title="Permanent link">&para;</a></h2>
+<p>Well, we are over halfway through the project and have no plans on slowing (even if we are a <em>little</em>). We were talking as a team about how we are leaving a lot of work behind to keep things moving forward, sticking with the motto: If we don't need it now, don't do it now. At some point, we are going to need to go back and revisit our <code>TODO</code>s and fix/clean things up as well as add that functionality because why not. Some <code>TODO</code>s are naturally getting resolved because we needed the functionality, whereas others, as you will see, aren't. We did a <code>grep</code><sup id="fnref:239402"><a class="footnote-ref" href="#fn:239402" rel="footnote">5</a></sup> for <code>TODO</code>s to see how much we are going to have to do later. Here are the stats:</p>
+<p><img alt="TODO Count" src="../../images/blogs/week-8/todo-count.png" title="TODO Count" /></p>
+<p>We also did some lines-of-code analysis for a recent presentation, and we have to say, the numbers aren't too shabby:</p>
+<p><img alt="Total Count" src="../../images/blogs/week-8/total-code-count.png" title="Code Count" /></p>
+<p>...well, this is if you also take in the external libraries. It looks a lot more like an actual engine when you consider this much code. Ours looks a little more like this:</p>
+<p><img alt="Our Count" src="../../images/blogs/week-8/our-code-count.png" title="Our Count" /></p>
+<p>There, that's a little more accurate. We have to admit, 15,000 lines of code isn't all that many for eight weeks, but what's more remarkable about this number is that <em>this is actually an appropriate amount for a legitimate game engine</em>. Like, one that could be used by an indie studio. A pretty significant chunk of what happens in commercial engines nowadays is external libraries and software, and there isn't an exception at the smaller scale. So if you're ever wondering if you should be "writing your own engine" when you want to make a game, or just go and use Unity again: Maybe give brewing one up a shot!</p>
+<h2 id="patch-notes">Patch Notes<a class="headerlink" href="#patch-notes" title="Permanent link">&para;</a></h2>
+<h3 id="exiting-the-engine-loop">Exiting the Engine Loop<a class="headerlink" href="#exiting-the-engine-loop" title="Permanent link">&para;</a></h3>
+<p>Inside of our engine loop, we hard-code an input binding of the Escape key to setting an <code>isGameRunning</code> flag to <code>false</code>. This allows us to exit games by simply hitting the Escape key. However, this also means that if we remove the InputModule from our engine (or possibly even change it), our engine crashes immediately! (And more importantly, the game developer is stuck with an Escape key that exits their game)</p>
+<p>We removed that hardcoding and obviously found ourselves unable to close any of our games. We anticipated that would happen. But what we didn't anticipate is that the we didn't have any interface for closing our games via the game developer code, and that's a bit of a problem. The solution was straightforward: Add some functionality that the game developer can use for shutting down the engine loop. But as programmers, it's often not the solution that we debate about—it's the implementation.</p>
+<p>We had a heated debate about the architecture of our engine loop exit interface, in which we covered two options. Option #1 was to make <code>EngineLoop</code> a singleton with a twist; the singleton would not be given to anyone but the first thing that asked for it. Anything that requested the singleton after the first access would receive nothing, almost like a "first-come first-serve" methodology. Option #2 was to make <code>EngineLoop</code> a globally accessible singleton<sup id="fnref:23842"><a class="footnote-ref" href="#fn:23842" rel="footnote">6</a></sup>, but do validation checks against the functions being run like <code>Start</code> in order to prevent the user from double-starting the engine.</p>
+<p>To go beyond a simple static singleton class, we added another layer of separation to the problem. You see, our engine developers (i.e. us) need straight-to-the-source access to information about our engine loop. But our game developers (i.e. also us but with arbitrary restrictions) should only have a limited range of "engine-level" control, such as starting the entire engine and shutting it down. So following <a href="https://docs.unity3d.com/ScriptReference/Application.Quit.html">Unity </a>and <a href="http://api.unrealengine.com/INT/API/Runtime/Engine/Kismet/UKismetSystemLibrary/QuitGame/index.html">Unreal</a>'s examples, we created a class <code>Application</code> that has static class functions for this game developer functionality. We then chose Option #2 for our <code>EngineLoop</code>'s implementation due to the fact that running a DLL's main function is much more annoying than just exposing some "start" function in that DLL's header files.</p>
+<h3 id="hunting-memory-leaks">Hunting Memory Leaks<a class="headerlink" href="#hunting-memory-leaks" title="Permanent link">&para;</a></h3>
+<p>Our project has had a small chunk of persistent memory leaks for the past couple of weeks. We never bothered to suss them out due to being too busy with other parts of the project, but recently we gained a bit of time to investigate the issue. Our most recent memory leak patch involved some new learnings about how our memory management system was freeing memory—that is, our memory allocator only <em>frees</em> the memory you tell it to free, it does <em>not</em> call the destructor. So anything in our system that allocates memory within itself needs to be destructed before the memory is freed, otherwise those inner memory allocations will never be released!</p>
+<blockquote>
+<p>This could have been fixed by making the memory freeing function a template function, but even in our template frenzy, we could recognize that that would balloon our compile time astronomically, so we decided to just be explicit about object destruction instead.</p>
+</blockquote>
+<p>And so, we began our hunt for memory leaks as one typically does: by pulling systems out of our engine until a memory leak disappears! This was actually very effective to a point, and it even got us to realize that we had an insufficient engine exiting scheme, which you can <a href="#exiting-the-engine-loop">read above</a>. We found that upon exiting a level, the <code>Level</code> object was not getting destructed, and within that <code>Level</code> object, we also have a <code>levelRoot</code> object for the uppermost transform in the scene graph hierarchy that was also not getting destructed. That cleared up most of our memory leaks, but there were still a couple left.</p>
+<p>Via more extracting of systems in our engine, we discovered that our networking module contained the rest of our memory leaks. The first chunk was straightforward to fix; we simply didn't destruct our custom networking allocators (used by our networking library) before shutting down <code>NetworkingModule</code>. But we still had 80 bytes of memory leak going on <em>somewhere</em>, and we couldn't find out where. Our code was clean, as far as we could tell.</p>
+<p>Well, it actually was. The memory leak was found within our networking library <a href="https://github.com/networkprotocol/yojimbo">yojimbo</a>, and in the most ironic place possible: yojimbo has memory leak detection functionality, and enabling it caused the memory leak. That functionality has not been useful to us yet, and the fact that it actually caused a problem made it pretty easy to just disable it permanently and rely on our own devices. So we learned a pretty important lesson that day—the programmers behind your libraries aren't perfect either!</p>
+<h2 id="coming-soon">Coming Soon<a class="headerlink" href="#coming-soon" title="Permanent link">&para;</a></h2>
+<p>We just released our interview with <a href="../../interviews/ArasPranckevicius-interview/">Aras Pranckevicius</a>, where we had a great talk about the history and design of the Unity game engine.</p>
+<p>This past week we interviewed with <a href="../../interviews/JeffPreshing-interview/">Jeff Preshing</a> (<a href="https://twitter.com/preshing">@wadarass</a> and talked about some key skills for engine developers, so keep your eye out for that and the other interviews coming soon.</p>
+<h2 id="resources"><a href="../../resources/">Resources</a><a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
+<p>From development we are acquiring a lot of great resources from where we learned certain topics, and as much as we try to synthesize things in our blogs you may be interested in the originals, which is why we have a page full of links for you to browse.</p>
+<p><em>Originally Published October 26, 2018.</em></p>
+<p><br></p>
+<!-- Begin MailChimp Signup Form -->
+
+<p><link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+<div id="mc_embed_signup" style="margin-top: -20px">
+    <form action="https://isetta.us19.list-manage.com/subscribe/post?u=1d83cb806c55e205be26db856&amp;id=860c7d79cf" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+            <h3>Subscribe to our mailing list</h3>
+            <p style="margin-bottom: -22px;">Get notifications about the upcoming blogs and interviews!</p>
+            <br><br>
+            <div class="mc-field-group">
+                <label for="mce-EMAIL"> </label>
+                <input type="email" placeholder="Email Address..." name="EMAIL" class="required email" id="mce-EMAIL">
+            </div>
+            <div id="mce-responses" class="clear">
+                <div class="response" id="mce-error-response" style="display:none"></div>
+                <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <input type="text" name="b_1d83cb806c55e205be26db856_860c7d79cf" tabindex="-1" value="">
+            </div>
+            <div class="clear" id="submit-button">
+                <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+            </div>
+        </div>
+    </form>
+</div>
+<!--End mc_embed_signup--></p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:8383">
+<p>A <strong>key-value map</strong> (or a dictionary) is an abstract data type composed of a collection of (key, value) pairs.&#160;<a class="footnote-backref" href="#fnref:8383" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:9583">
+<p>Since <code>typeid()</code> doesn't work with incomplete classes, we had to declare this function first in the class and define it after the component class is completed.&#160;<a class="footnote-backref" href="#fnref:9583" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:65">
+<p>The <strong>broad-phase</strong> detection is performed by constructing a tree of simple primitives (either sphere or box) where the complex collider shapes are simplified into these shapes. Then iterating through these checks to determine if the simple shapes are colliding (this is a quicker calculation). The <strong>narrow-phase</strong> happens after the broad phase by checking the exact shape of the collider which are typically more complex shapes, such as capsules and object-bounding boxes (obb).&#160;<a class="footnote-backref" href="#fnref:65" rev="footnote" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:1324">
+<p>Gilbert-Johnson-Keerthi (<strong>GJK</strong>) is a distance algorithm method of determing the minimum distance between convex sets. It is used heavily in collision detection systems. <a href="https://twitter.com/cmuratori?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">Casey Muratori</a> has a great blog on <a href="https://caseymuratori.com/blog_0003">Implementing GJK</a>.&#160;<a class="footnote-backref" href="#fnref:1324" rev="footnote" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:239402">
+<p><strong>grep</strong> is a command-line utility for searching plain-text data sets for lines that match a regular expression. Very useful for searching an entire codebase for certain things.&#160;<a class="footnote-backref" href="#fnref:239402" rev="footnote" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:23842">
+<p>The <strong>singleton pattern</strong> is a software design pattern that restricts the instantiation of a class to one object. This is useful when exactly one object is needed to coordinate actions across the system.&#160;<a class="footnote-backref" href="#fnref:23842" rev="footnote" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+                
+                  
+                
+              
+              
+                
+
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://isetta.io/blogs/week-8/";
+      this.page.identifier =
+        "blogs/week-8/";
+    };
+    (function() {
+      var d = document, s = d.createElement("script");
+      s.src = "//isetta-engine.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../week-7/" title="[Week 7] A Real Game Engine" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                [Week 7] A Real Game Engine
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../week-9/" title="[Week 9] Hello from the West Coast" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                [Week 9] Hello from the West Coast
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2019 Isetta Team
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.css">
+    
+      <a href="mailto:isetta.engine@gmail.com" class="md-footer-social__link fa fa-envelope"></a>
+    
+      <a href="https://twitter.com/IsettaEngine" class="md-footer-social__link fa fa-twitter"></a>
+    
+      <a href="https://github.com/Isetta-Team" class="md-footer-social__link fa fa-github"></a>
+    
+  </div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      
+      <script>app.initialize({version:"1.0.2",url:{base:"../.."}})</script>
+      
+        <script src="../../extra.js"></script>
+      
+    
+    
+      
+        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-124729724-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      
+    
+  </body>
+</html>

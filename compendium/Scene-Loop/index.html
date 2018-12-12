@@ -1,0 +1,2396 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="We are making a game engine and documenting the process">
+      
+      
+        <link rel="canonical" href="https://isetta.io/compendium/Scene-Loop/">
+      
+      
+        <meta name="author" content="Caleb, Chaojie, Jacob, Jared, Yidi">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../images/isetta_icon.ico">
+      <meta name="generator" content="mkdocs-1.0.2, mkdocs-material-3.0.3">
+    
+    
+      
+        <title>Scene & Engine Loop - Isetta Engine</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Source+Code+Pro">
+        <style>body,input{font-family:"Lato","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Source Code Pro","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="../../extra.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="light-blue" data-md-color-accent="cyan">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../../#scene-engine-loop" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <!--
+  Copyright (c) 2016-2018 Martin Donath <martin.donath@squidfunk.com>
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Application header -->
+<header class="md-header" data-md-component="header">
+
+  <!-- Top-level navigation -->
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+
+      <!-- Link to home -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://isetta.io/" title="Isetta Engine" class="md-header-nav__button md-logo">
+          
+          <img id="isetta-logo" src="../../images/isetta_logo.png" width="24" height="24" />
+          
+        </a>
+      </div>
+
+      <!-- Button to toggle drawer -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+
+      <!-- Header title -->
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+          
+          <span class="md-header-nav__topic back_to_top cursor_pointer">
+            Isetta Engine
+          </span>
+          <span class="md-header-nav__topic back_to_top cursor_pointer">
+            Scene & Engine Loop
+            <span style="padding-left: 10px;">⇫</span>
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <!-- Button to open search dialogue -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+        
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+
+        <!-- Search interface -->
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+        
+      </div>
+
+      <!-- Repository containing source -->
+      
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <div class="md-header-nav__source">
+          
+
+
+  
+
+
+  <a href="https://github.com/Isetta-Team/Isetta-Engine" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      Isetta Engine
+    </div>
+  </a>
+
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Tabs with outline
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../" title="Compendium" class="md-tabs__link md-tabs__link--active">
+          Compendium
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../blogs/week-0/" title="Blogs" class="md-tabs__link">
+          Blogs
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../interviews/" title="Interviews" class="md-tabs__link">
+          Interviews
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../engine_docs/home/" title="Usage" class="md-tabs__link">
+          Usage
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+       -->
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../" title="Compendium" class="md-tabs__link md-tabs__link--active">
+          Compendium
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../blogs/week-0/" title="Blogs" class="md-tabs__link">
+          Blogs
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../interviews/" title="Interviews" class="md-tabs__link">
+          Interviews
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../engine_docs/home/" title="Usage" class="md-tabs__link">
+          Usage
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://isetta.io/" title="Isetta Engine" class="md-nav__button md-logo">
+      
+        <img src="../../images/isetta_logo.png" width="48" height="48">
+      
+    </a>
+    Isetta Engine
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/Isetta-Team/Isetta-Engine" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      Isetta Engine
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../about/" title="About" class="md-nav__link">
+      About
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../team/" title="Team" class="md-nav__link">
+      Team
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../schedule/" title="Schedule" class="md-nav__link">
+      Schedule
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../resources/" title="Resources" class="md-nav__link">
+      Resources
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../glossary/" title="Glossary" class="md-nav__link">
+      Glossary
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../faq/" title="FAQ" class="md-nav__link">
+      FAQ
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8" checked>
+    
+    <label class="md-nav__link" for="nav-8">
+      Compendium
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Compendium
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2" type="checkbox" id="nav-8-2">
+    
+    <label class="md-nav__link" for="nav-8-2">
+      Engine Postmortem
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-8-2">
+        Engine Postmortem
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-1" type="checkbox" id="nav-8-2-1">
+    
+    <label class="md-nav__link" for="nav-8-2-1">
+      Lessons
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-1">
+        Lessons
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/BuildGames/" title="Build Games with Your Game Engine" class="md-nav__link">
+      Build Games with Your Game Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/RubberduckDeveloping/" title="Rubberduck Developing: Forced Explanation" class="md-nav__link">
+      Rubberduck Developing: Forced Explanation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/ItsNotThatHard/" title="It's Not That Hard" class="md-nav__link">
+      It's Not That Hard
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-2" type="checkbox" id="nav-8-2-2">
+    
+    <label class="md-nav__link" for="nav-8-2-2">
+      What went right
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-2">
+        What went right
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/HostingGameJam/" title="Hosting a Game Jam" class="md-nav__link">
+      Hosting a Game Jam
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/NoviceTeam/" title="Having a Team of Novices" class="md-nav__link">
+      Having a Team of Novices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/LeveragingProfessionals/" title="Leveraging Professionals for Input" class="md-nav__link">
+      Leveraging Professionals for Input
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-3" type="checkbox" id="nav-8-2-3">
+    
+    <label class="md-nav__link" for="nav-8-2-3">
+      What went wrong
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-3">
+        What went wrong
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/QuestionsForProfessionals/" title="Questions for the Professionals" class="md-nav__link">
+      Questions for the Professionals
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/SoftwareDevelopment/" title="Basic Software Development Practices" class="md-nav__link">
+      Basic Software Development Practices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/Crunch/" title="Crunch is Bad" class="md-nav__link">
+      Crunch is Bad
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../3rdParty/" title="3rd Party" class="md-nav__link">
+      3rd Party
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Build-ResourceManagement/" title="Build & Resource Management" class="md-nav__link">
+      Build & Resource Management
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Collisions/" title="Collisions" class="md-nav__link">
+      Collisions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Gameplay/" title="Gameplay" class="md-nav__link">
+      Gameplay
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Interviews/" title="Interviews" class="md-nav__link">
+      Interviews
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Memory/" title="Memory" class="md-nav__link">
+      Memory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Networking/" title="Networking" class="md-nav__link">
+      Networking
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Other/" title="Other Topics" class="md-nav__link">
+      Other Topics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Scene & Engine Loop
+      </label>
+    
+    <a href="./" title="Scene & Engine Loop" class="md-nav__link md-nav__link--active">
+      Scene & Engine Loop
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#timeline" title="Timeline" class="md-nav__link">
+    Timeline
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#week-0" title="Week 0" class="md-nav__link">
+    Week 0
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-3" title="Week 3" class="md-nav__link">
+    Week 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-5" title="Week 5" class="md-nav__link">
+    Week 5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-6" title="Week 6" class="md-nav__link">
+    Week 6
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-8" title="Week 8" class="md-nav__link">
+    Week 8
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-9" title="Week 9" class="md-nav__link">
+    Week 9
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-10" title="Week 10" class="md-nav__link">
+    Week 10
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-11" title="Week 11" class="md-nav__link">
+    Week 11
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-12" title="Week 12" class="md-nav__link">
+    Week 12
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-13" title="Week 13" class="md-nav__link">
+    Week 13
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relevant-interviews" title="Relevant Interviews" class="md-nav__link">
+    Relevant Interviews
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#martin-middleton" title="Martin Middleton" class="md-nav__link">
+    Martin Middleton
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#amandine-coget" title="Amandine Coget" class="md-nav__link">
+    Amandine Coget
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postmortem" title="Postmortem" class="md-nav__link">
+    Postmortem
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+        <li class="md-nav__item">
+          <a href="#__comments" title="Comments" class="md-nav__link md-nav__link--active">
+            Comments
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Tools/" title="Tools" class="md-nav__link">
+      Tools
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
+    
+    <label class="md-nav__link" for="nav-9">
+      Blogs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        Blogs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../blogs/week-0/" title="[Week 0] Preparation" class="md-nav__link">
+      [Week 0] Preparation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../blogs/week-1/" title="[Week 1] The Building Blocks" class="md-nav__link">
+      [Week 1] The Building Blocks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../blogs/engine-architecture/" title="Engine Architecture" class="md-nav__link">
+      Engine Architecture
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../blogs/week-2/" title="[Week 2] Ramping Up" class="md-nav__link">
+      [Week 2] Ramping Up
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../blogs/week-3/" title="[Week 3] "Completing" the Core" class="md-nav__link">
+      [Week 3] "Completing" the Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../blogs/week-4/" title="[Week 4] Buried in Comments" class="md-nav__link">
+      [Week 4] Buried in Comments
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../blogs/week-5/" title="[Week 5] Back in Business" class="md-nav__link">
+      [Week 5] Back in Business
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../blogs/week-6/" title="[Week 6] We Think It's Playable" class="md-nav__link">
+      [Week 6] We Think It's Playable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../blogs/week-7/" title="[Week 7] A Real Game Engine" class="md-nav__link">
+      [Week 7] A Real Game Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../blogs/week-8/" title="[Week 8] Patching Holes" class="md-nav__link">
+      [Week 8] Patching Holes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../blogs/week-9/" title="[Week 9] Hello from the West Coast" class="md-nav__link">
+      [Week 9] Hello from the West Coast
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../blogs/week-10/" title="[Week 10] Grab A Bucket" class="md-nav__link">
+      [Week 10] Grab A Bucket
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../blogs/week-11/" title="[Week 11] The One Where the Team Picks a Font" class="md-nav__link">
+      [Week 11] The One Where the Team Picks a Font
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../blogs/week-12/" title="[Week 12] Getting Ready for Game Jam!" class="md-nav__link">
+      [Week 12] Getting Ready for Game Jam!
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../blogs/week-13/" title="[Week 13] Is This a Game Engine?" class="md-nav__link">
+      [Week 13] Is This a Game Engine?
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../blogs/week-14/" title="[Week 14] The Last Blog." class="md-nav__link">
+      [Week 14] The Last Blog.
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
+    
+    <label class="md-nav__link" for="nav-10">
+      Interviews
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-10">
+        Interviews
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-2" type="checkbox" id="nav-10-2">
+    
+    <label class="md-nav__link" for="nav-10-2">
+      Elan Ruskin
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-2">
+        Elan Ruskin
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ElanRuskin-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ElanRuskin-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-3" type="checkbox" id="nav-10-3">
+    
+    <label class="md-nav__link" for="nav-10-3">
+      Shanee Nishry
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-3">
+        Shanee Nishry
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ShaneeNishry-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ShaneeNishry-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-4" type="checkbox" id="nav-10-4">
+    
+    <label class="md-nav__link" for="nav-10-4">
+      Jeff Preshing
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-4">
+        Jeff Preshing
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JeffPreshing-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JeffPreshing-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/MartinMiddleton-interview/" title="Martin Middleton" class="md-nav__link">
+      Martin Middleton
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-6" type="checkbox" id="nav-10-6">
+    
+    <label class="md-nav__link" for="nav-10-6">
+      Raymond Graham
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-6">
+        Raymond Graham
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/RaymondGraham-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/RaymondGraham-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-7" type="checkbox" id="nav-10-7">
+    
+    <label class="md-nav__link" for="nav-10-7">
+      Aras Pranckevicius
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-7">
+        Aras Pranckevicius
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ArasPranckevicius-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ArasPranckevicius-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-8" type="checkbox" id="nav-10-8">
+    
+    <label class="md-nav__link" for="nav-10-8">
+      Amandine Coget
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-8">
+        Amandine Coget
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmandineCoget-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmandineCoget-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-9" type="checkbox" id="nav-10-9">
+    
+    <label class="md-nav__link" for="nav-10-9">
+      Tommy Refenes
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-9">
+        Tommy Refenes
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/TommyRefenes-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/TommyRefenes-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-10" type="checkbox" id="nav-10-10">
+    
+    <label class="md-nav__link" for="nav-10-10">
+      Casey Muratori
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-10">
+        Casey Muratori
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-hmh-video/" title="Video Interview" class="md-nav__link">
+      Video Interview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-11" type="checkbox" id="nav-10-11">
+    
+    <label class="md-nav__link" for="nav-10-11">
+      Adam Serdar
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-11">
+        Adam Serdar
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AdamSerdar-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AdamSerdar-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-12" type="checkbox" id="nav-10-12">
+    
+    <label class="md-nav__link" for="nav-10-12">
+      Summarized Advice
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-12">
+        Summarized Advice
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AliceChing-advice/" title="Alice Ching" class="md-nav__link">
+      Alice Ching
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmitRob-advice/" title="Amit Patel & Rob Shillingsburg" class="md-nav__link">
+      Amit Patel & Rob Shillingsburg
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JasonGregory-advice/" title="Jason Gregory" class="md-nav__link">
+      Jason Gregory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/OliverFranzke-advice/" title="Oliver Franzke" class="md-nav__link">
+      Oliver Franzke
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/WaltDestler-advice/" title="Walt Destler" class="md-nav__link">
+      Walt Destler
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-11" type="checkbox" id="nav-11">
+    
+    <label class="md-nav__link" for="nav-11">
+      Usage
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-11">
+        Usage
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/home/" title="FAQs" class="md-nav__link">
+      FAQs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/basics/" title="Basics" class="md-nav__link">
+      Basics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/level/" title="Level" class="md-nav__link">
+      Level
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/entity/" title="Entity/Transform" class="md-nav__link">
+      Entity/Transform
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/component/" title="Component" class="md-nav__link">
+      Component
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/graphics/" title="Graphics" class="md-nav__link">
+      Graphics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/input/" title="Input" class="md-nav__link">
+      Input
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/debug_logging/" title="Debug Logging" class="md-nav__link">
+      Debug Logging
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/debug_draw/" title="Debug Draw" class="md-nav__link">
+      Debug Draw
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/gui/" title="GUI" class="md-nav__link">
+      GUI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/audio/" title="Audio" class="md-nav__link">
+      Audio
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/collisions/" title="Collisions" class="md-nav__link">
+      Collisions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/networking/" title="Networking" class="md-nav__link">
+      Networking
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#timeline" title="Timeline" class="md-nav__link">
+    Timeline
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#week-0" title="Week 0" class="md-nav__link">
+    Week 0
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-3" title="Week 3" class="md-nav__link">
+    Week 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-5" title="Week 5" class="md-nav__link">
+    Week 5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-6" title="Week 6" class="md-nav__link">
+    Week 6
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-8" title="Week 8" class="md-nav__link">
+    Week 8
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-9" title="Week 9" class="md-nav__link">
+    Week 9
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-10" title="Week 10" class="md-nav__link">
+    Week 10
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-11" title="Week 11" class="md-nav__link">
+    Week 11
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-12" title="Week 12" class="md-nav__link">
+    Week 12
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-13" title="Week 13" class="md-nav__link">
+    Week 13
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relevant-interviews" title="Relevant Interviews" class="md-nav__link">
+    Relevant Interviews
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#martin-middleton" title="Martin Middleton" class="md-nav__link">
+    Martin Middleton
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#amandine-coget" title="Amandine Coget" class="md-nav__link">
+    Amandine Coget
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postmortem" title="Postmortem" class="md-nav__link">
+    Postmortem
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+        <li class="md-nav__item">
+          <a href="#__comments" title="Comments" class="md-nav__link md-nav__link--active">
+            Comments
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="scene-engine-loop">Scene &amp; Engine Loop<a class="headerlink" href="#scene-engine-loop" title="Permanent link">&para;</a></h1>
+<h2 id="timeline">Timeline<a class="headerlink" href="#timeline" title="Permanent link">&para;</a></h2>
+<h3 id="week-0">Week 0<a class="headerlink" href="#week-0" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../../blogs/week-1/#module-manager">Module Manager</a>: To control the start-up and shut-down sequences with all of our engine's modules, we created a module manager. We also had a lengthy discussion on its design.</li>
+</ul>
+<h3 id="week-3">Week 3<a class="headerlink" href="#week-3" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../../blogs/week-3/#engine-loop">Engine Loop</a>: We discussed the merits of different simulation timings within a game engine loop, and then determined on a "best of both worlds" method for running a variable timestep update (for things like rendering) and a fixed timestep update (for things like networking).</li>
+<li><a href="../../blogs/week-3/#timer">Timer</a>: We created a clock class to support multiple clocks in-engine and a stopwatch class to record time, which is definitely useful for our engine loop.</li>
+</ul>
+<h3 id="week-5">Week 5<a class="headerlink" href="#week-5" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../../blogs/week-5/#goodbye-module-manager">Module Manager Say Goodbye</a>: We discovered that our module manager was adding more work than it was taking away, and with more systems coming into the mix, it had to go. This also allowed us to refactor some of our engine's update API.</li>
+<li><a href="../../blogs/week-5/#scene-graph-object-model">Scene Graph: Data-Oriented or Object-Oriented?</a>: Before developing our scene graph, we compared <a href="../../blogs/week-5/#its-all-in-the-data">data-oriented designs</a> for it against <a href="../../blogs/week-5/#to-oop-or-not-to-oop">object-oriented designs</a>. Our decision? A little bit of both!</li>
+<li>Patch Notes:<ul>
+<li><a href="../../blogs/week-5/#explicit-startup-update-shutdown">Explicit StartUp, Update, ShutDown in the Engine Loop</a>: We hit our first "systemic" bug with a bad merge shutting down a module twice, and we were able to notice it almost immediately because of our engine loop's design.</li>
+</ul>
+</li>
+</ul>
+<h3 id="week-6">Week 6<a class="headerlink" href="#week-6" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../../blogs/week-6/#level-scene-graph">Level, a.k.a. Our Scene Graph</a>: Our scene graph was designed to be Level-Entity-Component, which would allow us to reason about our game's object hierarchy more easily than a data-oriented approach. We wanted <a href="../../blogs/week-6/#loading-a-level">loading levels</a> to be as painless as possible for both us and the game developer, so we decided on a C++ level definition system that utilizes some <a href="../../blogs/week-6/#template-black-magic">templating reflection magic</a> to register levels to allow loading via user-defined C++ classes.</li>
+<li><a href="../../blogs/week-6/#transform">Transform, a.k.a. ...Transform</a>: Our transform hierarchy also began to take shape, which needed to support translation, rotation, and scale in a hierarchical (i.e. parented) fashion. <a href="../../blogs/week-6/#the-functionality">Functionally</a>, we needed our transforms to behave just like all other transform in game engines, but we also needed to <a href="../../blogs/week-6/#the-dirty-flag">optimize our matrix calculations</a> to prevent large, complex scenes from hitting our performance hard. We also decided to <a href="../../blogs/week-6/#the-one-who-owns-all-children">give the hierarchy</a> over to the <code>Transform</code> instead of our <code>Entity</code> class, and then we wrapped up our first pass with a <a href="../../blogs/week-6/#the-small-step">flyby camera implementation</a>!</li>
+</ul>
+<h3 id="week-8">Week 8<a class="headerlink" href="#week-8" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../../blogs/week-8/#component-registry">Components Inheriting Components</a>: Some of our components, such as our <code>Collider</code> components, inherit from some base class that makes organization and functionality easier, so we needed to be able to get any of such subclass objects with a single <code>GetComponent</code> call. We tried our previous <a href="../../blogs/week-8/#first-try-another-registration-pattern">registration pattern</a> and <a href="../../blogs/week-8/#second-try-manual-template-specialization">manual template specialization</a>, but the solution came about from using a <a href="../../blogs/week-8/#third-try-introducing-dummy-template-parameter">dummy template parameter</a> to partially specialize the components, which would allow for a very clean API and a nice inheritance-friendly component system!</li>
+<li>Patch Notes:<ul>
+<li><a href="../../blogs/week-8/#exiting-the-engine-loop">Exiting the Engine Loop</a>: To escape our engine loop, we hardcoded the Escape key to exit the engine. This upset some of us, which triggered a bigger discussion over the engine's startup and shutdown API. We investigated some options for making <code>EngineLoop</code> more usable for the game developer, and we finally created an <code>Application</code> static class that would purely be an interface for the user.</li>
+</ul>
+</li>
+</ul>
+<h3 id="week-9">Week 9<a class="headerlink" href="#week-9" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../../blogs/week-9/#components">More Component Features!</a>: As we built out more of the engine to high-level features, we realized that our component system was still lacking several features. An <a href="../../blogs/week-9/#awake-myth"><code>Awake</code> function was implemented</a> to allow same-frame component initialization, our <a href="../../blogs/week-9/#preprocessing-the-component-hierarchy-tree">component hierarchy was optimized</a> by preprocessing it to reduce lookup time, and we added a <a href="../../blogs/week-9/#checking-components-uniqueness">uniqueness check</a> for components that really are unique butterflies.</li>
+</ul>
+<h3 id="week-10">Week 10<a class="headerlink" href="#week-10" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Patch Notes:<ul>
+<li><a href="../../blogs/week-10/#initialization-timing-and-memory-management">Initialization Timing with Memory Management</a>: We began using our memory manager for even static variables, which posed a problem because static initialization happens before our system startup! So we made some decisions to reorganize our systems to properly abide by the initialization sequence.</li>
+</ul>
+</li>
+</ul>
+<h3 id="week-11">Week 11<a class="headerlink" href="#week-11" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../../blogs/week-11/#level-loading">Level Loading</a>: Loading a level at startup was already a solved problem, but now we needed to load from one level to another. We were prepared to implement this feature, but we found many bugs from assumptions that we were not unloading or reinitializing certain systems upon loading another level.</li>
+</ul>
+<h3 id="week-12">Week 12<a class="headerlink" href="#week-12" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Patch Notes:<ul>
+<li><a href="../../blogs/week-12/#api-design-improvements">API Design Improvements in Level, Transform, Entity and Component</a>: With our game jam approaching, we revisited our API design for our most basic engine classes. This included our <code>Component</code>, <code>Transform</code>, <code>Entity</code>, and <code>Level</code> classes along with their creation and access methods, and we ended up doing more than one project refactor over the entire process!</li>
+</ul>
+</li>
+</ul>
+<h3 id="week-13">Week 13<a class="headerlink" href="#week-13" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../../blogs/week-13/#static-entities">Static Entities Get Stuck</a>: Static entities within our game engine have had a trickle of features be built onto them, and at this point, we added static transforms. Unfortunately, this immediately prevented us from moving any static entities from the origin because that's where they get instantiated! So we redefined "static" to mean after the level finishes loading to fix this problem.</li>
+<li><a href="../../blogs/week-13/#revisiting-transform-in-the-component-class">Revisiting <code>transform</code> in <code>Component</code> The Class</a>: We originally used static <code>transform</code> and <code>entity</code> objects for our component initialization, but this felt very gross, so we casted the const-ness out of our variables in order to get the same functionality (which felt gross, but necessary for the time being).</li>
+</ul>
+<h2 id="relevant-interviews">Relevant Interviews<a class="headerlink" href="#relevant-interviews" title="Permanent link">&para;</a></h2>
+<h3 id="martin-middleton">Martin Middleton<a class="headerlink" href="#martin-middleton" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../../interviews/MartinMiddleton-interview/#engines-should-guide-games-not-direct-them">Engines Should Guide Games, Not Direct Them</a></li>
+<li><a href="../../interviews/MartinMiddleton-interview/#custom-entity-system-in-unity">Custom Entity System in Unity</a></li>
+</ul>
+<h3 id="amandine-coget">Amandine Coget<a class="headerlink" href="#amandine-coget" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../../interviews/AmandineCoget-interview/#gui-immediate-vs-retained-modes">GUI: Immediate vs Retained Modes</a></li>
+</ul>
+<h2 id="postmortem">Postmortem<a class="headerlink" href="#postmortem" title="Permanent link">&para;</a></h2>
+<p><strong>Your transform class will be used everywhere, for better or for worse.</strong> When we began our development, we knew that the scene hierarchy of the engine would be important, but we thought of that more as an architectural and design importance across the whole hierarchy. In reality, how you lay out the data is really what impacts the rest of your development. Our team had many debates about where certain attributes should exist—our transforms, our entities, our components, or elsewhere—and those debates spanned many domains, including API design, data-oriented programming, and pure convenience. There's no silver bullet for this decision, so we ended up choosing what was most convenient for our short timeline: Packing the transform class with most of our necessary scene data. Because we decided on this, we were able to move on quickly and implement very scene-dependent features like collisions early on. The longer you debate about a decision like this, the more refactoring you'll have to do elsewhere.</p>
+<p><strong>Templates are pretty magical, but the sacrifice is real.</strong> We knew coming into the project that templates are quite the issue in the realm of game programming, and we wanted to avoid them whenever possible. The reality, however, is that programming without templates tends to take a lot more time and care unless you are programming monolithic systems, which has its own slew of problems. We ended up using templates throughout our engine by the end of development, and we did genuinely benefit from it: Our development was greatly simplified, and it enabled our levels and components to register themselves into our engine painlessly and without some heavy RTTI system. However, also by the end of development, our engine would take a good three-plus minutes to build a single configuration for, and we when we were iterating heavily this would burn us pretty bad. Templates also mask exceptions since the code doesn't have too much to infer from, and in heavily used systems like components, debugging becomes impossible without prior knowledge.</p>
+<p>The best advice we can give is that templates are capable of wondrous things, but after you've seen what they can do, try to replace them with a non-templated version and see how you fair with that. Some teams are able to keep sane build times because they're not just smart about they do with the code, but also what they put into the code.</p>
+<p><strong>More things to know:</strong></p>
+<ul>
+<li>Your scene hierarchy is where most of your matrix math bugs will pop up, and you should be <em>very</em> wary of its robustness until you have at least a few systems that have proven the scene hierarchy to be stable and accurate.</li>
+<li>The memory layout of your entities and components can boost performance. We originally used pointers for our entity-component architecture, but after switching to a pooled entity system, we saw a 40% increase in performance.</li>
+<li>Implementing a variable-and-fixed-update engine is not too difficult in theory, but tends to be tricky in practice. Ours has a catch-up mechanism for the fixed update that doesn't prevent frames from being dropped but rather <em>increases</em> the frame drops caused! But this doesn't get to be an issue until you're really pushing the performance of your engine, so don't worry about it at the start.</li>
+<li>Some component features are not used as much as you might think they will be, and others <em>shouldn't</em> be used as much as you think they should. For instance, we can restrict a component to being unique on an entity in our engine, but that's only specifically necessary for our collision handling system. In all other cases, it slows down performance!</li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://isetta.io/compendium/Scene-Loop/";
+      this.page.identifier =
+        "compendium/Scene-Loop/";
+    };
+    (function() {
+      var d = document, s = d.createElement("script");
+      s.src = "//isetta-engine.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../Other/" title="Other Topics" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Other Topics
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../Tools/" title="Tools" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Tools
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2019 Isetta Team
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.css">
+    
+      <a href="mailto:isetta.engine@gmail.com" class="md-footer-social__link fa fa-envelope"></a>
+    
+      <a href="https://twitter.com/IsettaEngine" class="md-footer-social__link fa fa-twitter"></a>
+    
+      <a href="https://github.com/Isetta-Team" class="md-footer-social__link fa fa-github"></a>
+    
+  </div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      
+      <script>app.initialize({version:"1.0.2",url:{base:"../.."}})</script>
+      
+        <script src="../../extra.js"></script>
+      
+    
+    
+      
+        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-124729724-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      
+    
+  </body>
+</html>

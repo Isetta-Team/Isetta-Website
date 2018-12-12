@@ -1,0 +1,2696 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="We are making a game engine and documenting the process">
+      
+      
+        <link rel="canonical" href="https://isetta.io/blogs/week-11/">
+      
+      
+        <meta name="author" content="Caleb, Chaojie, Jacob, Jared, Yidi">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../images/isetta_icon.ico">
+      <meta name="generator" content="mkdocs-1.0.2, mkdocs-material-3.0.3">
+    
+    
+      
+        <title>[Week 11] The One Where the Team Picks a Font - Isetta Engine</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Source+Code+Pro">
+        <style>body,input{font-family:"Lato","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Source Code Pro","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="../../extra.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="light-blue" data-md-color-accent="cyan">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../../#the-one-where-the-team-picks-a-font" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <!--
+  Copyright (c) 2016-2018 Martin Donath <martin.donath@squidfunk.com>
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Application header -->
+<header class="md-header" data-md-component="header">
+
+  <!-- Top-level navigation -->
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+
+      <!-- Link to home -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://isetta.io/" title="Isetta Engine" class="md-header-nav__button md-logo">
+          
+          <img id="isetta-logo" src="../../images/isetta_logo.png" width="24" height="24" />
+          
+        </a>
+      </div>
+
+      <!-- Button to toggle drawer -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+
+      <!-- Header title -->
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+          
+          <span class="md-header-nav__topic back_to_top cursor_pointer">
+            Isetta Engine
+          </span>
+          <span class="md-header-nav__topic back_to_top cursor_pointer">
+            [Week 11] The One Where the Team Picks a Font
+            <span style="padding-left: 10px;">⇫</span>
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <!-- Button to open search dialogue -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+        
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+
+        <!-- Search interface -->
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+        
+      </div>
+
+      <!-- Repository containing source -->
+      
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <div class="md-header-nav__source">
+          
+
+
+  
+
+
+  <a href="https://github.com/Isetta-Team/Isetta-Engine" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      Isetta Engine
+    </div>
+  </a>
+
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Tabs with outline
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../compendium/" title="Compendium" class="md-tabs__link">
+          Compendium
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../week-0/" title="Blogs" class="md-tabs__link md-tabs__link--active">
+          Blogs
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../interviews/" title="Interviews" class="md-tabs__link">
+          Interviews
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../engine_docs/home/" title="Usage" class="md-tabs__link">
+          Usage
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+       -->
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../compendium/" title="Compendium" class="md-tabs__link">
+          Compendium
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../week-0/" title="Blogs" class="md-tabs__link md-tabs__link--active">
+          Blogs
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../interviews/" title="Interviews" class="md-tabs__link">
+          Interviews
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../engine_docs/home/" title="Usage" class="md-tabs__link">
+          Usage
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://isetta.io/" title="Isetta Engine" class="md-nav__button md-logo">
+      
+        <img src="../../images/isetta_logo.png" width="48" height="48">
+      
+    </a>
+    Isetta Engine
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/Isetta-Team/Isetta-Engine" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      Isetta Engine
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../about/" title="About" class="md-nav__link">
+      About
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../team/" title="Team" class="md-nav__link">
+      Team
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../schedule/" title="Schedule" class="md-nav__link">
+      Schedule
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../resources/" title="Resources" class="md-nav__link">
+      Resources
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../glossary/" title="Glossary" class="md-nav__link">
+      Glossary
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../faq/" title="FAQ" class="md-nav__link">
+      FAQ
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Compendium
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Compendium
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2" type="checkbox" id="nav-8-2">
+    
+    <label class="md-nav__link" for="nav-8-2">
+      Engine Postmortem
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-8-2">
+        Engine Postmortem
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-1" type="checkbox" id="nav-8-2-1">
+    
+    <label class="md-nav__link" for="nav-8-2-1">
+      Lessons
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-1">
+        Lessons
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/BuildGames/" title="Build Games with Your Game Engine" class="md-nav__link">
+      Build Games with Your Game Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/RubberduckDeveloping/" title="Rubberduck Developing: Forced Explanation" class="md-nav__link">
+      Rubberduck Developing: Forced Explanation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/ItsNotThatHard/" title="It's Not That Hard" class="md-nav__link">
+      It's Not That Hard
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-2" type="checkbox" id="nav-8-2-2">
+    
+    <label class="md-nav__link" for="nav-8-2-2">
+      What went right
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-2">
+        What went right
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/HostingGameJam/" title="Hosting a Game Jam" class="md-nav__link">
+      Hosting a Game Jam
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/NoviceTeam/" title="Having a Team of Novices" class="md-nav__link">
+      Having a Team of Novices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/LeveragingProfessionals/" title="Leveraging Professionals for Input" class="md-nav__link">
+      Leveraging Professionals for Input
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-3" type="checkbox" id="nav-8-2-3">
+    
+    <label class="md-nav__link" for="nav-8-2-3">
+      What went wrong
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-3">
+        What went wrong
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/QuestionsForProfessionals/" title="Questions for the Professionals" class="md-nav__link">
+      Questions for the Professionals
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/SoftwareDevelopment/" title="Basic Software Development Practices" class="md-nav__link">
+      Basic Software Development Practices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/Crunch/" title="Crunch is Bad" class="md-nav__link">
+      Crunch is Bad
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/3rdParty/" title="3rd Party" class="md-nav__link">
+      3rd Party
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Build-ResourceManagement/" title="Build & Resource Management" class="md-nav__link">
+      Build & Resource Management
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Collisions/" title="Collisions" class="md-nav__link">
+      Collisions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Gameplay/" title="Gameplay" class="md-nav__link">
+      Gameplay
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Interviews/" title="Interviews" class="md-nav__link">
+      Interviews
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Memory/" title="Memory" class="md-nav__link">
+      Memory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Networking/" title="Networking" class="md-nav__link">
+      Networking
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Other/" title="Other Topics" class="md-nav__link">
+      Other Topics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Scene-Loop/" title="Scene & Engine Loop" class="md-nav__link">
+      Scene & Engine Loop
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Tools/" title="Tools" class="md-nav__link">
+      Tools
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9" checked>
+    
+    <label class="md-nav__link" for="nav-9">
+      Blogs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        Blogs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-0/" title="[Week 0] Preparation" class="md-nav__link">
+      [Week 0] Preparation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-1/" title="[Week 1] The Building Blocks" class="md-nav__link">
+      [Week 1] The Building Blocks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../engine-architecture/" title="Engine Architecture" class="md-nav__link">
+      Engine Architecture
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-2/" title="[Week 2] Ramping Up" class="md-nav__link">
+      [Week 2] Ramping Up
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-3/" title="[Week 3] "Completing" the Core" class="md-nav__link">
+      [Week 3] "Completing" the Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-4/" title="[Week 4] Buried in Comments" class="md-nav__link">
+      [Week 4] Buried in Comments
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-5/" title="[Week 5] Back in Business" class="md-nav__link">
+      [Week 5] Back in Business
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-6/" title="[Week 6] We Think It's Playable" class="md-nav__link">
+      [Week 6] We Think It's Playable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-7/" title="[Week 7] A Real Game Engine" class="md-nav__link">
+      [Week 7] A Real Game Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-8/" title="[Week 8] Patching Holes" class="md-nav__link">
+      [Week 8] Patching Holes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-9/" title="[Week 9] Hello from the West Coast" class="md-nav__link">
+      [Week 9] Hello from the West Coast
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-10/" title="[Week 10] Grab A Bucket" class="md-nav__link">
+      [Week 10] Grab A Bucket
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        [Week 11] The One Where the Team Picks a Font
+      </label>
+    
+    <a href="./" title="[Week 11] The One Where the Team Picks a Font" class="md-nav__link md-nav__link--active">
+      [Week 11] The One Where the Team Picks a Font
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#byte-sized-updates" title="Byte-Sized Updates" class="md-nav__link">
+    Byte-Sized Updates
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collision-solving" title="Collision Solving" class="md-nav__link">
+    Collision Solving
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-started" title="Getting Started" class="md-nav__link">
+    Getting Started
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aabb-disarray" title="AABB Disarray" class="md-nav__link">
+    AABB Disarray
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-does-unity-do-it" title="How Does Unity Do It?" class="md-nav__link">
+    How Does Unity Do It?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-case-by-case-solution" title="A Case-by-Case Solution" class="md-nav__link">
+    A Case-by-Case Solution
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#future-plans-with-collision-solving" title="Future Plans with Collision Solving" class="md-nav__link">
+    Future Plans with Collision Solving
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-loading" title="Level Loading" class="md-nav__link">
+    Level Loading
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#asset-processing-tool" title="Asset Processing Tool" class="md-nav__link">
+    Asset Processing Tool
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gui" title="GUI" class="md-nav__link">
+    GUI
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fonts" title="Fonts" class="md-nav__link">
+    Fonts
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai-pathfinding" title="AI Pathfinding" class="md-nav__link">
+    AI Pathfinding
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-versus-vector-field" title="A* Versus Vector Field" class="md-nav__link">
+    A* Versus Vector Field
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-the-vector-field" title="Building the Vector Field" class="md-nav__link">
+    Building the Vector Field
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integrating-steering-behaviors" title="Integrating Steering Behaviors" class="md-nav__link">
+    Integrating Steering Behaviors
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-featured-game-demo" title="Full-Featured Game Demo" class="md-nav__link">
+    Full-Featured Game Demo
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patch-notes" title="Patch Notes" class="md-nav__link">
+    Patch Notes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#separating-engine-and-gameplay-input" title="Separating Engine and Gameplay Input" class="md-nav__link">
+    Separating Engine and Gameplay Input
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coming-soon" title="Coming Soon" class="md-nav__link">
+    Coming Soon
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" title="Resources" class="md-nav__link">
+    Resources
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+        <li class="md-nav__item">
+          <a href="#__comments" title="Comments" class="md-nav__link md-nav__link--active">
+            Comments
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-12/" title="[Week 12] Getting Ready for Game Jam!" class="md-nav__link">
+      [Week 12] Getting Ready for Game Jam!
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-13/" title="[Week 13] Is This a Game Engine?" class="md-nav__link">
+      [Week 13] Is This a Game Engine?
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-14/" title="[Week 14] The Last Blog." class="md-nav__link">
+      [Week 14] The Last Blog.
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
+    
+    <label class="md-nav__link" for="nav-10">
+      Interviews
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-10">
+        Interviews
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-2" type="checkbox" id="nav-10-2">
+    
+    <label class="md-nav__link" for="nav-10-2">
+      Elan Ruskin
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-2">
+        Elan Ruskin
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ElanRuskin-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ElanRuskin-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-3" type="checkbox" id="nav-10-3">
+    
+    <label class="md-nav__link" for="nav-10-3">
+      Shanee Nishry
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-3">
+        Shanee Nishry
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ShaneeNishry-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ShaneeNishry-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-4" type="checkbox" id="nav-10-4">
+    
+    <label class="md-nav__link" for="nav-10-4">
+      Jeff Preshing
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-4">
+        Jeff Preshing
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JeffPreshing-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JeffPreshing-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/MartinMiddleton-interview/" title="Martin Middleton" class="md-nav__link">
+      Martin Middleton
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-6" type="checkbox" id="nav-10-6">
+    
+    <label class="md-nav__link" for="nav-10-6">
+      Raymond Graham
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-6">
+        Raymond Graham
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/RaymondGraham-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/RaymondGraham-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-7" type="checkbox" id="nav-10-7">
+    
+    <label class="md-nav__link" for="nav-10-7">
+      Aras Pranckevicius
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-7">
+        Aras Pranckevicius
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ArasPranckevicius-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ArasPranckevicius-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-8" type="checkbox" id="nav-10-8">
+    
+    <label class="md-nav__link" for="nav-10-8">
+      Amandine Coget
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-8">
+        Amandine Coget
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmandineCoget-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmandineCoget-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-9" type="checkbox" id="nav-10-9">
+    
+    <label class="md-nav__link" for="nav-10-9">
+      Tommy Refenes
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-9">
+        Tommy Refenes
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/TommyRefenes-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/TommyRefenes-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-10" type="checkbox" id="nav-10-10">
+    
+    <label class="md-nav__link" for="nav-10-10">
+      Casey Muratori
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-10">
+        Casey Muratori
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-hmh-video/" title="Video Interview" class="md-nav__link">
+      Video Interview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-11" type="checkbox" id="nav-10-11">
+    
+    <label class="md-nav__link" for="nav-10-11">
+      Adam Serdar
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-11">
+        Adam Serdar
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AdamSerdar-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AdamSerdar-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-12" type="checkbox" id="nav-10-12">
+    
+    <label class="md-nav__link" for="nav-10-12">
+      Summarized Advice
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-12">
+        Summarized Advice
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AliceChing-advice/" title="Alice Ching" class="md-nav__link">
+      Alice Ching
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmitRob-advice/" title="Amit Patel & Rob Shillingsburg" class="md-nav__link">
+      Amit Patel & Rob Shillingsburg
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JasonGregory-advice/" title="Jason Gregory" class="md-nav__link">
+      Jason Gregory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/OliverFranzke-advice/" title="Oliver Franzke" class="md-nav__link">
+      Oliver Franzke
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/WaltDestler-advice/" title="Walt Destler" class="md-nav__link">
+      Walt Destler
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-11" type="checkbox" id="nav-11">
+    
+    <label class="md-nav__link" for="nav-11">
+      Usage
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-11">
+        Usage
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/home/" title="FAQs" class="md-nav__link">
+      FAQs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/basics/" title="Basics" class="md-nav__link">
+      Basics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/level/" title="Level" class="md-nav__link">
+      Level
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/entity/" title="Entity/Transform" class="md-nav__link">
+      Entity/Transform
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/component/" title="Component" class="md-nav__link">
+      Component
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/graphics/" title="Graphics" class="md-nav__link">
+      Graphics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/input/" title="Input" class="md-nav__link">
+      Input
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/debug_logging/" title="Debug Logging" class="md-nav__link">
+      Debug Logging
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/debug_draw/" title="Debug Draw" class="md-nav__link">
+      Debug Draw
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/gui/" title="GUI" class="md-nav__link">
+      GUI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/audio/" title="Audio" class="md-nav__link">
+      Audio
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/collisions/" title="Collisions" class="md-nav__link">
+      Collisions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/networking/" title="Networking" class="md-nav__link">
+      Networking
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#byte-sized-updates" title="Byte-Sized Updates" class="md-nav__link">
+    Byte-Sized Updates
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collision-solving" title="Collision Solving" class="md-nav__link">
+    Collision Solving
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-started" title="Getting Started" class="md-nav__link">
+    Getting Started
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aabb-disarray" title="AABB Disarray" class="md-nav__link">
+    AABB Disarray
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-does-unity-do-it" title="How Does Unity Do It?" class="md-nav__link">
+    How Does Unity Do It?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-case-by-case-solution" title="A Case-by-Case Solution" class="md-nav__link">
+    A Case-by-Case Solution
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#future-plans-with-collision-solving" title="Future Plans with Collision Solving" class="md-nav__link">
+    Future Plans with Collision Solving
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-loading" title="Level Loading" class="md-nav__link">
+    Level Loading
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#asset-processing-tool" title="Asset Processing Tool" class="md-nav__link">
+    Asset Processing Tool
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gui" title="GUI" class="md-nav__link">
+    GUI
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fonts" title="Fonts" class="md-nav__link">
+    Fonts
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai-pathfinding" title="AI Pathfinding" class="md-nav__link">
+    AI Pathfinding
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-versus-vector-field" title="A* Versus Vector Field" class="md-nav__link">
+    A* Versus Vector Field
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-the-vector-field" title="Building the Vector Field" class="md-nav__link">
+    Building the Vector Field
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integrating-steering-behaviors" title="Integrating Steering Behaviors" class="md-nav__link">
+    Integrating Steering Behaviors
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-featured-game-demo" title="Full-Featured Game Demo" class="md-nav__link">
+    Full-Featured Game Demo
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patch-notes" title="Patch Notes" class="md-nav__link">
+    Patch Notes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#separating-engine-and-gameplay-input" title="Separating Engine and Gameplay Input" class="md-nav__link">
+    Separating Engine and Gameplay Input
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coming-soon" title="Coming Soon" class="md-nav__link">
+    Coming Soon
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" title="Resources" class="md-nav__link">
+    Resources
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+        <li class="md-nav__item">
+          <a href="#__comments" title="Comments" class="md-nav__link md-nav__link--active">
+            Comments
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="the-one-where-the-team-picks-a-font">The One Where the Team Picks a Font<a class="headerlink" href="#the-one-where-the-team-picks-a-font" title="Permanent link">&para;</a></h1>
+<h2 id="byte-sized-updates">Byte-Sized Updates<a class="headerlink" href="#byte-sized-updates" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#collision-solving">Collision Solving</a>: Implemented rudimentary collision solving, but still have lots of distance to cover for a decent collision response system.</li>
+<li><a href="#level-loading">Level Loading</a>: Got loading from startup level to another prebuilt loader in the engine working. There were a few catching points, but overall went smoothly.</li>
+<li><a href="#asset-processing-tool">Asset Processing Tool</a>: Built an asset processing tool to process the Collada files (<code>.dae</code>) more efficiently, easier than in the past.</li>
+<li><a href="#gui">GUI</a>: Added more to the GUI system by fully integrating fonts, so font size and type can be changed per GUI function.</li>
+<li><a href="#ai-pathfinding">AI</a>: Implemented an AI pathfinding system by combining vector flow fields and steering behaviors.</li>
+<li><a href="#full-featured-game-demo">Full-Feature Game Demo</a>: Started development of the target game that the engine is being built for, which forced some other smaller features.</li>
+</ul>
+<p><img alt="Engine Architecture" src="../../images/engine_architecture/week11.png" title="Week 11 Progress Architecture" /></p>
+<h2 id="collision-solving">Collision Solving<a class="headerlink" href="#collision-solving" title="Permanent link">&para;</a></h2>
+<p>We started collision detection all the way back in <a href="../week-6/">week 6</a>, and it's been growing pretty nicely. At this point, we have fully functional sphere and box collisions and partially functional capsule collisions, which means we can trigger functions in the game in response to when some collider volume enters, exits, or stays inside of another collider volume, which is immensely helpful with a lot of game concepts like trigger points.</p>
+<p>Unfortunately, figuring out that the collider volumes are intersecting is only half the battle. Now that we've got the collisions getting detected, we need to take it one step further and move colliders away from their counterparts whenever an intersection occurs. This is called <em>collision solving</em>, and it's a crucial concept in video games, where things don't physically inhabit space and so we can't rely on the convenience of physics to help us keep things real. Depending on who you ask, there are three distinct parts of collision solving:</p>
+<ol>
+<li>The detection. This is where you figure out that two colliders are intersecting with one another, and it's the part that we (mostly) already have figured out.</li>
+<li>The resolution. This is where you take the two colliders and figure out where exactly they should be moved to so that they are no longer intersecting. This takes the previous problem of collision detection and expands upon it, because we now need not just the fact that the colliders are intersecting but also info on where exactly they're intersecting.</li>
+<li>The iteration. Now, you technically don't need this one, but you probably don't have a very good generalized solution if you have no need for iteration in your collision solver. Iteration is used in collision solving to determine that your resolutions are acceptable. Let's illustrate with an example: Take three sphere colliders. Two of them start intersecting like this, and the other one is just barely off to the side: &nbsp;&nbsp;<img alt="Collision Solving Iteration 1" src="../../images/blogs/week-11/collision-solving-iteration-1.png" /> &nbsp;&nbsp;After we've resolved the first collision, this is what we end up with:&nbsp;&nbsp;<img alt="Collision Solving Iteration 2" src="../../images/blogs/week-11/collision-solving-iteration-2.png" />&nbsp;&nbsp;We technically got the first collision resolved, but now we have another one! You could just do one solve every render frame and let this play out over time, but to decrease the number of intersecting colliders at the end of each frame, you can perform multiple iterations of collision resolution every frame.</li>
+</ol>
+<p>Collision solving is going to be a difficult feature to implement. This is not only because it's a pretty difficult 3D math problem, but also because it's heavily reliant on our previous features, namely collision detection. Bear this in mind as we go on to build up this feature; this may be the first time we see serious compromise in one of our engine systems due to the feature being needed yet out of scope.</p>
+<h3 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h3>
+<p>While the 3D math is difficult, the conceptual organization behind collision solving isn't. The important tasks we need to accomplish are (1) figuring out which colliders are actually colliding, (2) figure out where they're colliding on each other, and (3) move them. The first one is very expensive if you perform an <code>O(n^2)</code> check of all colliders against all other colliders, but fortunately as part of our previous collision detection work we implemented a <a href="../week-9/#collisions-dynamic-aabb-tree">Dynamic Bounding Volume Tree</a>, which is essentially a sorted tree of axis-aligned bounding boxes (AABB) that allows you to cull out most of your collision tests in sparse systems. Unfortunately once we've begun the collision solving process, our colliders will have moved so our Bounding Volume Tree will have been invalidated and we need to regenerate it, but for the time being we're going to ignore that problem. <a href="#future-plans-with-collision-solving">We do plan to address that eventually</a> with a neat little solution using a feature we've already implemented with our Bounding Volume Tree.</p>
+<p>So with the first task already out of the way, we can focus on tasks number 2 and 3! Task number 2 is unfortunately still pretty daunting though. To get started, we broke up our collision solving into a case-by-case basis; every individual collider will generate its collision point based on its own shape (i.e. Box, Sphere, or Capsule) regardless of the other collider its intersecting with. This isn't terribly correct because it assumes that our other collider is radially symmetric and that's only true for spheres, but we should first focus on getting our collision points calculated in the first place.</p>
+<p>For spheres, calculating the intersection point in this case is trivial—just find the direction of the other collider and get the point out at the radius.</p>
+<p>For boxes, we need to check each axis individually to construct the correct intersection point. It seems pretty straightforward at first, but there's actually some tricky parts to it. The naive solution is to check if the point falls outside of the extents of the box on any of the box's local axes, and if so, clamp it to the extents on that axis. That works if our point is outside of the box, but if it's inside of the box, then our collision point doesn't get calculated on the surface of the box—it's calculated on the inside!</p>
+<p><img alt="Incorrect Box Intersection" src="../../images/blogs/week-11/incorrect-box-intersection.png" /></p>
+<p>For the time being we don't have this corrected, but in the next week we'll be implementing a solution that will guarantee at least one of the axes is pushed out to the extents so that we have our intersection point on the surface of the box.</p>
+<p>Lastly, for capsules, the problem of finding an intersection point may seem daunting since capsules look more complex than spheres or boxes, but in reality it's not that hard. First, we need to calculate the closest point on the "line segment" of the capsule (the inner axis of the capsule that caps off at both radial ends) to our point of interest, which we use our <a href="https://github.com/Isetta-Team/Isetta-Engine/blob/master/Isetta/IsettaEngine/Collisions/CollisionsModule.cpp">CollisionsModule::ClosestPtPointSegment</a> function for. For the next part, we initially checked if that nearest point on either of the caps of the capsule and restricted the intersection point to certain areas if it was. As it turns out, you don't need to do this! With a line segment, the vector between your point and the line will always be perpendicular to the line if the nearest point isn't on one of its ends, like so:</p>
+<p><img alt="Capsule Intersection Calculation" src="../../images/blogs/week-11/capsule-intersection-calculation.png" /></p>
+<p>That covers our first pass of work for task number 2; now let's take a swing at task number 3. A very naive solution for moving the colliders once their intersections are solved is to just take the difference vector between the two intersection points and split that between the two colliders (also accounting for any static objects that should be immovable). This indeed works, but <a href="#how-does-unity-do-it">we'll discuss later</a> why this isn't correct.</p>
+<h3 id="aabb-disarray">AABB Disarray<a class="headerlink" href="#aabb-disarray" title="Permanent link">&para;</a></h3>
+<p>With our three tasks done, our collision solving should now work, right? Well, earlier we mentioned that the collision solving system relies on our other systems, and here's where all of that came to light! Our AABB's had a few bugs that made the collisions pretty messy and hard to observe, such as accidentally checking against the <code>x</code> value of the AABB's twice instead of also checking the <code>y</code> values during the intersection test, or regenerating each AABB every frame and making our Bounding Volume Tree inaccurate and much more expensive. While we were doing that, we also optimized out some expensive function calls by just using cached data, which is a very common and typically effective optimization trick!</p>
+<p>With all of that ironed out and out of the way, let's check our progress on that collision solving!</p>
+<div class="video-wrapper">
+
+ <video playsinline autoplay muted loop>
+
+   <source src="../../images/blogs/week-11/Sorta-Okay-Collision-Solving.mp4" type="video/mp4">
+
+Your browser does not support the video tag.
+
+ </video>
+
+</div>
+
+<p>You know what? We'll take it as a win. But we clearly have more work to do.</p>
+<h3 id="how-does-unity-do-it">How Does Unity Do It?<a class="headerlink" href="#how-does-unity-do-it" title="Permanent link">&para;</a></h3>
+<p>Following the same pattern as we have before, once we realized that our system doesn't quite meet expectations, we did some field research. And by field research, we mean we opened Unity and tried to reverse engineer its own systems. With the following video, you can actually see some interesting behavior that we didn't consider before. The red objects are movable and the white ones are completely immovable, so we're focusing on how the red ones are moved by the collisions:</p>
+<div class="video-wrapper">
+
+ <video playsinline autoplay muted loop>
+
+   <source src="../../images/blogs/week-11/Unity-Collision-Solving.mp4" type="video/mp4">
+
+Your browser does not support the video tag.
+
+ </video>
+
+</div>
+
+<p>For our collision solving, the box collisions are notably the poorest as every collider will push away from its face and into one of the corners. In Unity's case, the collisions behave as you'd expect for the most part; when something is being pushed by a box, that thing gets pushed away from the face of the box. What's more interesting is when the box is at an angle to another box—the box whose corner penetrates the other's face is pushed in the direction of the face. This case is annoying to account for because what exactly is the correct solution when a wedge is shoved into something? Do you push it on one side or the other?</p>
+<p>This got us thinking about our "generalized" collision solving algorithm and why it was failing so poorly. Ours takes the difference between the two intersection points and displaces the colliders based on that, but that means that whenever colliders are not perfectly aligned with one another, they'll gradually push one another out of the way—even if they're two box colliders that are oriented exactly the same. So our solution for task number 3, moving the colliders, is incorrect. So what's the correct solution then?</p>
+<p>Our investigation of Unity's collisions contains the answer. A box collider shoves all other colliders in the direction of its face <em>except for when its wedge is the part that is colliding with the other collider</em>. In the case that the wedge is colliding, then the box collider actually gets moved based on the other collider. This means that the collision resolution is performed on a case-by-case basis, and we need to figure in how the box colliders collide with other colliders to arrive at a proper solution.</p>
+<h3 id="a-case-by-case-solution">A Case-by-Case Solution<a class="headerlink" href="#a-case-by-case-solution" title="Permanent link">&para;</a></h3>
+<p>Our second stab at collision resolution is still not very elegant, but it's getting closer to a workable solution. What we know now is that our collisions should be resolved on a case-by-case basis, with the following ranking: (1) box face, (2) spheres and capsules, (3) box wedge. We only need to be concerned with box colliders for now; if another collider has some similar problem, we'll deal with it after getting some correct box collisions.</p>
+<p>Our basic algorithm for the new solution is to check the types of the colliders involved in the collision first, and if either collider is a box, then we need to check whether or not one of the boxes collided on its edge. If they did, then the collision resolution is determined by the other collider. In the case that the box collider actually collides on its face, then we need to figure out which face it was that collided and push in the direction of its normal.</p>
+<p>With that implemented, our solution actually isn't looking too terrible!</p>
+<div class="video-wrapper">
+
+ <video playsinline autoplay muted loop>
+
+   <source src="../../images/blogs/week-11/Current-Collision-Solving.mp4" type="video/mp4">
+
+Your browser does not support the video tag.
+
+ </video>
+
+</div>
+
+<h3 id="future-plans-with-collision-solving">Future Plans with Collision Solving<a class="headerlink" href="#future-plans-with-collision-solving" title="Permanent link">&para;</a></h3>
+<p>Right now, we're currently building up a better suite of tooling to test our collisions and collision solving. We just recently added some controls to our Bounding Volume Tree testing level so that we can more easily figure out what's going on when we have over 100 colliders flying around in one level.</p>
+<div class="video-wrapper">
+
+ <video playsinline autoplay muted loop>
+
+   <source src="../../images/blogs/week-11/BVTree-Level-Tools.mp4" type="video/mp4">
+
+Your browser does not support the video tag.
+
+ </video>
+
+</div>
+
+<p><em>Every second is a beautiful frame of expensively contrived behavior.</em></p>
+<p>For the next steps, we've got a few ideas. For one, our box collider intersection detection is incorrect because it can put the intersection point inside of the box, and we have a pretty good idea of how to address that. Our Bounding Volume Tree is also incorrect after the first iteration of our collision solver because we shift around the colliders without regenerating the tree; we <em>could</em> technically regenerate the tree, but that's very expensive, so instead we plan on trying some heuristics for the AABB's to avoid having to ever recalculate the Bounding Volume Tree despite multiple iterations of collision solving. Lastly, our capsule collisions have always looks pretty bad, and the collision resolution for them definitely isn't right, so we'll probably be taking a look into that as well. We would love to do some optimization, but as it stands we can run 50+ colliders in our level at about 60FPS and our target game won't need that many colliders, so optimization isn't exactly a high priority task.</p>
+<h2 id="level-loading">Level Loading<a class="headerlink" href="#level-loading" title="Permanent link">&para;</a></h2>
+<p>Level loading as an engine functionality is simply to be able to unload a level and load another level without the engine systems shutting down (or breaking, crashing, exploding...). Our implementation isn't a sophisticated approach and limits the developer to only having one level loaded at any given point, nor can there be persistent entities, so it could definitely be improved upon. The game developer can call <code>LevelManager::LoadLevel</code> at any point during a frame, then the current frame will finish processing all variable updates, and at the end of the frame the level is unloaded and the next level starts to load. The unload level functionality was already established to prevent memory leakage when shutting down the engine, so we relied on that method heavily. The <code>Level::UnloadLevel</code> worked fine for shutting down the engine, but bugs were found in other components that weren't associated with leaking memory but instead with functionality, so we couldn't observe them after the engine/application closed.</p>
+<p>The main bugs of the level loading system were that GUI entities seemed to be infinitely drawn, our debug drawing system's view matrix was corrupted, and mesh models were not being removed. All of these pointed towards something to do with rendering, and while debugging these problems we found that resizing the viewport relieved the issue for a while, but wasn't the source of the problem. We were able to deduce that it wasn't just the GUI or rendering systems by testing different level loads, so what we're looking for is likely something they share in common: The "clear screen" function call and camera. The screen clearing didn't immediately seem to be the problem, so we watched how the camera was being set in the <code>RenderModule</code>. Here, the <code>RenderModule</code> selects the first camera in the list, and in most levels there is only one camera to select from. When we set a breakpoint to watch this region of code, we found that each level's camera was stacking! In <code>CameraComponent::OnEnable</code>, the camera is added to <code>RenderModule</code>'s list of cameras for the level; however, <code>CameraComponent::OnDisable</code> wasn't removing it from the list. This can also be found from deactivating the camera component, which confirms that as the source of our problems.  Once this was fixed, all of those problems went away!</p>
+<p>Another problem we found during our level loading development was from our input system. Input wasn't automatically getting removed for each level. When we took a closer look at our input system, it was clear that we weren't unregistering key bindings; also, deleting the entity was causing undefined functionality, which is another great side-effect enabled by our own memory system. To fix this, we just needed to clear the input in preparation for the next level.</p>
+<blockquote>
+<p>As a result of level loading, we found the need to separate the engine input and gameplay input so that we can clear our input callback map on changing levels, discussed in the <a href="#separating-engine-and-gameplay-input">Patch Notes</a>.</p>
+</blockquote>
+<p><img alt="Level Loading" src="../../images/blogs/week-11/Load_Unload_Output.PNG" title="Level Load/Unload Debug Output" />
+<em>The output of loading and unloading the levels from the above video.</em></p>
+<div class="video-wrapper">
+
+ <video playsinline autoplay muted loop>
+
+   <source src="../../images/blogs/week-11/Level_Loading.mp4" type="video/mp4">
+
+Your browser does not support the video tag.
+
+ </video>
+
+</div>
+
+<h2 id="asset-processing-tool">Asset Processing Tool<a class="headerlink" href="#asset-processing-tool" title="Permanent link">&para;</a></h2>
+<p>The current asset pipeline is focused around Horde3D's needs for models, animations, and materials. The models are processed into <code>.geo</code> and <code>.scene.xml</code> files, the animations into <code>.anim</code>, and the materials into <code>.material.xml</code> files. The other file types aren't compressed or packaged in any other file format, although they probably should to be for better loading speeds by the engine and to yield a smaller memory footprint. Alas, we don't have time for that, so let's just deal with Horde3D's formats.</p>
+<p>Horde3DUtil has a COLLADA conversion application that processes <code>.dae</code> (COLLADA) files to these other file formats, but requires the command line to determine which file to process. In weeks prior, we created a simple batch script that process <em>all</em> <code>.dae</code> files in the folder and subfolder of the script into model and animation files. The problem we have now is that, regardless of if the COLLADA file has mesh or animation data, it will produce <code>geo</code>, <code>scene.xml</code>, and <code>.anim</code> files as well as processing <em>all</em> models, even if they haven't been updated or changed since last processing. This script is great to quickly get things done but isn't great for small tweaks or keeping files/memory to a minimum.</p>
+<p>We created a tool in WPF to select which file you want processed and what type of output the file should produce. It searches for the base 'Resource' directory, which is required by Horde3D, and everything is based off of that folder. This is what the tool looks like:</p>
+<p><img alt="Asset Processor" src="../../images/blogs/week-11/Asset_processor.PNG" title="Asset Processor" /></p>
+<p>We realize that other engines like the <a href="../../interviews/JeffPreshing-interview/#the-arc80-engine-architecture">Arc80 Engine</a> require more tools for cooking assets so that they can have more control of the data. However, with such a small amount of time, we are just making small, quick tools that will provide us with the most benefit.</p>
+<h2 id="gui">GUI<a class="headerlink" href="#gui" title="Permanent link">&para;</a></h2>
+<h3 id="fonts">Fonts<a class="headerlink" href="#fonts" title="Permanent link">&para;</a></h3>
+<p>After we added the awesome gameplay that we have in our second game, something really popped out to us; the text was tiny and boring. The team had been contemplating whether or not we should put the effort into getting fonts into the engine, but after seeing this game really hit the nail in the head, we decided to give it a try!</p>
+<p>We had already integrated some font functionality into our engine. ...Or so we thought. Soon after we tried to get fonts working, we realized the font functionality wasn't nearly good enough—or even working, really. So we had to rework most of it. Originally the <code>Isetta::Font</code> class was just another name for <code>ImFont</code>, but this also means that the imgui header would need to be included in any file of the game which would like to do anything with font. This felt wrong; it's okay for our <code>GUI</code> class to be included in these source files, but we don't want our external library to be included. To bypass this, we created a "fake" class named <code>Font</code> which derived from imgui's <code>ImFont</code> as well as some static helper functions. The static helper functions help the fonts being stored, so we don't need to reload the fonts and can access shared fonts more easily among multiple classes. This task was fairly easy to implement and well worth the effort—we were able to change the score display of our first game to something much prettier!</p>
+<p><img alt="Level Loading" src="../../images/blogs/week-11/gui_font.PNG" title="Font Demo" /></p>
+<h2 id="ai-pathfinding">AI Pathfinding<a class="headerlink" href="#ai-pathfinding" title="Permanent link">&para;</a></h2>
+<p>AI is not necessarily a part of a game engine. Instead, it's more like a replaceable gameplay system built above the underlying game engine, which is why we have AI almost at the top of our architecture diagram. But also, if a game engine is mostly designed for one game or one type of game, some of the AI code can be baked into the game engine. Since our team is quite interested in implementing an AI system, and our game also needs a simple pathfinding algorithm to guide the enemies to avoid obstacles and move towards the players, we decided to implement the AI pathfinding system inside of our engine.</p>
+<h3 id="a-versus-vector-field">A* Versus Vector Field<a class="headerlink" href="#a-versus-vector-field" title="Permanent link">&para;</a></h3>
+<p>There are a bunch of pathfinding algorithms in the game AI field, from breadth-first search<sup id="fnref:489392"><a class="footnote-ref" href="#fn:489392" rel="footnote">1</a></sup> and Dijkstra's algorithm<sup id="fnref:4848392"><a class="footnote-ref" href="#fn:4848392" rel="footnote">2</a></sup> to all sorts of A* <sup id="fnref:558694"><a class="footnote-ref" href="#fn:558694" rel="footnote">3</a></sup> derivations. How can we find one that fits our game best? Let's look back to what our game AI requires:</p>
+<ul>
+<li>Our game is a top-down twin-stick shooter. Though the game is made in 3D, the players and the enemies can only move in the xz plane.</li>
+<li>Our game can have hundreds of enemies moving independently, and to reduce the pressure of collision detection and solving, the enemies cannot collide with each other.</li>
+<li>Our game environment is fixed. The obstacles on the map will not move and there's no level streaming.</li>
+</ul>
+<p>Based on these requirements, we make these conclusions:</p>
+<ul>
+<li>Since the environment is fixed, we can process it before the game starts. One of the most common pre-processing methods is to make the map into a grid.</li>
+<li>Because we can have quite a lot of units calculating their path simultaneously in the same frame, the computation complexity can be significantly higher when it's based on each unit rather than when it's based on each grid cell.</li>
+<li>Even if enemies don't have collisions between each other, we still don't want them always following the same path and overlap with each other, so outputting a fuzzy path is better than one single best solution.</li>
+</ul>
+<p>After these considerations, we found that the common A* pathfinding may not be the best one for our game, because it computes separate paths for individual agents even \
+though many paths may have similar sections, and it always returns a fixed, heuristically optimized solution. With further research, we found an alternative method, which is to combine vector flow fields<sup id="fnref:666403"><a class="footnote-ref" href="#fn:666403" rel="footnote">4</a></sup> with steering behaviors<sup id="fnref:848493"><a class="footnote-ref" href="#fn:848493" rel="footnote">5</a></sup>. It can greatly reduce the computation complexity as well as efficiently simulate the hundreds of units on the map.</p>
+<h3 id="building-the-vector-field">Building the Vector Field<a class="headerlink" href="#building-the-vector-field" title="Permanent link">&para;</a></h3>
+<p>The concept of this pathfinding algorithm is quite straightforward. Since the navigation space is divided into a grid, our calculation is mostly based on the grid cells. The purpose of building a vector field is to calculate what direction a unit should go based on its position and cell relative to its target. To do that, we generally need to build two matrices: The cost matrix and the vector matrix.</p>
+<p>The cost matrix is a matrix that stores the path distance from each cell to the target cell. It's not the Euclidean distance which calculates the distance regardless the obstacles. Instead, the path distance is how many cells one unit needs to go through to arrive at the target. We are using a wavefront algorithm to generate the cost matrix, which is basically a breadth-first search that updates its neighbors by its path distance plus one. After the cost matrix generation, we now have a grid like this:</p>
+<div class="video-wrapper">
+
+ <video playsinline autoplay muted loop>
+
+   <source src="../../images/blogs/week-11/cost-matrix.mp4" type="video/mp4">
+
+Your browser does not support the video tag.
+
+ </video>
+
+</div>
+
+<p>The vector matrix is also quite simple. It is a matrix that each cell points to the gradient of the grid, which is to point to the neighboring cell with the lowest cost (don't forget about the diagonal case!). After this process, the navigation grid looks like this:</p>
+<div class="video-wrapper">
+
+ <video playsinline autoplay muted loop>
+
+   <source src="../../images/blogs/week-11/vector-field.mp4" type="video/mp4">
+
+Your browser does not support the video tag.
+
+ </video>
+
+</div>
+
+<blockquote>
+<p>One thing that is quite interesting here is when we are adding the sides of the obstacles into the grid, marking the corresponding cells as un-walkable cells, we were actually using the line drawing algorithm we learned from a computer graphics course at our university. This is really an unexpected way we found to relate AI to subjects other than robotics.</p>
+</blockquote>
+<h3 id="integrating-steering-behaviors">Integrating Steering Behaviors<a class="headerlink" href="#integrating-steering-behaviors" title="Permanent link">&para;</a></h3>
+<p>Once the vector flow field is calculated, we can know the target direction of each cell by looking up the vector matrix. The last thing we need to do is to naturally steer the units to match the target direction. The algorithm here we used is the velocity matching algorithm<sup id="fnref:1983"><a class="footnote-ref" href="#fn:1983" rel="footnote">6</a></sup> and the arriving algorithm<sup id="fnref:9583"><a class="footnote-ref" href="#fn:9583" rel="footnote">7</a></sup>. It takes the acceleration, the velocity and the Euclidean distance from the unit to the goal into account and drives the unity smoothly. After the integration, we now have the units approaching the target like this:</p>
+<div class="video-wrapper">
+
+ <video playsinline autoplay muted loop>game ai
+
+   <source src="../../images/blogs/week-11/pathfinding.mp4" type="video/mp4">
+
+Your browser does not support the video tag.
+
+ </video>
+
+</div>
+
+<p>There are still some minor features like multiple target support we haven't implemented yet. They will be patched into the engine next week.</p>
+<h2 id="full-featured-game-demo">Full-Featured Game Demo<a class="headerlink" href="#full-featured-game-demo" title="Permanent link">&para;</a></h2>
+<p>This past week, we started implementing features of the game we set out to build from the <a href="../week-0/#the-example-game">beginning</a>. This game will have slightly more polish than either of the previous games (or other games we end up building) because we'd like this to be a good demonstration of what the engine is capable. As explained in Week 0, the gameplay itself won't be all that fun or exciting, but it will be the capstone of the engine.</p>
+<p>So far, we've implemented the main menu and most of the UI needed for the game. The main menu needs to be able to transition the player into single player mode, multiplayer mode, and exiting the game. The multiplayer mode needs to allow the player to opt into hosting a game or to connect to another host player. For the hosting option, this is when we will boot up the server (which has yet to be done for the game), but for the connection option the player must be able to input the IP address of the host. The first iteration of our IP address input system aims for looks over functionality. Using the idea that all IPv4<sup id="fnref:39042"><a class="footnote-ref" href="#fn:39042" rel="footnote">8</a></sup> addresses are 15 digits long, so the IP address can be formatted as <code>xxx.xxx.xxx.xxx</code>. Then when the user types, the <code>x</code>'s can be replaced with the number and the <code>.</code> won't change. Which turned out like this:</p>
+<div class="video-wrapper">
+
+ <video playsinline autoplay muted loop>
+
+   <source src="../../images/blogs/week-11/IP_input.mp4" type="video/mp4">
+
+Your browser does not support the video tag.
+
+ </video>
+
+</div>
+
+<p>Then some of the team commented on that IP addresses aren't always 15 digits, as the numbers are actually <code>0</code> to <code>255</code> and don't need to fill 3 digits, i.e. <code>000</code> for 0. So even though the IP addresses could be represented by 15 characters with four sets of three characters, it is inconvenient to ask players to type extra characters if their IP address doesn't use the hundreds or tens places. So removing the nicety of the <code>x</code>'s, we just went back to the plain implementation.</p>
+<p>When the single player button is clicked, the game then loads the single player level which has the basic health and score UI. The game could have been done in one level by just turning the UI off once the game starts, but then there would menu entities in the game level—this is what forced us to develop the level loading system. Here is what we have so far!</p>
+<div class="video-wrapper">
+
+ <video playsinline autoplay muted loop>
+
+   <source src="../../images/blogs/week-11/Game_demo.mp4" type="video/mp4">
+
+Your browser does not support the video tag.
+
+ </video>
+
+</div>
+
+<h2 id="patch-notes">Patch Notes<a class="headerlink" href="#patch-notes" title="Permanent link">&para;</a></h2>
+<h3 id="separating-engine-and-gameplay-input">Separating Engine and Gameplay Input<a class="headerlink" href="#separating-engine-and-gameplay-input" title="Permanent link">&para;</a></h3>
+<p>The original implementation of the <code>Input</code> and <code>InputModule</code> system was to have specific callback maps for each type of input: mouse, key press/release, etc. However, when the <code>GUIModule</code> system was integrated, the <code>GLFWwindow</code> parameter of the input callback functions was needed for the <code>GUI</code>. We were hiding the <code>GLFWwindow</code> parameter from the input callbacks given to the gameplay developer, so we needed a second set of functions with the <code>GLFWwindow</code> as a parameter. This worked for a while, but it definitely added some confusion about which function the game developer should be subscribing to because they could technically subscribe to the GLFW callback functions. We were also exporting the entire <code>Input</code> class to our DLL. We could have added the "export to DLL" attribute to only the needed functions, but that would be annoying for each additional function.</p>
+<p>When we introduced level loading, we were clearing all memory of the previous level, which included anything encapsulated by entities within the level but did not include our input system. If a developer forgot to unregister their input callbacks, then the callback would most likely cause an exception because it would reference deleted memory. We even noticed internally that with some of our own components/levels, even we—the masterful, all-knowing engine developers—were forgetting to unregister our input callbacks. How could we expect the gameplay developers to remember?</p>
+<p>The answer was we couldn't, which is why we decided to just clear all input callbacks of the past level when unloading the level. We didn't want to clear the <code>GUIModule</code> connection to the <code>Input</code> however, and if a developer had used the GLFW callbacks, we couldn't clear that callback. So the only way to prevent them from using the GLFW callback functions was to move those into their own class, <code>GLFWInput</code>, which wouldn't be cleared or destroyed until <code>ShutDown</code>. <code>GLFWInput</code> is subsequently not exposed to the game developer and only used for engine internal input; the added benefit here is that there is now less confusion for the game developer of which input callback to subscribe to.</p>
+<h2 id="coming-soon">Coming Soon<a class="headerlink" href="#coming-soon" title="Permanent link">&para;</a></h2>
+<p>As far as the engine goes, our original feature lock was this past Friday! As you might be able to guess, we're not quite ready to lock down the engine yet, but we sure are close! One more week might allow us to put the finishing touches on our engine systems. (But this might be a busy week!)</p>
+<p>We posted our interview with <a href="../../interviews/MartinMiddleton-interview/">Martin Middleton</a> this past week, which you should definitely check out. We will be posting our interview with <a href="../../interviews/JeffPreshing-interview/">Jeff Preshing</a> this week, and in the next couple of weeks we will be putting up several more. In related news, we're submitting our interviews for publication this week, so hopefully we'll have more news on that next time you hear from us!</p>
+<h2 id="resources"><a href="../../resources/">Resources</a><a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
+<p>Not much was added in the resource section this week, but it still remains a great source. We even find ourselves going there to see what the others on the team are using, especially when debugging systems that aren't our own. If you have any resource that you think we should take a look at, please let us know!</p>
+<p><em>Originally Published November 19, 2018.</em></p>
+<p><br></p>
+<!-- Begin MailChimp Signup Form -->
+
+<p><link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+<div id="mc_embed_signup" style="margin-top: -20px">
+    <form action="https://isetta.us19.list-manage.com/subscribe/post?u=1d83cb806c55e205be26db856&amp;id=860c7d79cf" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+            <h3>Subscribe to our mailing list</h3>
+            <p style="margin-bottom: -22px;">Get notifications about the upcoming blogs and interviews!</p>
+            <br><br>
+            <div class="mc-field-group">
+                <label for="mce-EMAIL"> </label>
+                <input type="email" placeholder="Email Address..." name="EMAIL" class="required email" id="mce-EMAIL">
+            </div>
+            <div id="mce-responses" class="clear">
+                <div class="response" id="mce-error-response" style="display:none"></div>
+                <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <input type="text" name="b_1d83cb806c55e205be26db856_860c7d79cf" tabindex="-1" value="">
+            </div>
+            <div class="clear" id="submit-button">
+                <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+            </div>
+        </div>
+    </form>
+</div>
+<!--End mc_embed_signup--></p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:489392">
+<p><strong>Breadth-first search (BFS)</strong> is an algorithm for traversing or searching tree or graph data structures; it starts at the tree root and explores all neighbor nodes before looking at children nodes.&#160;<a class="footnote-backref" href="#fnref:489392" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4848392">
+<p><strong>Dijkstra's algorithm</strong> is an algorithm for finding the shortest paths between nodes in a graph, which may represent, for example, road networks. It's most common variant finds the shortest path by accumulating distances between node pairs in the path.&#160;<a class="footnote-backref" href="#fnref:4848392" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:558694">
+<p><strong>A*</strong> (pronounced "A star") is an algorithm that is widely used in pathfinding and graph traversal. It is an extension of Dijkstra's algorithm that also uses heuristics to guide its search for better performance.&#160;<a class="footnote-backref" href="#fnref:558694" rev="footnote" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:666403">
+<p>A <strong>vector field</strong> is an assignment of a vector to each point in a subset of space, such as a plan with a collection of arrows with a given magnitude and direction. Vector fields are often used to model the speed and direction of a moving fluid like a river.&#160;<a class="footnote-backref" href="#fnref:666403" rev="footnote" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:848493">
+<p>A <strong>steering behavior</strong> is a way of applying various forces to a unit's movement to generate realistic behaviors like chasing, fleeing, following, and more.&#160;<a class="footnote-backref" href="#fnref:848493" rev="footnote" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:1983">
+<p>For more about velocity matching algorithm, please read <em>Artificial Intelligence For Games Page 66</em>&#160;<a class="footnote-backref" href="#fnref:1983" rev="footnote" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:9583">
+<p>For more about arrive algorithm, please read <em>Artificial Intelligence For Games Page 66</em>&#160;<a class="footnote-backref" href="#fnref:9583" rev="footnote" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+<li id="fn:39042">
+<p>Internet Protocol version 4 (<strong>IPv4</strong>) is the fourth version of the Internet Protocol (IP). It is one of the core protocols of standards-based internetworking methods in the Internet, and does not guarantee delivery or proper sequencing.&#160;<a class="footnote-backref" href="#fnref:39042" rev="footnote" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+                
+                  
+                
+              
+              
+                
+
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://isetta.io/blogs/week-11/";
+      this.page.identifier =
+        "blogs/week-11/";
+    };
+    (function() {
+      var d = document, s = d.createElement("script");
+      s.src = "//isetta-engine.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../week-10/" title="[Week 10] Grab A Bucket" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                [Week 10] Grab A Bucket
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../week-12/" title="[Week 12] Getting Ready for Game Jam!" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                [Week 12] Getting Ready for Game Jam!
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2019 Isetta Team
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.css">
+    
+      <a href="mailto:isetta.engine@gmail.com" class="md-footer-social__link fa fa-envelope"></a>
+    
+      <a href="https://twitter.com/IsettaEngine" class="md-footer-social__link fa fa-twitter"></a>
+    
+      <a href="https://github.com/Isetta-Team" class="md-footer-social__link fa fa-github"></a>
+    
+  </div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      
+      <script>app.initialize({version:"1.0.2",url:{base:"../.."}})</script>
+      
+        <script src="../../extra.js"></script>
+      
+    
+    
+      
+        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-124729724-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2980 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="We are making a game engine and documenting the process">
+      
+      
+        <link rel="canonical" href="https://isetta.io/blogs/week-9/">
+      
+      
+        <meta name="author" content="Caleb, Chaojie, Jacob, Jared, Yidi">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../images/isetta_icon.ico">
+      <meta name="generator" content="mkdocs-1.0.2, mkdocs-material-3.0.3">
+    
+    
+      
+        <title>[Week 9] Hello from the West Coast - Isetta Engine</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Source+Code+Pro">
+        <style>body,input{font-family:"Lato","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Source Code Pro","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="../../extra.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="light-blue" data-md-color-accent="cyan">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../../#hello-from-the-west-coast" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <!--
+  Copyright (c) 2016-2018 Martin Donath <martin.donath@squidfunk.com>
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Application header -->
+<header class="md-header" data-md-component="header">
+
+  <!-- Top-level navigation -->
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+
+      <!-- Link to home -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://isetta.io/" title="Isetta Engine" class="md-header-nav__button md-logo">
+          
+          <img id="isetta-logo" src="../../images/isetta_logo.png" width="24" height="24" />
+          
+        </a>
+      </div>
+
+      <!-- Button to toggle drawer -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+
+      <!-- Header title -->
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+          
+          <span class="md-header-nav__topic back_to_top cursor_pointer">
+            Isetta Engine
+          </span>
+          <span class="md-header-nav__topic back_to_top cursor_pointer">
+            [Week 9] Hello from the West Coast
+            <span style="padding-left: 10px;">⇫</span>
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <!-- Button to open search dialogue -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+        
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+
+        <!-- Search interface -->
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+        
+      </div>
+
+      <!-- Repository containing source -->
+      
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <div class="md-header-nav__source">
+          
+
+
+  
+
+
+  <a href="https://github.com/Isetta-Team/Isetta-Engine" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      Isetta Engine
+    </div>
+  </a>
+
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Tabs with outline
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../compendium/" title="Compendium" class="md-tabs__link">
+          Compendium
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../week-0/" title="Blogs" class="md-tabs__link md-tabs__link--active">
+          Blogs
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../interviews/" title="Interviews" class="md-tabs__link">
+          Interviews
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../engine_docs/home/" title="Usage" class="md-tabs__link">
+          Usage
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+       -->
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../compendium/" title="Compendium" class="md-tabs__link">
+          Compendium
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../week-0/" title="Blogs" class="md-tabs__link md-tabs__link--active">
+          Blogs
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../interviews/" title="Interviews" class="md-tabs__link">
+          Interviews
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../engine_docs/home/" title="Usage" class="md-tabs__link">
+          Usage
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://isetta.io/" title="Isetta Engine" class="md-nav__button md-logo">
+      
+        <img src="../../images/isetta_logo.png" width="48" height="48">
+      
+    </a>
+    Isetta Engine
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/Isetta-Team/Isetta-Engine" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      Isetta Engine
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../about/" title="About" class="md-nav__link">
+      About
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../team/" title="Team" class="md-nav__link">
+      Team
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../schedule/" title="Schedule" class="md-nav__link">
+      Schedule
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../resources/" title="Resources" class="md-nav__link">
+      Resources
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../glossary/" title="Glossary" class="md-nav__link">
+      Glossary
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../faq/" title="FAQ" class="md-nav__link">
+      FAQ
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Compendium
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Compendium
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2" type="checkbox" id="nav-8-2">
+    
+    <label class="md-nav__link" for="nav-8-2">
+      Engine Postmortem
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-8-2">
+        Engine Postmortem
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-1" type="checkbox" id="nav-8-2-1">
+    
+    <label class="md-nav__link" for="nav-8-2-1">
+      Lessons
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-1">
+        Lessons
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/BuildGames/" title="Build Games with Your Game Engine" class="md-nav__link">
+      Build Games with Your Game Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/RubberduckDeveloping/" title="Rubberduck Developing: Forced Explanation" class="md-nav__link">
+      Rubberduck Developing: Forced Explanation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/ItsNotThatHard/" title="It's Not That Hard" class="md-nav__link">
+      It's Not That Hard
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-2" type="checkbox" id="nav-8-2-2">
+    
+    <label class="md-nav__link" for="nav-8-2-2">
+      What went right
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-2">
+        What went right
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/HostingGameJam/" title="Hosting a Game Jam" class="md-nav__link">
+      Hosting a Game Jam
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/NoviceTeam/" title="Having a Team of Novices" class="md-nav__link">
+      Having a Team of Novices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/LeveragingProfessionals/" title="Leveraging Professionals for Input" class="md-nav__link">
+      Leveraging Professionals for Input
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-3" type="checkbox" id="nav-8-2-3">
+    
+    <label class="md-nav__link" for="nav-8-2-3">
+      What went wrong
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-3">
+        What went wrong
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/QuestionsForProfessionals/" title="Questions for the Professionals" class="md-nav__link">
+      Questions for the Professionals
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/SoftwareDevelopment/" title="Basic Software Development Practices" class="md-nav__link">
+      Basic Software Development Practices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/Crunch/" title="Crunch is Bad" class="md-nav__link">
+      Crunch is Bad
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/3rdParty/" title="3rd Party" class="md-nav__link">
+      3rd Party
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Build-ResourceManagement/" title="Build & Resource Management" class="md-nav__link">
+      Build & Resource Management
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Collisions/" title="Collisions" class="md-nav__link">
+      Collisions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Gameplay/" title="Gameplay" class="md-nav__link">
+      Gameplay
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Interviews/" title="Interviews" class="md-nav__link">
+      Interviews
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Memory/" title="Memory" class="md-nav__link">
+      Memory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Networking/" title="Networking" class="md-nav__link">
+      Networking
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Other/" title="Other Topics" class="md-nav__link">
+      Other Topics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Scene-Loop/" title="Scene & Engine Loop" class="md-nav__link">
+      Scene & Engine Loop
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Tools/" title="Tools" class="md-nav__link">
+      Tools
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9" checked>
+    
+    <label class="md-nav__link" for="nav-9">
+      Blogs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        Blogs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-0/" title="[Week 0] Preparation" class="md-nav__link">
+      [Week 0] Preparation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-1/" title="[Week 1] The Building Blocks" class="md-nav__link">
+      [Week 1] The Building Blocks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../engine-architecture/" title="Engine Architecture" class="md-nav__link">
+      Engine Architecture
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-2/" title="[Week 2] Ramping Up" class="md-nav__link">
+      [Week 2] Ramping Up
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-3/" title="[Week 3] "Completing" the Core" class="md-nav__link">
+      [Week 3] "Completing" the Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-4/" title="[Week 4] Buried in Comments" class="md-nav__link">
+      [Week 4] Buried in Comments
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-5/" title="[Week 5] Back in Business" class="md-nav__link">
+      [Week 5] Back in Business
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-6/" title="[Week 6] We Think It's Playable" class="md-nav__link">
+      [Week 6] We Think It's Playable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-7/" title="[Week 7] A Real Game Engine" class="md-nav__link">
+      [Week 7] A Real Game Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-8/" title="[Week 8] Patching Holes" class="md-nav__link">
+      [Week 8] Patching Holes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        [Week 9] Hello from the West Coast
+      </label>
+    
+    <a href="./" title="[Week 9] Hello from the West Coast" class="md-nav__link md-nav__link--active">
+      [Week 9] Hello from the West Coast
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#byte-sized-updates" title="Byte-Sized Updates" class="md-nav__link">
+    Byte-Sized Updates
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network-transform" title="Network Transform" class="md-nav__link">
+    Network Transform
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sending-our-first-transform" title="Sending Our First Transform" class="md-nav__link">
+    Sending Our First Transform
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#who-owns-what" title="Who Owns What" class="md-nav__link">
+    Who Owns What
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interpolation-or-doing-a-lot-with-a-little" title="Interpolation, or Doing a Lot with a Little" class="md-nav__link">
+    Interpolation, or Doing a Lot with a Little
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-heftiness-of-network-interpolation" title="The Heftiness of Network Interpolation" class="md-nav__link">
+    The Heftiness of Network Interpolation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fewer-messages-fewer-problems" title="Fewer Messages, Fewer Problems" class="md-nav__link">
+    Fewer Messages, Fewer Problems
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-band-breaks-up" title="The Band Breaks Up" class="md-nav__link">
+    The Band Breaks Up
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-order" title="Out-of-Order" class="md-nav__link">
+    Out-of-Order
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interpolating-the-whole-three-yards" title="Interpolating the Whole Three Yards" class="md-nav__link">
+    Interpolating the Whole Three Yards
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#event-messaging-system" title="Event Messaging System" class="md-nav__link">
+    Event Messaging System
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-an-event-messaging-system" title="What is an Event Messaging System?" class="md-nav__link">
+    What is an Event Messaging System?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storing-all-event-data" title="Storing All Event Data" class="md-nav__link">
+    Storing All Event Data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#queued-callbacks-vs-immediate-callbacks" title="Queued Callbacks vs Immediate Callbacks" class="md-nav__link">
+    Queued Callbacks vs Immediate Callbacks
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collisions-dynamic-aabb-tree" title="Collisions - Dynamic AABB Tree" class="md-nav__link">
+    Collisions - Dynamic AABB Tree
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introducing-the-tree" title="Introducing the Tree" class="md-nav__link">
+    Introducing the Tree
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#making-the-tree" title="Making the Tree" class="md-nav__link">
+    Making the Tree
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-tree" title="Using the Tree" class="md-nav__link">
+    Using the Tree
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hooking-into-collisionmodule" title="Hooking into CollisionModule" class="md-nav__link">
+    Hooking into CollisionModule
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whats-next" title="What's Next" class="md-nav__link">
+    What's Next
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#console" title="Console" class="md-nav__link">
+    Console
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#components" title="Components" class="md-nav__link">
+    Components
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#awake-myth" title="Awake Myth" class="md-nav__link">
+    Awake Myth
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-your-engines" title="Start Your Engines!" class="md-nav__link">
+    Start Your Engines!
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preprocessing-the-component-hierarchy-tree" title="Preprocessing the Component Hierarchy Tree" class="md-nav__link">
+    Preprocessing the Component Hierarchy Tree
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checking-components-uniqueness" title="Checking Components' Uniqueness" class="md-nav__link">
+    Checking Components' Uniqueness
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patch-notes" title="Patch Notes" class="md-nav__link">
+    Patch Notes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#whats-wrong-with-our-quaternions" title="What's Wrong with Our Quaternions" class="md-nav__link">
+    What's Wrong with Our Quaternions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logger-file-io" title="Logger File I/O" class="md-nav__link">
+    Logger File I/O
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coming-soon" title="Coming Soon" class="md-nav__link">
+    Coming Soon
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" title="Resources" class="md-nav__link">
+    Resources
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+        <li class="md-nav__item">
+          <a href="#__comments" title="Comments" class="md-nav__link md-nav__link--active">
+            Comments
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-10/" title="[Week 10] Grab A Bucket" class="md-nav__link">
+      [Week 10] Grab A Bucket
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-11/" title="[Week 11] The One Where the Team Picks a Font" class="md-nav__link">
+      [Week 11] The One Where the Team Picks a Font
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-12/" title="[Week 12] Getting Ready for Game Jam!" class="md-nav__link">
+      [Week 12] Getting Ready for Game Jam!
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-13/" title="[Week 13] Is This a Game Engine?" class="md-nav__link">
+      [Week 13] Is This a Game Engine?
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-14/" title="[Week 14] The Last Blog." class="md-nav__link">
+      [Week 14] The Last Blog.
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
+    
+    <label class="md-nav__link" for="nav-10">
+      Interviews
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-10">
+        Interviews
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-2" type="checkbox" id="nav-10-2">
+    
+    <label class="md-nav__link" for="nav-10-2">
+      Elan Ruskin
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-2">
+        Elan Ruskin
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ElanRuskin-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ElanRuskin-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-3" type="checkbox" id="nav-10-3">
+    
+    <label class="md-nav__link" for="nav-10-3">
+      Shanee Nishry
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-3">
+        Shanee Nishry
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ShaneeNishry-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ShaneeNishry-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-4" type="checkbox" id="nav-10-4">
+    
+    <label class="md-nav__link" for="nav-10-4">
+      Jeff Preshing
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-4">
+        Jeff Preshing
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JeffPreshing-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JeffPreshing-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/MartinMiddleton-interview/" title="Martin Middleton" class="md-nav__link">
+      Martin Middleton
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-6" type="checkbox" id="nav-10-6">
+    
+    <label class="md-nav__link" for="nav-10-6">
+      Raymond Graham
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-6">
+        Raymond Graham
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/RaymondGraham-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/RaymondGraham-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-7" type="checkbox" id="nav-10-7">
+    
+    <label class="md-nav__link" for="nav-10-7">
+      Aras Pranckevicius
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-7">
+        Aras Pranckevicius
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ArasPranckevicius-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ArasPranckevicius-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-8" type="checkbox" id="nav-10-8">
+    
+    <label class="md-nav__link" for="nav-10-8">
+      Amandine Coget
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-8">
+        Amandine Coget
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmandineCoget-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmandineCoget-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-9" type="checkbox" id="nav-10-9">
+    
+    <label class="md-nav__link" for="nav-10-9">
+      Tommy Refenes
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-9">
+        Tommy Refenes
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/TommyRefenes-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/TommyRefenes-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-10" type="checkbox" id="nav-10-10">
+    
+    <label class="md-nav__link" for="nav-10-10">
+      Casey Muratori
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-10">
+        Casey Muratori
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-hmh-video/" title="Video Interview" class="md-nav__link">
+      Video Interview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-11" type="checkbox" id="nav-10-11">
+    
+    <label class="md-nav__link" for="nav-10-11">
+      Adam Serdar
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-11">
+        Adam Serdar
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AdamSerdar-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AdamSerdar-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-12" type="checkbox" id="nav-10-12">
+    
+    <label class="md-nav__link" for="nav-10-12">
+      Summarized Advice
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-12">
+        Summarized Advice
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AliceChing-advice/" title="Alice Ching" class="md-nav__link">
+      Alice Ching
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmitRob-advice/" title="Amit Patel & Rob Shillingsburg" class="md-nav__link">
+      Amit Patel & Rob Shillingsburg
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JasonGregory-advice/" title="Jason Gregory" class="md-nav__link">
+      Jason Gregory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/OliverFranzke-advice/" title="Oliver Franzke" class="md-nav__link">
+      Oliver Franzke
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/WaltDestler-advice/" title="Walt Destler" class="md-nav__link">
+      Walt Destler
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-11" type="checkbox" id="nav-11">
+    
+    <label class="md-nav__link" for="nav-11">
+      Usage
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-11">
+        Usage
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/home/" title="FAQs" class="md-nav__link">
+      FAQs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/basics/" title="Basics" class="md-nav__link">
+      Basics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/level/" title="Level" class="md-nav__link">
+      Level
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/entity/" title="Entity/Transform" class="md-nav__link">
+      Entity/Transform
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/component/" title="Component" class="md-nav__link">
+      Component
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/graphics/" title="Graphics" class="md-nav__link">
+      Graphics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/input/" title="Input" class="md-nav__link">
+      Input
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/debug_logging/" title="Debug Logging" class="md-nav__link">
+      Debug Logging
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/debug_draw/" title="Debug Draw" class="md-nav__link">
+      Debug Draw
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/gui/" title="GUI" class="md-nav__link">
+      GUI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/audio/" title="Audio" class="md-nav__link">
+      Audio
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/collisions/" title="Collisions" class="md-nav__link">
+      Collisions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/networking/" title="Networking" class="md-nav__link">
+      Networking
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#byte-sized-updates" title="Byte-Sized Updates" class="md-nav__link">
+    Byte-Sized Updates
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network-transform" title="Network Transform" class="md-nav__link">
+    Network Transform
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sending-our-first-transform" title="Sending Our First Transform" class="md-nav__link">
+    Sending Our First Transform
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#who-owns-what" title="Who Owns What" class="md-nav__link">
+    Who Owns What
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interpolation-or-doing-a-lot-with-a-little" title="Interpolation, or Doing a Lot with a Little" class="md-nav__link">
+    Interpolation, or Doing a Lot with a Little
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-heftiness-of-network-interpolation" title="The Heftiness of Network Interpolation" class="md-nav__link">
+    The Heftiness of Network Interpolation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fewer-messages-fewer-problems" title="Fewer Messages, Fewer Problems" class="md-nav__link">
+    Fewer Messages, Fewer Problems
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-band-breaks-up" title="The Band Breaks Up" class="md-nav__link">
+    The Band Breaks Up
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-order" title="Out-of-Order" class="md-nav__link">
+    Out-of-Order
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interpolating-the-whole-three-yards" title="Interpolating the Whole Three Yards" class="md-nav__link">
+    Interpolating the Whole Three Yards
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#event-messaging-system" title="Event Messaging System" class="md-nav__link">
+    Event Messaging System
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-an-event-messaging-system" title="What is an Event Messaging System?" class="md-nav__link">
+    What is an Event Messaging System?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storing-all-event-data" title="Storing All Event Data" class="md-nav__link">
+    Storing All Event Data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#queued-callbacks-vs-immediate-callbacks" title="Queued Callbacks vs Immediate Callbacks" class="md-nav__link">
+    Queued Callbacks vs Immediate Callbacks
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collisions-dynamic-aabb-tree" title="Collisions - Dynamic AABB Tree" class="md-nav__link">
+    Collisions - Dynamic AABB Tree
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introducing-the-tree" title="Introducing the Tree" class="md-nav__link">
+    Introducing the Tree
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#making-the-tree" title="Making the Tree" class="md-nav__link">
+    Making the Tree
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-tree" title="Using the Tree" class="md-nav__link">
+    Using the Tree
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hooking-into-collisionmodule" title="Hooking into CollisionModule" class="md-nav__link">
+    Hooking into CollisionModule
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whats-next" title="What's Next" class="md-nav__link">
+    What's Next
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#console" title="Console" class="md-nav__link">
+    Console
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#components" title="Components" class="md-nav__link">
+    Components
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#awake-myth" title="Awake Myth" class="md-nav__link">
+    Awake Myth
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-your-engines" title="Start Your Engines!" class="md-nav__link">
+    Start Your Engines!
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preprocessing-the-component-hierarchy-tree" title="Preprocessing the Component Hierarchy Tree" class="md-nav__link">
+    Preprocessing the Component Hierarchy Tree
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checking-components-uniqueness" title="Checking Components' Uniqueness" class="md-nav__link">
+    Checking Components' Uniqueness
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patch-notes" title="Patch Notes" class="md-nav__link">
+    Patch Notes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#whats-wrong-with-our-quaternions" title="What's Wrong with Our Quaternions" class="md-nav__link">
+    What's Wrong with Our Quaternions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logger-file-io" title="Logger File I/O" class="md-nav__link">
+    Logger File I/O
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coming-soon" title="Coming Soon" class="md-nav__link">
+    Coming Soon
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" title="Resources" class="md-nav__link">
+    Resources
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+        <li class="md-nav__item">
+          <a href="#__comments" title="Comments" class="md-nav__link md-nav__link--active">
+            Comments
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="hello-from-the-west-coast">Hello from the West Coast<a class="headerlink" href="#hello-from-the-west-coast" title="Permanent link">&para;</a></h1>
+<p>Before we get started, we apologize for the delay with publishing Week 9. The Isetta Team was in Los Angeles this past week trying to wrangle some engine developers for interviews and meetings, so we naturally fell a little behind on our usually strict schedule!</p>
+<p>That being said, we got a couple of interviews while we were out galavanting in LA, and we hope you anticipate them in the coming weeks! Special thanks to <a href="https://twitter.com/postgoodism">Cort Stratton</a>, Sunil Nayak, and Jibran Khan for helping us figure things out while we were out on the west coast!</p>
+<h2 id="byte-sized-updates">Byte-Sized Updates<a class="headerlink" href="#byte-sized-updates" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#network-transform">Network Transform</a>: Built up the entire <code>NetworkTransform</code> class, including client authority and transform interpolation.</li>
+<li><a href="#event-messaging-system">Event Messaging System</a>: Implemented the event messaging system with both queued callbacks and immediate callbacks.</li>
+<li><a href="#collisions-dynamic-aabb-tree">Collisions - Dynamic AABB Tree</a>: Finally got to work on optimizing the collision tree, and the speed up on the detection was better than expected!</li>
+<li><a href="#console">Console</a>: Developed a console window for easier debugging and information display.</li>
+<li><a href="#components">Components</a>: Added several more features to our <code>Component</code> class family, including much of what Unity has for theirs (which is beginning to make sense to us).</li>
+</ul>
+<p><img alt="Engine Architecture" src="../../images/engine_architecture/week9.png" title="Week 9 Progress Architecture" /></p>
+<h2 id="network-transform">Network Transform<a class="headerlink" href="#network-transform" title="Permanent link">&para;</a></h2>
+<p>We may have finished our generic network messaging framework, but being able to send messages across the network is only half the battle. The other half is doing cool things with those messages—and in our case this week, synchronizing game state.</p>
+<p>Networked transform data is just like any other data that you send across some network, except it needs to be sent quite frequently and also happens to be needed on practically every networked object in a game. So with that in mind, we need to focus on a few things when we implement networked transforms in our engine:</p>
+<ul>
+<li>How much data are we sending?</li>
+<li>How frequently are we sending that data?</li>
+<li>How do we keep the right people in control of their own objects, e.g. player characters?</li>
+</ul>
+<p>There are a few other things to think about, like how do we make all of the data we receive seem smooth (e.g. characters aren't just jumping around all over the place) and what do we really need to send at any given moment, but those are optimizations for the above three questions, so we can consider solutions to those once we already have solutions for the big three.</p>
+<h3 id="sending-our-first-transform">Sending Our First Transform<a class="headerlink" href="#sending-our-first-transform" title="Permanent link">&para;</a></h3>
+<p>Now that we have our snazzy new components system and our network messaging system, why not use them to our advantage? We can create a message called <code>TransformMessage</code> that carries four things: the position, rotation, and scale of the object, and the object's network ID.  The reasoning for the first three should be obvious, but the reasoning for the ID might not be. A couple weeks ago in <a href="../week-7/#network-identities">Network Identities</a>, we created a <code>NetworkId</code> class (previously named <code>NetworkIdentity</code>) that could be used to identify objects that correspond to one another between two separate computers, since you can't really use pointers over the network. We had only used <code>NetworkId</code> for a contrived spawning/despawning example, but networked transforms were the real motivation behind the network IDs. By sending that across the network along with the transform data, we can figure out who should be receiving the data once the message is received by the other computers.</p>
+<p>Using our components system, we can also generate a component for our networked transforms, conveniently called <code>NetworkTransform</code>. This will be what's responsible for updating the entity's actual transform with whatever we receive from the network, or on the flip side, sending out the most recent transform to the network. To do so, we need to register some network message handlers that will handle any incoming <code>TransformMessage</code> traffic—we can register these message handlers within the first <code>Start</code> function that runs for any <code>NetworkTransform</code> components, and doing so will create a couple of callbacks:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// Client callback code</span>
+
+<span class="n">Entity</span><span class="o">*</span> <span class="n">entity</span> <span class="o">=</span> <span class="n">NetworkManager</span><span class="o">::</span><span class="n">Instance</span><span class="p">.</span><span class="n">GetNetworkEntity</span><span class="p">(</span>
+  <span class="n">transformMessage</span><span class="o">-&gt;</span><span class="n">netId</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">entity</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">Transform</span> <span class="n">t</span> <span class="o">=</span> <span class="n">entity</span><span class="o">-&gt;</span><span class="n">GetTransform</span><span class="p">;</span>
+  <span class="n">t</span><span class="p">.</span><span class="n">SetLocalPos</span><span class="p">(</span><span class="n">transformMessage</span><span class="o">-&gt;</span><span class="n">localPos</span><span class="p">);</span>
+  <span class="n">t</span><span class="p">.</span><span class="n">SetLocalScale</span><span class="p">(</span><span class="n">transformMessage</span><span class="o">-&gt;</span><span class="n">localScale</span><span class="p">);</span>
+  <span class="n">t</span><span class="p">.</span><span class="n">SetLocalRot</span><span class="p">(</span><span class="n">transformMessage</span><span class="o">-&gt;</span><span class="n">localRot</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// …</span>
+
+<span class="c1">// Server callback code</span>
+<span class="n">NetworkManager</span><span class="o">::</span><span class="n">Instance</span><span class="p">.</span><span class="n">SendAllMessageFromServer</span><span class="o">&lt;</span><span class="n">TransformMessage</span><span class="o">&gt;</span><span class="p">(</span>
+  <span class="n">transformMessage</span><span class="p">);</span>
+
+<span class="c1">// ...</span>
+</pre></div>
+
+<p>Pretty basic, right? This is essentially all you need to get started with networking transform data (although you might notice a problem in this code that we'll <a href="#who-owns-what">delve into later</a>). The final bit is sending out the actual <code>TransformMessage</code> objects. We could just send a new <code>TransformMessage</code> every time we update the component, but we need to start thinking less about the functionality and more about the data now. Each of these <code>TransformMessage</code> objects contains two <code>Vector3</code>s, one <code>Quaternion</code>, and an <code>int</code> for the network ID. That amounts to 4 bytes per float and int, and 11 floats/ints in total, which is total of 44 bytes. Messages will typically also have some amount of overhead in them, which we can say will be 16 bytes for a round 60 bytes total per message (the actual overhead depends on your packet and message implementation!). Now imagine, if we're sending a <code>TransformMessage</code> every update and our game updates 60 times every second, then we're sending 3.5KB of data every second <em>for every networked object in the game</em>. That doesn't seem like an incredible amount of data, but network bandwidth is a shared resource not only in the game, but across entire local networks. Also, the amount of data you send across the network can often correspond with the latency of the response on other player's machines.</p>
+<p>With this in mind, we should always try to be practical with the data that we send. The first simple way to do this would be to only send <code>TransformMessage</code>s every N updates, because let's be honest, most of our game objects are not all that important to the feel or activity of the game, and only a couple key objects may ever need fast-as-possible updates for their transforms. An assumption our team makes here is that we won't want to control the network update frequency of individual networked components, so our <code>updateInterval</code> is a class variable of <code>NetworkId</code> which can then be referenced by everything else that uses the networking. Fortunately, this assumption is easy to fix refactor later if we actually do need different update frequencies.</p>
+<h3 id="who-owns-what">Who Owns What<a class="headerlink" href="#who-owns-what" title="Permanent link">&para;</a></h3>
+<p>Above, we mentioned that there was a problem with the code for the <code>TransformMessage</code> handling. Did you spot it? We'll give you a hint: What happens if everyone sends <code>TransformMessage</code>s for every one of their networked objects?</p>
+<p>Answer: Nothing good, that's for sure. One of the problems that you can pretty much ignore with just the generic RPC<sup id="fnref:13425"><a class="footnote-ref" href="#fn:13425" rel="footnote">1</a></sup> messages is one of <em>client authority</em>, which is the idea that certain clients should have authority over certain networked data. This has multiple levels to it, too. The most basic form is what we'll be doing, where one client gets to "own" a particular object and send messages related to that object. Another form of client authority is for information contention, where one player might have successfully shot another player on their local machine, but on the other player's machine, the shot was a miss. Usually what you can default to is that the server is always right (unless you're doing peer-to-peer connections), but in some games you may want to defer to the shooter or the shootee, depending on the game design.</p>
+<p>Our client authority is very straightforward; every time a networked object is instantiated (i.e. it has a <code>NetworkId</code> component), the <code>NetworkId</code> is also assigned a client index. That client index can then be used to affirm whether or not some machine is the authority over that object before we apply any of the data. That can be done on both the client's side, where the client can check against their own index, or the server's side, where the server can validate the index of the client requesting that the action be performed.</p>
+<p>This is a trivial check when handling messages:</p>
+<div class="codehilite"><pre><span></span><span class="n">NetworkId</span><span class="o">*</span> <span class="n">netId</span> <span class="o">=</span> <span class="n">NetworkManager</span><span class="o">::</span><span class="n">Instance</span><span class="p">.</span><span class="n">GetNetworkId</span><span class="p">(</span><span class="n">transformMessage</span><span class="o">-&gt;</span><span class="n">netId</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">netId</span> <span class="o">||</span> <span class="n">netId</span><span class="o">-&gt;</span><span class="n">HasClientAuthority</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>To keep ourselves from sending way more data than is needed, we also perform this check inside of <code>NetworkTransform</code> to ensure that we own the networked object and we should indeed be sending this object's transform to the server.</p>
+<p>With that, we've answered the big three questions and our <code>NetworkTransform</code>s are ready to go!</p>
+<div class="video-wrapper">
+
+  <video playsinline autoplay muted loop>
+
+    <source src="../../images/blogs/week-9/network-transform-simple.mp4" type="video/mp4">
+
+Your browser does not support the video tag.
+
+  </video>
+
+</div>
+
+<p>...it's a little choppy, isn't it? Uh, does this mean we need to increase the number of <code>TransformMessage</code>s we send?</p>
+<h3 id="interpolation-or-doing-a-lot-with-a-little">Interpolation, or Doing a Lot with a Little<a class="headerlink" href="#interpolation-or-doing-a-lot-with-a-little" title="Permanent link">&para;</a></h3>
+<p>Enter interpolation. <em>Interpolation</em> is when you take some data, for example two endpoints, and extrapolate the data between that, such as creating a line with the two endpoints. With interpolated data, you can effectively "smooth" out whatever data you have without increasing the amount of data you're receiving or processing. In the two endpoints example, we can smoothly walk from one endpoint to the other thanks to the line that we created.</p>
+<p><img alt="Interpolation Illustration" src="../../images/blogs/week-9/interpolation-illustration.png" /></p>
+<p>Interpolation is used everywhere in game development because computers are machines of a discrete, 1-or-0 nature but humans operate more continuously (only technically—<a href="https://en.wikipedia.org/wiki/Frame_rate#Human_vision">humans are more like machines than most of us think</a>). Graphics and animation use it, audio uses it, and of course, networking uses it. Interpolation is the first optimization that we are going to apply to our solution of the big three questions from above.</p>
+<p>There are multiple kinds of interpolation that we'll need to know about because of the nature of our data. Most data can be nicely smoothed by <em>linear interpolation</em>, or <em>lerp</em>, which is pretty much the same as the line example from above. Another kind that we'll need to use for our rotations is <em>spherical linear interpolation</em>, or <em>slerp</em>. We won't get into the math (<a href="https://en.wikipedia.org/wiki/Slerp">reference</a> if you're interested), but it's effectively a constant speed movement like lerp but along the edge of a circle's arc.</p>
+<p>Functions for getting a data point along that range have already been dealt with all the way back in <a href="../week-1/#math">Week 1</a>, though. What we need to do for our <code>NetworkTransform</code> is the "over time" part.</p>
+<h3 id="the-heftiness-of-network-interpolation">The Heftiness of Network Interpolation<a class="headerlink" href="#the-heftiness-of-network-interpolation" title="Permanent link">&para;</a></h3>
+<p>An important thing to remember is that oftentimes optimizations are really tradeoffs. For speed we may sacrifice space via caching, or for readability we may sacrifice performance. Network optimizations are no different. When we decided to only send infrequent transform data across the network, we also decided to do the work of faking a smooth network experience, and that comes with a significant price.</p>
+<p>In order to properly interpolate the transform data over time, we need to keep track of additional information. Particularly, we need the previous <em>and</em> target transforms of our networked object. The reason why we need both of them is because our actual transform will be somewhere between the previous and target, and getting rid of one makes it impossible to know where the actual transform should go in that range.</p>
+<p>For the time being, we'll only focus on positional interpolation as that's the most obvious and straightforward of the trio. We can update our <code>TransformMessage</code> client handler to register these previous and target positions:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// … client callback boilerplate here</span>
+<span class="n">Transform</span><span class="o">&amp;</span> <span class="n">t</span> <span class="o">=</span> <span class="n">entity</span><span class="o">-&gt;</span><span class="n">GetTransform</span><span class="p">;</span>
+<span class="n">targetPos</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="n">GetParent</span><span class="o">-&gt;</span><span class="n">GetWorldPos</span> <span class="o">+</span> <span class="n">transformMessage</span><span class="o">-&gt;</span><span class="n">localPos</span><span class="p">;</span>
+<span class="n">prevPos</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="n">GetWorldPos</span><span class="p">;</span>
+</pre></div>
+
+<p>And we can add another section to the <code>NetworkTransform</code>'s <code>FixedUpdate</code> function that uses a new <code>interpolation</code> float value to determine how far along it is between the previous and target positions:</p>
+<div class="codehilite"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">netId</span><span class="o">-&gt;</span><span class="n">HasClientAuthority</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// … send out the TransformMessage</span>
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">interpolation</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">Transform</span><span class="o">&amp;</span> <span class="n">t</span> <span class="o">=</span> <span class="n">entity</span><span class="o">-&gt;</span><span class="n">GetTransform</span><span class="p">;</span>
+  <span class="n">interpolation</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">interpolation</span> <span class="o">+</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">netId</span><span class="o">-&gt;</span><span class="n">updateInterval</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">t</span><span class="p">.</span><span class="n">SetLocalPos</span><span class="p">(</span><span class="n">Math</span><span class="o">::</span><span class="n">Vector3</span><span class="o">::</span><span class="n">Lerp</span><span class="p">(</span><span class="n">prevPos</span><span class="p">,</span> <span class="n">targetPos</span><span class="p">,</span> <span class="n">interpolation</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Every frame, <code>interpolation</code> is being incremented (in this case, by enough that it will be finished with the interpolation by the time the next <code>TransformMessage</code> should be due), then the entity is set to some corresponding position based on <code>interpolation</code>'s new value. If we receive a new <code>TransformMessage</code> but we haven't finished our interpolation, then we simply reset the previous position to exactly where we're currently at and interpolate from there!</p>
+<p>With this, we can immediately see an improvement in the networked movement (although you may notice the latency being a bit higher):</p>
+<div class="video-wrapper">
+
+  <video playsinline autoplay muted loop>
+
+    <source src="../../images/blogs/week-9/network-transform-interpolated.mp4" type="video/mp4">
+
+Your browser does not support the video tag.
+
+  </video>
+
+</div>
+
+<blockquote>
+<p>A little developer strife to note here: When we were testing network interpolation, we eventually got to interpolation rotation and ended up hitting a ton of bugs. We thought this was the network code behaving strangely with quaternions, but as it turns out, our <code>Quaternion</code> class was heavily bugged! You can read more about this in the <a href="#whats-wrong-with-our-quaternions">What's Wrong with Our Quaternions</a> section of the Patch Notes.</p>
+</blockquote>
+<h3 id="fewer-messages-fewer-problems">Fewer Messages, Fewer Problems<a class="headerlink" href="#fewer-messages-fewer-problems" title="Permanent link">&para;</a></h3>
+<p>Now that our results are looking pretty good, let's make it more optimal. A flaw with our update frequency optimization is that we're just blindly updating every N frames and asking no questions. Sometimes, this is desirable behavior! But if network bandwidth is precious (and for a lot of gamers, it is), then we should try to make our updating a little more intelligent.</p>
+<p>An important question to ask ourselves is, how precise do our transforms really need to be across the network? If you're running a networked physics simulation game (God help you), then high precision might be very important. But for most cases, things can be off a little bit and nobody will be the wiser—especially if you factor that into your gameplay code and correct anything that's off when it becomes important (like the direction a character is shooting).</p>
+<p>A very common and significant network optimization is to add an <em>update distance</em> to your networked transforms. An update distance is just like an update frequency, but for space. If we know that 0.1 units of spatial precision is all we need, then we can check if our current position is 0.1 units away from the last position that we sent across the network, and if it's not, then we just don't send a message yet.</p>
+<p>On the opposite side of an update distance, there's another tricky fault to consider. What if our game interpolates an object slower than it's receiving <code>TransformMessage</code>s? By our interpolation scheme described above, the object will perpetually fall behind its target position, eventually being egregiously far away from where it actually is on the server. This can be solved by introducing a <em>snapping distance</em>. Whenever we receive a <code>TransformMessage</code>, we check if our current position is further away from the target position than the snapping distance, and if so, we just snap right to the target position. It's not graceful, but it prevents accumulative error in case the interpolation isn't quite fast enough.</p>
+<h3 id="the-band-breaks-up">The Band Breaks Up<a class="headerlink" href="#the-band-breaks-up" title="Permanent link">&para;</a></h3>
+<p>We reduced the frequency of our <code>TransformMessage</code>s, but they're still kind of big. And by that, what we really mean is that we're sending a lot of useless data with each message. Sure, we could do some technical optimizations like <a href="https://gafferongames.com/post/snapshot_compression/#optimizing-orientation">dropping a value in the quaternion since we can reconstruct that part of it</a>, but that's for the hardcore network programmer. No, we're novice network programmers, so we're gonna solve novice problems. For example, breaking up our <code>TransformMessage</code> object.</p>
+<p>Within a transform, you have the three components of position, rotation, and scale. Each of those is important in representing anything visually, but they don't necessarily change as often as one another. In some games, you may be changing position constantly but never rotation and scale, and in others, you could be changing position and rotation pretty consistently (like a twin-stick shooter—hint, hint). The problem child in almost every game, though, is scale: When is that even <em>changed</em>?</p>
+<p>If we remove scale from our <code>TransformMessage</code> object, the message's size now becomes 48 bytes. That reduces our bandwidth usage by 20%! But what do we do about the scale? We can't just leave it the same all the time, because sometimes games really do need to change scale. In this case, we can create a new message class for it called <code>ScaleMessage</code>, which only contains the <code>Vector3</code> for the scale and an int for the network ID, and all it updates is the scale.</p>
+<p>Wait, so if our <code>TransformMessage</code> is now only 48 bytes, why don't we also separate position and rotation into <code>PositionMessage</code> and <code>RotationMessage</code>? Well, we <em>have</em> done that for convenience sake, but it's not necessarily a good idea. Don't forget that every message we create adds a (blindly estimated) 16 bytes of overhead to the total plus any other necessary information, so our <code>ScaleMessage</code> object isn't just the 12 bytes of the scale's <code>Vector3</code>, it's 32 bytes (because of the message overhead plus the network ID). And if you're developing a twin-stick shooter and you know that position and rotation are almost glued to the hip, then by separating the position and rotation messages, you're adding almost 20 bytes of extra data to the network stream for every two messages! Not to mention you'll have to perform extra processing for each individual message as well.</p>
+<p><img alt="Message Overhead" src="../../images/blogs/week-9/message-overhead.png" /></p>
+<p><em>This gets even worse when you need more information in every message!</em></p>
+<p>So in the end, we did indeed break <code>TransformMessage</code> into three different message classes to keep things simple, but it's important to consider the usage of these messages and try to optimize by packing things together.</p>
+<h3 id="out-of-order">Out-of-Order<a class="headerlink" href="#out-of-order" title="Permanent link">&para;</a></h3>
+<p>In the midst of all of this serious network interpolation work that we did, we faced some stuttering issues when the networked objects would update their positions; objects would mostly move like they were supposed to, they would sometimes go slightly back for a hot moment then continue as usual. While the interpolation code did still need some work, the stuttering wasn't of the same sort that we were facing there.</p>
+<p>As it turns out, keeping track of message order can be pretty important. Our assumption was that the most recently received <code>TransformMessage</code> is the most recent message. However, if a <code>TransformMessage</code> is delayed by a second or so due to router magic, and then the local client finally receives that message, that "new" message would send our character waaay out of place! So we need to identify which messages were <em>sent</em> later rather than what was <em>received</em> later.</p>
+<p>Our networking library <a href="https://github.com/networkprotocol/yojimbo/">yojimbo</a> does this with its ordered-reliable messaging, but that messaging system is really meant to be used for things that you need to receive in the correct order so that you can properly process the information. We just need to know whether or not we should be ignoring a given message, so our solution can be simpler and lighter-weight. Each of the transform message classes now contains a <code>timestamp</code> float that indicates when the message was sent last, so all we have to do is check that against our most recently used timestamp to see if it's valid:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// Inside the client position callback code</span>
+<span class="n">NetworkTransform</span><span class="o">*</span> <span class="n">nt</span> <span class="o">=</span> <span class="n">entity</span><span class="o">-&gt;</span><span class="n">GetComponent</span><span class="o">&lt;</span><span class="n">NetworkTransform</span><span class="o">&gt;</span><span class="p">;</span> \
+<span class="k">if</span> <span class="p">(</span><span class="n">nt</span> <span class="o">&amp;&amp;</span> <span class="n">positionMessage</span><span class="o">-&gt;</span><span class="n">updateTime</span> <span class="o">&lt;</span> <span class="n">nt</span><span class="o">-&gt;</span><span class="n">lastPosMessage</span><span class="p">)</span> <span class="p">{</span>  \
+  <span class="k">return</span><span class="p">;</span>                                                      \
+<span class="p">}</span>
+<span class="c1">// ... go on to process the message if it&#39;s valid</span>
+</pre></div>
+
+<p>This does introduce an extra 4 bytes of size to each of the transform messages, but it's important for correctness. Another thing that can be done to prevent bogus transform messages (which we did do) is to keep track of the most recent timestamps for each networked object and throw out any messages that fail before even sending them to the clients. This can take a good chunk of memory on the server depending on how many networked objects you have, but it will reduce unnecessary network bandwidth even further.</p>
+<h3 id="interpolating-the-whole-three-yards">Interpolating the Whole Three Yards<a class="headerlink" href="#interpolating-the-whole-three-yards" title="Permanent link">&para;</a></h3>
+<p>So we've covered almost everything when it comes to basic networked transforms, but there's one more detail that we haven't gotten to yet. So far, we've only discussed positional interpolation and how that plays out in the code. Rotational and scalar interpolation aren't all the much different when it comes to the math, but a question comes to mind now that we have three different values to interpolate: Who dictates the interpolation?</p>
+<p>The most simple interpolation scheme would be to keep one <code>interpolation</code> float value and interpolate all of the transform components by that. That's straightforward and lean, as far as memory is concerned. Unfortunately, that poses a problem when you want to "restart" the interpolation. Recall from above that when we receive a new transform message, we reset <code>interpolation</code> and then interpolate between the current transform and the received transform. What if we were 80% of the way through interpolating the position, then we got an updated rotation? If we were to reset <code>interpolation</code> and go from there, the last 20% of the positional interpolation would take longer than the first 80% did!</p>
+<p>To avoid this, we need to track interpolation on a piecewise basis. Again, that makes the <code>NetworkTransform</code> class even heftier, but heftiness is sometimes okay in the name of quality. Now, we have three different interpolation float values that are all completely independent of each other, so if we receive a late rotation update, our character will just do the rotation while its completing its translation in due time:</p>
+<div class="video-wrapper">
+
+  <video playsinline autoplay muted loop>
+
+    <source src="../../images/blogs/week-9/network-transform-full-interpolation.mp4" type="video/mp4">
+
+Your browser does not support the video tag.
+
+  </video>
+
+</div>
+
+<p>And so, <code>NetworkTransform</code> is finished! We're sure that it will still take a lot of refinement and iteration, but it works as well as we need it to in order to start making true online multiplayer games. We actually have one more note that we actually neglected until the end of its development as well. The speed at which the transform interpolates doesn't have to match the frequency of the messages being sent out, and in fact, sometimes you don't want this to be the case. For that, we have the <code>interpolationFactor</code> variable on our <code>NetworkId</code> class. If set to greater than 1, the interpolation will happen faster, and less than 1 will make it slower. Less than or equal to 0 really should make the interpolation instant, but we can update that next week!</p>
+<h2 id="event-messaging-system">Event Messaging System<a class="headerlink" href="#event-messaging-system" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-an-event-messaging-system">What is an Event Messaging System?<a class="headerlink" href="#what-is-an-event-messaging-system" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Games are inherently event-driven. — Jason Gregory, <em>Game Engine Architecture, 3<sup>rd</sup> Ed.</em></p>
+</blockquote>
+<p>When we are playing games, the progress is often driven by events like killing an enemy or collecting coins. Once the event is raised or triggered, multiple game entities need to respond to that. For example, after you kill an enemy, your score will increase and enemy AI will locate your position. Since there is clearly  a variety of in-game events, it's near impossible to keep them as function APIs in the base class like <code>OnExplosion</code>. This <em>Statically Typed Late Function Binding</em> introduces inflexibility by baking the event types into the engine code and by creating an enormous base entity class which contains all possible callbacks, even most entities only override a few of them. The former one also leads to the failure of data-driven design, since events are not extendable.</p>
+<p>To deal with this problem, we need a more flexible solution, which can dynamically add new events and register corresponding events to them. This is what an event messaging system is meant to be. It is a hub that contains all the events, maps them to the callbacks and handles the raised events together.</p>
+<h3 id="storing-all-event-data">Storing All Event Data<a class="headerlink" href="#storing-all-event-data" title="Permanent link">&para;</a></h3>
+<p>Since it is a hub that stores and handles the data centrally, the first question is: How do we store the data? From our experience, an event is more like a behavior than an object that can be stored somewhere for later queries. Luckily, in the programming world, we can make a behavior like an object. The Command Pattern comes to rescue!</p>
+<p>In the <a href="https://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612/">Gang of Four</a>, the authors describe the Command Pattern as encapsulating a request as an object, thereby letting users parameterize clients with different requests, queue or log requests, and supporting undoable operations. To contextualize it, the Command Pattern is a technique that we use to encapsulate the event behaviors as event objects so that we can store them, queue them, and log them.</p>
+<p>The two basic factors of an event are its name and its parameters. The name is quite straightforward; it's a <code>string</code> used to tell which event is raised, such as an "Explosion Event" or a "Collecting Event". The parameters are the tricky part. They can be of various types and the amount is also changeable. Usually, people use <code>union</code> to handle the various types and use a <code>string</code> to indicate which type is this parameter:</p>
+<div class="codehilite"><pre><span></span><span class="k">struct</span> <span class="n">EventParam</span> <span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">type</span><span class="p">;</span>
+  <span class="k">union</span> <span class="p">{</span>
+    <span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="p">,</span> <span class="p">...</span>
+  <span class="p">}</span> <span class="n">value</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>This old technique is no longer encouraged by modern C++, mostly because of its un-safeness, where safeness is referring to type safety<sup id="fnref:98761"><a class="footnote-ref" href="#fn:98761" rel="footnote">2</a></sup>. Any developer using this <code>EventParam</code> can get messy values if they try to read the value as an different type than it is. C++17 provides a safe alternative to use—<code>std::variant</code>—which will generate a compile time error if the developer fetches data of the wrong type. So now, we have all the data we need to encapsulate an event object, what about the command behavior? This is an easy answer: We are also introducing Observer Pattern into the event object.</p>
+<p>As mentioned above, one single event can affect a lot of game objects. Due to the need to decouple the massive game objects from the event object, we have to use the Observer Pattern. Also, the nature of this pattern fits the event-driven system perfectly. Because we have already extensively used the Observer Pattern in our game engine, such as with the input, network, and collision modules, we won't talk too much about it again. If you want to know more about this pattern and how it works in the game engine, this <a href="http://gameprogrammingpatterns.com/observer.html">article</a> will be very helpful.</p>
+<h3 id="queued-callbacks-vs-immediate-callbacks">Queued Callbacks vs Immediate Callbacks<a class="headerlink" href="#queued-callbacks-vs-immediate-callbacks" title="Permanent link">&para;</a></h3>
+<p>After an event is raised, we can easily look up all the callbacks observing this event. But when should we handle the callbacks? Should we handle the event immediately and call all the callbacks, or should we put it into a queue so that we can handle all the events in a specific phase?</p>
+<p>We can see the use for both of them. For the immediate callbacks, they are simple and responsive. It runs the expected code right after something happens. For queued callbacks, they are less responsive than the immediate ones, but allow for the frame to complete so all objects have a chance to update before the callbacks are called. There is a special queue called a priority queue (or heap) which sorts all of the elements that are inserted into it. This sorting property allows us to add two more parameters: The priority and the frame count when the event is triggered. When the "Main Character Dies" event comes with an "NPC Goes to Sleep" event, we definitely think the former one is more important to handle. In this case, we should have different priorities for those two events and let the priority queue sort the events for us. Also, with the frame count parameter, we can now say "raise this event ten frames later". Since we are not implementing true multi-threading or coroutines, this can help the engine with some asynchronous<sup id="fnref:76"><a class="footnote-ref" href="#fn:76" rel="footnote">3</a></sup> features. We could do something similar with delaying based on time, however because our update is variable there is no guarantee the event would be raised exactly N seconds later. With this type of inconsistency we decided to hold off from implementing events based on time and to just use the frame count instead.</p>
+<p>After all that, we have both queued and immediate callbacks in our engine. We provide two different API's so that the developers can choose whatever fits their needs best.</p>
+<h2 id="collisions-dynamic-aabb-tree">Collisions - Dynamic AABB Tree<a class="headerlink" href="#collisions-dynamic-aabb-tree" title="Permanent link">&para;</a></h2>
+<h3 id="introducing-the-tree">Introducing the Tree<a class="headerlink" href="#introducing-the-tree" title="Permanent link">&para;</a></h3>
+<p>In <a href="../week-7/#speeding-it-up">Week 7</a>, we talked about accelerating our collision system using a DBVT (Dynamic Bounding Volume Tree; this will be referred to as BV Tree in the blog). This week, we finally got the chance to implement it in our engine and the improvement is phenomenal!</p>
+<div class="video-wrapper">
+
+  <video playsinline autoplay muted loop>
+
+    <source src="../../images/blogs/week-9/Dynamic_AABB_Tree_1104.mp4" type="video/mp4">
+
+Your browser does not support the video tag.
+
+  </video>
+
+</div>
+
+<p>Without BV Tree, having 80 sphere colliders in the scene results in an average frame time of ~35 ms, or 28 FPS, which is okay but certainly not enough given that we will have lots of zombies in the game. With BV Tree, we can handle more than 200 dynamic colliders in ~15 ms. Alright, alright, enough bragging—how did we do it?</p>
+<p>First, let's make clear what we are trying to do. Detecting collisions by comparing each possible object pair results in <code>O(n^2)</code> time complexity, but in reality, the chance that all pairs collide with each other is really close to zero. As it might be too hard to reduce the time of each single collision detection ("Although definitely possible with our implementation," says the person who programmed them), what we want is to efficiently find those pairs that <em>can</em> possibly collide with each other. Basically, we want determine if a pair could collide before doing a math intensive check. Our dear friend, BV Tree, can help us with it. With a BV Tree, when we want to find all the other colliders that are colliding with collider A, we just need to walk down from the tree root where we can possibly find another collider that collides with it—more specifically, where collider A is spatially located in the tree. We will talk about how we can do this in detail later. In theory, it reduces time complexity from <code>O(n^2)</code> to <code>O(n logn)</code>.</p>
+<p>The BV Tree uses bounding volumes to do this, as stated in weeks prior, so we need to decide on the type of bounding volume we wanted to use for the tree. The choices are usually between axis-aligned bounding boxes (AABB) and bounding spheres. An AABB is the smallest box whose edges are lined up with the world's X, Y, and Z axes and can enclose the specified object (in our case, collider primitives). A bounding sphere is similar, just being a sphere instead of a box. They are both pretty easy to construct and detect collisions between, but bounding spheres require additional volume when encapsulating oblong shapes, such as humanoid characters, which we will have more of than anything in our game, so we chose AABB's as our bounding objects. We also found AABB's to be more widely used than bounding spheres through our research (You can look as our references <a href="../../resources/#collision-detection">here</a>!</p>
+<h3 id="making-the-tree">Making the Tree<a class="headerlink" href="#making-the-tree" title="Permanent link">&para;</a></h3>
+<p>The next step is to design our BV Tree and decide the operations it should support. </p>
+<p>First, of course, we need to construct the tree. When we were looking at online resources, two of the most common tree construction techniques were the top-down method and the bottom-up method. They apply the best to scenarios where the colliders are known before runtime and won't change a lot. But in our case, the colliders will change their positions a lot, and we won't know where the colliders will be before they get instantiated. So we chose the third popular method: Constructing the tree by inserting colliders into it one by one when their respective <code>OnEnable</code> function is called. And this leads us to the second operation—insertion. </p>
+<p>Before we dive into how insertion works, let's look at the two most important properties of a BV Tree:</p>
+<ul>
+<li>Only leaves can contain actual colliders</li>
+<li>Every branch is guaranteed to have two valid children</li>
+</ul>
+<p>And so a BV Tree node looks like this:</p>
+<div class="codehilite"><pre><span></span><span class="k">struct</span> <span class="n">Node</span> <span class="p">{</span>
+  <span class="n">Node</span><span class="o">*</span> <span class="n">parent</span><span class="p">;</span>
+  <span class="n">Node</span><span class="o">*</span> <span class="n">left</span><span class="p">;</span>
+  <span class="n">Node</span><span class="o">*</span> <span class="n">right</span><span class="p">;</span>
+
+  <span class="c1">// we know a node is leaf when the collider is null,</span>
+  <span class="c1">// or the left/right is null</span>
+  <span class="n">Collider</span><span class="o">*</span> <span class="k">const</span> <span class="n">collider</span><span class="p">;</span>
+
+  <span class="c1">// The leaves&#39; AABB are just the AABB of primitive colliders, </span>
+  <span class="c1">// and the branches&#39; AABB are the AABB of both its children. </span>
+  <span class="n">AABB</span> <span class="n">aabb</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+
+<p>These two properties make it so easy for us to add and remove colliders from the tree. And thanks to these properties, the logic of adding a collider to the tree is the following (you can refer to our <a href="https://github.com/Isetta-Team/Isetta-Engine/blob/c92e0223d1db0841343edc1a5bddfb4c052c14b6/Isetta/IsettaEngine/Collisions/BVTree.cpp">Github repo</a> for actual implementation):</p>
+<ol>
+<li>Walk down the tree along the direction that causes minimum surface area change (as mentioned in <a href="../week-7/#collisions">Week 7 blog</a>, we should keep the tree balanced, and a typical balancing heuristic<sup id="fnref:83"><a class="footnote-ref" href="#fn:83" rel="footnote">4</a></sup> is surface area). Each step is done by <em>trying</em> to enclose the new collider's AABB with the left and right children, and comparing their surface area change after the enclosing operation. </li>
+<li>After arriving at a leaf, construct a new branch node at that leaf's position, and set the original leaf and the new collider as the two children of the new branch node. Also do some other pointer bookkeeping to make the tree valid.</li>
+</ol>
+<p>We also need to remove nodes from the tree when collider components are removed or disabled. Removing is also a pretty straightforward operation—just find the node's sibling, and pop it up to the position of its parent. A thing to note is that everytime we modify something at the leaf level, we should pop up level by level to make sure the parent's AABB still contains both children.</p>
+<p>The last operation for us to cover is updating the tree. When a collider moves, its AABB will also change. We can keep the collider where it is in the tree, in which case the tree still works, but would become unbalanced pretty quickly. Therefore, we remove a collider from the tree when its AABB gets invalidated and then add it back, so we can always have a balanced tree. However in a game where everything is moving all the time, doing this means we need to basically remove all colliders and add them back every frame, because their AABB's get invalidated frequently. To solve this problem, we introduced margins in our AABB, or called with a cute name, "fat AABB's". Fat AABBs don't tightly enclose the collision primitive, instead, they leave some margins around the collider. This allows the colliders to move within their fat AABB's for a while before the fat AABB's get invalidated, and thus reduces the need of re-adding colliders. It's worth noting that there is usually not a "silver bullet" margin value for AABB's, and we should experiment with it to get the best performance. So we made the margin (or "fat factor") a config value.</p>
+<h3 id="using-the-tree">Using the Tree<a class="headerlink" href="#using-the-tree" title="Permanent link">&para;</a></h3>
+<p>Finally, we have a BV Tree we can use! The final step is to just generate a list of pairs that can possibly collide with one another, and pass that list to our "narrow phase" to detect actual collisions.</p>
+<p>We did this by looking at every collider, walking down the tree, and adding possible collisions to a <code>unordered_set</code> of collider-collider pairs. However, if we do this naively, we may end up having duplicate pairs in the set—for example, we may have both <code>&lt;Collider A, Collider B&gt;</code> and <code>&lt;Collider B, Collider A&gt;</code>. The way we solved this problem is to have a customized hash function for the set like this:</p>
+<div class="codehilite"><pre><span></span><span class="k">struct</span> <span class="n">UnorderedPairHash</span> <span class="p">{</span>
+  <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+  <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="k">operator</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">p</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">hash</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">)</span> <span class="o">^</span> <span class="n">std</span><span class="o">::</span><span class="n">hash</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">second</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+
+<p>So <code>&lt;Collider A, Collider B&gt;</code> and <code>&lt;Collider B, Collider A&gt;</code> will be hashed to the same value and the set will help us prevent the duplicate. </p>
+<h3 id="hooking-into-collisionmodule">Hooking into CollisionModule<a class="headerlink" href="#hooking-into-collisionmodule" title="Permanent link">&para;</a></h3>
+<p>The clean setup of <code>CollisionModule</code> allowed us to easily integrate the BV Tree into our engine. We just created a BV Tree member variable in <code>CollisionModule</code>, so it can take care of calling the <code>Update</code> and <code>GetPossibleCollisionPairs</code> on the tree. On the other hand, the colliders can add/remove themselves to/from the tree easily as they are already friended to the <code>CollisionModule</code>. So yeah! We got a working dynamic AABB tree!</p>
+<p>In summary, the operations we needed on the tree are:</p>
+<ul>
+<li>Add colliders</li>
+<li>Remove colliders</li>
+<li>Update colliders</li>
+<li>Get possible collision pairs</li>
+</ul>
+<h3 id="whats-next">What's Next<a class="headerlink" href="#whats-next" title="Permanent link">&para;</a></h3>
+<p>As the tree is integrated into the engine and has a well-defined interface, we can easily iterate on it to improve performance and provide more functionality. We did a little bit of profiling on the tree, and to our surprise, <em>updating</em> the tree took a very small percentage of the time, while <em>getting possible collision pairs</em> took around 80% of the <code>CollisionModule</code>'s update time. Therefore, the next step for us is to optimize the "getting pairs" process by either reducing the constant time of each operation or even improving our algorithm to reduce the big O time complexity<sup id="fnref:283892"><a class="footnote-ref" href="#fn:283892" rel="footnote">5</a></sup>.</p>
+<h2 id="console">Console<a class="headerlink" href="#console" title="Permanent link">&para;</a></h2>
+<p>A console, in-game command-line, logger...the system has many names, but none of them can be seen on our engine architecture diagram. That's because it (sort of) isn't a system in the engine. The console is a great <em>editor</em> tool.</p>
+<blockquote>
+<p>Wait, I remember you said you weren't going to write an editor!</p>
+</blockquote>
+<p>Well, we still aren't, but as alluded to back in <a href="../week-2/#engine-config">Week 2</a>, the console is something that will be easy to develop and speed our debugging process. What the console needs to be able to do is output the same messages that are sent to the Visual Studio output window, and filter those messages based on verbosity level (info, warning, error) and channel (general, graphics, networking, etc.). So as part of this first requirement, since all the log messages pass through the <code>Logger</code> class, and we don't want to change how we do the logging, the <code>Logger</code> needs knowledge of the console.</p>
+<p>But this doesn't seem right, since the <code>Logger</code> is one of our core systems and the console is just a feature; our solution, which is admittedly probably not the best, is to store a function pointer<sup id="fnref:39"><a class="footnote-ref" href="#fn:39" rel="footnote">6</a></sup> which is called each time the <code>Logger</code> write method is called, and with the same string that is given to the <code>Logger</code> write method. It doesn't use the event messaging system because that requires the <code>Logger</code>, so in the case that nothing is listening to the event, a warning message is sent; this creates an infinitely recursive loop, which is a commonly known allergen for most programmers. It also isn't using a registration system like our input system because we weren't sure any other system would need to be listening to the <code>Logger</code> messages, and why over complicate something when we could just keep it simple? The function pointer stops the <code>Logger</code> system being coupled with anything else, such as the console.</p>
+<p>So with that, we set off in building out the GUI of the console, which ended up looking like this:</p>
+<p><img alt="Console" src="../../images/blogs/week-9/console-all.PNG" title="Console" /></p>
+<p>The console started as another way for us to flex our abstraction of the GUI system, and in the end it required adding in an additional implementation, <code>GUI::ButtonDropDown</code> (displayed below), that wasn't included with the imported GUI library. </p>
+<p><img alt="Console" src="../../images/blogs/week-9/console-channels.PNG" title="Console Channels" /></p>
+<p>Getting the functionality we wanted for filtering messages required us to use the variables already set up in the <code>Logger</code>, verbosity and channel masks. First, when displaying a message, the verbosity level is searched within the string to alter the color of the text, and the index of the message's verbosity is stored. The channel name is searched and stored as well, so based on whether the mask allows that channel and verbosity, the message will be displayed. The console component itself also alters the state of the <code>Logger</code> through config variables, so if info messages aren't displayed in the console, they also won't be displayed in the output window of Visual Studio. However, unlike the output window, whose history can't be changed, i.e. messages that were filtered out at an earlier time cannot be inserted into the output window, messages within the console can. So the entire history of messages can be seen as well as filtered based on the two criteria. As shown:</p>
+<p><img alt="Console" src="../../images/blogs/week-9/console-info.PNG" title="Console Only Info" /></p>
+<p><img alt="Console" src="../../images/blogs/week-9/console-general.PNG" title="Console Only Info + General" /></p>
+<p>The other functionality of the console is to be able to change configuration variables during runtime. Because of how we had done our <code>CVar</code> system from <a href="../week-2/#engine-config">Week 2</a>, this implementation was far easier than we had expected. The names of all the <code>CVar</code>s were already stored in a map which can be grabbed on initialization of the console, which happens long after the <code>CVar</code>s have been registered into the <code>CVarRegistry</code>. Then on pattern match, if anything is found followed by an equal sign (<code>cvar_name=1</code>), the configuration system can be called to set the variable. This variable is then changed throughout the game, wherever referenced!</p>
+<p>But why stop there? We could make it even easier for the developer! </p>
+<p>To start, let's list out all the commands available with an additional command. This requires the ability for users to define their own commands and callbacks for the console, so the user can create a command by having a keyword associated with a callback function that takes the console instance and string that follows their command, which in turn can be used as input parameters and parsed based on function need. So a command followed by a user delimiter<sup id="fnref:230495"><a class="footnote-ref" href="#fn:230495" rel="footnote">7</a></sup>  (the pipe symbol "|" for the Isetta Engine) denotes a user command and a command followed by a config delimiter "=" denotes a config command—this stops users from overriding config commands with their own. The reason to also pass an instance of the console to the callback is so the console's <code>AddLog</code> function can be called within the callback, which will only display information on that console in the case the developer has multiple consoles.</p>
+<p><img alt="Console" src="../../images/blogs/week-9/console-commands.PNG" title="Console Commands" /></p>
+<p>The history of the commands are also stored, so a developer can cycle back through old commands with the Up Arrow key.</p>
+<p><img alt="Console" src="../../images/blogs/week-9/console-history.PNG" title="Console History" /></p>
+<p>Okay—all of this is neat, with config and user commands and all, but there are so many commands, and even with the feature to list them all out, they can just be tiring in general. So we added an autocomplete feature on pressing the Tab key!</p>
+<p>The autocomplete works by comparing the characters since the last space with the same number of characters in all the commands. Once all the possible matches are found, the callback then determines if it can fully complete the word in the case of only one match, or it can complete a few more letters until the input word matches all the possible candidate commands, for example the commands "help", "hello" would be matched up to "he" if "h" was typed. The commands are currently stored in a vector and map, but the best data structure for this type of comparison would be a trie<sup id="fnref:683892"><a class="footnote-ref" href="#fn:683892" rel="footnote">8</a></sup>, so we may think of a way to use that for storage. Luckily, the console isn't a runtime feature so optimization isn't of the utmost importance.</p>
+<p><img alt="Console" src="../../images/blogs/week-9/console-autocomplete.PNG" title="Console Auto-Complete" /></p>
+<h2 id="components">Components<a class="headerlink" href="#components" title="Permanent link">&para;</a></h2>
+<h3 id="awake-myth">Awake Myth<a class="headerlink" href="#awake-myth" title="Permanent link">&para;</a></h3>
+<p>When we were designing the functions of the engine loop, we decided to have <code>OnEnable</code>, <code>Start</code>, <code>Update</code>, <code>FixedUpdate</code>, <code>OnDisable</code> and <code>OnDestroy</code> functions for the entity and the components. This is the smallest number of functions we thought we would need at that time. The reason we have <code>OnEnable</code> and <code>Start</code> is that some code should be run every time when a component is set active, while some should only be run once throughout its lifetime. Same logic applies to the <code>OnDisable</code> and <code>OnDestroy</code> functions. If you've used Unity before, you will find that it's quite similar with Unity's <code>MonoBehaviour</code>, but with one function missing: The <code>Awake</code> function. We didn't understand before why both <code>Awake</code> and <code>Start</code> are needed. Is that simply because of Unity is providing one additional phase for you to control?</p>
+<p>The answer is yes and no. This week, we finally got to the point that we thought we should add an <code>Awake</code> into the entities' lifecycle. It's all because of how the <code>Start</code> function works. As discussed in a <a href="../week-6/">previous post</a>, we are using a loading script to load the level, in which it creates the entities and attaches components. In that case, all the components attached on one single entity are not attached simultaneously. This leads to the fact that the <code>GetComponent</code> will largely depend on the attachment order if it is called in a function that is called when the component has just been added to one entity, since the component you are querying might not have been added yet. To avoid that ambiguity, we didn't call the <code>Start</code> function when the component is added; instead, we just marked it as <code>NeedStart</code>. After all the components are added, in the beginning of next frame, the engine loop will check if the component needs to be started. If so, the <code>Start</code> function will be run.</p>
+<p><img alt="sequence_diagram" src="../../images/blogs/week-9/start-time-sequence.png" /></p>
+<p>It works perfectly! Well, it does in most cases. It still introduces delaying frames when we try to add more components inside of the <code>Start</code> function. As the graph shows above, every time we are adding a component in the <code>Start</code> function, it will be brought in one frame late because the <code>Start</code> function can only be called by the <code>CheckStart</code> function, which is only called at the beginning of next frame.</p>
+<p>How do we deal with this issue? On one hand, we need a function called uniformly after all components are added so that we can correctly call <code>GetComponent</code>, but on the other hand, we want to eliminate the unnecessary <code>AddComponent</code> delay. We also cannot just use the <code>OnEnable</code> function, since it will be called every time the component is set active. The solution, surprisingly, turns out to be the missing <code>Awake</code> function!</p>
+<p>With the <code>Awake</code> function, we can now easily use the functions to achieve the two features we listed above. In addition, we also understand what might be the reason why Unity has these two "redundant" functions!</p>
+<h3 id="start-your-engines"><code>Start</code> Your Engines!<a class="headerlink" href="#start-your-engines" title="Permanent link">&para;</a></h3>
+<p>Originally, our component startup ordering was this: A component is added to an entity, then when <code>Update</code> is called on the entity, our system checks if <code>Start</code> needs to be run on the component. It's not a terrible waste of time to check that before every <code>Update</code>, so it hasn't been an issue until now.</p>
+<p>However, when we were working on our <code>NetworkTransform</code> component, we were adding the component to an entity and immediately getting an exception. Digging through the code revealed that one of the other components that we grab within <code>Start</code> was not getting grabbed, and some more digging showed us the error of our ways: The check to call <code>Start</code> was not being run in <code>FixedUpdate</code>.</p>
+<p>We could have just put the start check at the beginning of <code>FixedUpdate</code> and called it a day, but at that point we would be checking every component if it was added to its entity many times <em>per frame</em>. So we came up with a new scheme where components no longer check to be started inside of <code>Update</code>, but instead are added to a stack of <code>entitiesToStart</code> on the current <code>Level</code> object that is popped from every <code>Update</code> and <code>FixedUpdate</code>. This way, we gain two benefits: We are no longer checking every component if they need to be started every frame, and the entity's <code>Update</code> function no longer controls the <code>Start</code> of components because the <code>Level</code> handles it instead.</p>
+<h3 id="preprocessing-the-component-hierarchy-tree">Preprocessing the Component Hierarchy Tree<a class="headerlink" href="#preprocessing-the-component-hierarchy-tree" title="Permanent link">&para;</a></h3>
+<p><a href="../week-8/#component-registry">Last week</a>, we registered the components' hierarchy tree by a static registration function. After the registration, we have the <code>unordered_map</code> that maps every component type to its direct children component types (like mapping <code>Collider</code> to <code>BoxCollider</code>, <code>SphereCollider</code>, and <code>CapsuleCollider</code>). When <code>GetComponent&lt;T&gt;</code> is called, we do a lookup into the map and find all descendant component types by digging down into the tree and matching the types of components already attached to current entity. This is straightforward but quite expensive, because digging down involves multiple function calls. Since the type hierarchy tree is constructed during the static initialization time, we can always preprocess the tree to meet our needs after static initialization and before it is actually used. </p>
+<p>The way we optimized the hierarchy tree is to flatten the tree so that the parent component is not only mapped to its direct children components but also mapped to all the descendent components. This preprocessing can greatly reduce the lookup time to find all the descendent while it also increases the space the tree takes up. Thanks to our experience in using Unity, we know that functions like <code>GetComponent</code> are called quite frequently, so we finally decided to sacrifice some of the memory space to contain the type tree.</p>
+<div class="codehilite"><pre><span></span><span class="kt">void</span> <span class="n">Component</span><span class="o">::</span><span class="n">FlattenHelper</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">type_index</span> <span class="n">parent</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">type_index</span> <span class="n">curr</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">type_index</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">type_index</span><span class="o">&gt;&gt;&amp;</span> <span class="n">children</span> <span class="o">=</span>
+      <span class="n">childrenTypes</span><span class="p">;</span>
+
+  <span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">type_index</span><span class="o">&gt;*</span> <span class="n">parentList</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">children</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">parent</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">type_index</span><span class="o">&gt;*</span> <span class="n">componentList</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">children</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">curr</span><span class="p">);</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">childList</span> <span class="p">:</span> <span class="o">*</span><span class="n">componentList</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">childList</span> <span class="o">!=</span> <span class="n">curr</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">parentList</span><span class="o">-&gt;</span><span class="n">push_back</span><span class="p">(</span><span class="n">childList</span><span class="p">);</span>
+      <span class="n">FlattenHelper</span><span class="p">(</span><span class="n">curr</span><span class="p">,</span> <span class="n">childList</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>The algorithm we are using is depth-first search. The helper function iterates through the direct children list and appends it to its parent component's  children list. Then it calls the helper function recursively with itself as the parent component. The result is like this.</p>
+<div class="video-wrapper">
+
+  <video playsinline autoplay muted loop>
+
+    <source src="../../images/blogs/week-9/flatten-hierarchy-tree.mp4" type="video/mp4">
+
+Your browser does not support the video tag.
+
+  </video>
+
+</div>
+
+<h3 id="checking-components-uniqueness">Checking Components' Uniqueness<a class="headerlink" href="#checking-components-uniqueness" title="Permanent link">&para;</a></h3>
+<p>When we were working on the collision handler, which contains all the collision callbacks and is queried by the collision module for collision tests, we realized that it should be a unique component on each entity. This means that if one single entity has multiple collision handles, it might behave strangely. It's not a good rule to be enforced by the game developer, since it will be hard to debug if the developer happens to have multiple collision handlers on one entity. Thus, we want to enforce this uniqueness requirement from our engine by providing one more option when creating a new component. </p>
+<p>With that <code>unique</code> option parameter in the template, we now check if the component should be unique on an entity in the registration function. If so, we add said component to a set that contains all the unique components. We also changed the <code>AddComponent</code> function so that it now checks whether the component to be added is inside the unique component set or not. If so, it will do a <code>GetComponent</code> call to see if this type of component has already added to the entity. This uniqueness check can prevent the game developers from having unexpected behavior.</p>
+<p>Some might ask, "<code>GetComponent</code> not only returns the template component itself but also its descendent components, so how should the uniqueness work with this inheritance situation?" To simplify this question, let's say components B and C both inherited from component A; then, in theory,  can components B and C both be on the same entity? What about components A and C? Does our solution work for this case?</p>
+<p>The main point to think about here is, what is inheritance in computer science? It's a <code>is-a</code> relationship! Every child component is of the same type as its base class, but not the same as its sibling class. Now, if we revisit the question, the answer should be straightforward. Since component C <code>is-a</code> component of the same type as A, they should not appear on the same entity, while component B is not <code>is-a</code> (it's not quite as graceful this way) component of the same type as C, so they can both exist on one entity. Does the solution I described before work for this case? You bet it does. If you can go over how we construct the type hierarchy tree and how we check the uniqueness, you will see it works out naturally!</p>
+<p>The downside of providing this uniqueness check is that it's kind of expensive when there is a deep type-hierarchy tree. This is something that is inevitable, even though we are still trying keep the performance acceptable. The solution for now is to use the parallel algorithm<sup id="fnref:832"><a class="footnote-ref" href="#fn:832" rel="footnote">9</a></sup> from C++17. The way we are checking if any component attached to the entity has an equal type with the component adding to the entity is to use <code>any_of</code> function. Since the predicator is read-only, it's quite safe to use a <code>parallel_policy</code> to execute this algorithm.</p>
+<h2 id="patch-notes">Patch Notes<a class="headerlink" href="#patch-notes" title="Permanent link">&para;</a></h2>
+<h3 id="whats-wrong-with-our-quaternions">What's Wrong with Our Quaternions<a class="headerlink" href="#whats-wrong-with-our-quaternions" title="Permanent link">&para;</a></h3>
+<p>While we were doing our <code>NetworkTransform</code> work this past week, we needed to do some quaternion math in order to interpolate rotations. When we started that part of the work, we were befuddled; the interpolation was always ridiculously broken, to the extent of having NaN<sup id="fnref:234892"><a class="footnote-ref" href="#fn:234892" rel="footnote">10</a></sup> and non-unitary values!</p>
+<p>Well, as it turns out, it had nothing to do with our networking code and had everything to do with our <code>Quaternion</code> code. You see, when people say that you should unit test, you don't need to necessarily unit test <em>everything</em>—but you really should unit test your most basic classes! This week, we fixed most of our <code>Quaternion</code> math functions because they were incorrectly ordering their elements (<code>w</code> was placed inconsistently throughout the code), as well as fixed the <code>Quaternion::Slerp</code> function to properly handle interpolations between the exact same rotations. We also had to fix the <code>AngleDeg</code> function due to it calling itself recursively and overflowing the stack. A while ago, we also fixed the <code>AngleAxis</code> function which was using radians instead of degrees.</p>
+<p>Lesson learned: Test your math libraries!</p>
+<h3 id="logger-file-io">Logger File I/O<a class="headerlink" href="#logger-file-io" title="Permanent link">&para;</a></h3>
+<p>This week, when one of the team was looking into their log file, they noticed an issue: The log files were all 0kB. Most log files ended up being empty, and very few had actual log lines in them. The answer to why this was is fortunately fairly straightforward. When "optimizing" the <code>Logger</code>, the system waits for a config-specified number of bytes to be written to the buffer prior to writing the information to a file. This is to avoid flushing the buffer, opening, and writing to a file each and every log message, which is most certainly costly.</p>
+<p>However, what this didn't take into account is what happens if you don't reach that buffer limit before ending your session, or worse, before you crash. The fix was to add a shutdown function to the <code>Logger</code> which, regardless of bytes in the buffer, writes to the respective output file. This is then called at the end of our shutdown sequence to ensure each system is able to write to the Logger as needed. The shutdown solved this particular issue, but we admit isn't perfect. The log file still won't be written to when the game crashes the log file won't be written to. We suspect that we can solve this by using a master try-catch statement in our engine loop, but we'll report on that in the coming weeks.</p>
+<h2 id="coming-soon">Coming Soon<a class="headerlink" href="#coming-soon" title="Permanent link">&para;</a></h2>
+<p>This past week we were out in Los Angeles, California interviewing with <a href="https://twitter.com/theshroffage">Jeet Shroff</a>, <a href="https://twitter.com/likamutha?lang=en">Florian Strauss</a>, and <a href="https://twitter.com/despair?lang=en">Elan Ruskin</a> which we will be posting as soon as we can! This also leads perfectly into our other deliverable during this period, which is publishing these interviews into a book through CMU's ETC Press. More details to come soon!</p>
+<p>With regards to future work, we are coming close to the final moments of the project but still have a lot of work to do... Luckily, we only have 2 major systems left to develop as well as the final sample demo game we showed back in <a href="../week-0/#The-Example-Game">week 0</a>.</p>
+<h2 id="resources"><a href="../../resources/">Resources</a><a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
+<p>The resources page is still going strong, we are trying to link any resource we have found useful throughout our time in development. This can be a great resource to better understand any of the topics we are discussing or a jumpstart to help with your development. Let us know if there is anything with this page we could better organize to help you!</p>
+<p><em>Originally Published November 7, 2018.</em></p>
+<p><br></p>
+<!-- Begin MailChimp Signup Form -->
+
+<p><link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+<div id="mc_embed_signup" style="margin-top: -20px">
+    <form action="https://isetta.us19.list-manage.com/subscribe/post?u=1d83cb806c55e205be26db856&amp;id=860c7d79cf" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+            <h3>Subscribe to our mailing list</h3>
+            <p style="margin-bottom: -22px;">Get notifications about the upcoming blogs and interviews!</p>
+            <br><br>
+            <div class="mc-field-group">
+                <label for="mce-EMAIL"> </label>
+                <input type="email" placeholder="Email Address..." name="EMAIL" class="required email" id="mce-EMAIL">
+            </div>
+            <div id="mce-responses" class="clear">
+                <div class="response" id="mce-error-response" style="display:none"></div>
+                <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <input type="text" name="b_1d83cb806c55e205be26db856_860c7d79cf" tabindex="-1" value="">
+            </div>
+            <div class="clear" id="submit-button">
+                <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+            </div>
+        </div>
+    </form>
+</div>
+<!--End mc_embed_signup--></p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:13425">
+<p>A <strong>remote procedure call</strong> or <strong>RPC</strong> is a function that can be called on a computer by another computer across a network.&#160;<a class="footnote-backref" href="#fnref:13425" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:98761">
+<p><strong>Type safety</strong> is when the compiler can check whether the written code is using the right types and whether the language prevents or discourages type errors, errors from mismatching types.&#160;<a class="footnote-backref" href="#fnref:98761" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:76">
+<p><strong>Asynchronous</strong> is typically associated with parallel programming, and is when a task runs and completes separately from the main application/thread.&#160;<a class="footnote-backref" href="#fnref:76" rev="footnote" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:83">
+<p>A <strong>heuristic</strong> is similar to a rule that an algorithm or program follows as an optimization technique; it is used to arrive at the result with fewer iterations.&#160;<a class="footnote-backref" href="#fnref:83" rev="footnote" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:283892">
+<p><strong>Big O</strong> notation is a mathematical notation that describes the limiting behavior of a function when its argument approaches a value, typically infinity. It's usually used to evaluate the performance of an algorithm.&#160;<a class="footnote-backref" href="#fnref:283892" rev="footnote" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:39">
+<p>A <strong>function pointer</strong> is a 4/8 byte pointer, depending on your computer architecture, that points to a virtual table holding a reference to a function; instead of pointing to a variable the pointer points to a function.&#160;<a class="footnote-backref" href="#fnref:39" rev="footnote" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:230495">
+<p>A <strong>delimiter</strong> is a sequence of one or more characters used to specify the boundary between separate regions in text or other data streams. An example would be the comma character for comma-separated values.&#160;<a class="footnote-backref" href="#fnref:230495" rev="footnote" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+<li id="fn:683892">
+<p>A <strong>trie</strong>, also known as a radix tree, digital tree, or prefix tree, is a kind of search tree—an ordered tree data used to store a dynamic set or associative array where the keys are usually strings.&#160;<a class="footnote-backref" href="#fnref:683892" rev="footnote" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+</li>
+<li id="fn:832">
+<p><strong>Parallel</strong> <strong>programming</strong> is when code can be run on multiple threads rather than a linear process, therefore speeding up the execution. A <strong>parallel algorithm</strong> is an algorithm that can be executed as multiple pieces at a time, being split among multiple threads, then joined at the end to get the result.&#160;<a class="footnote-backref" href="#fnref:832" rev="footnote" title="Jump back to footnote 9 in the text">&#8617;</a></p>
+</li>
+<li id="fn:234892">
+<p><strong>NaN</strong> (not a number) is a numeric data type value that represents an undefined or unrepresentable value, especially in floating-point calculations.&#160;<a class="footnote-backref" href="#fnref:234892" rev="footnote" title="Jump back to footnote 10 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+                
+                  
+                
+              
+              
+                
+
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://isetta.io/blogs/week-9/";
+      this.page.identifier =
+        "blogs/week-9/";
+    };
+    (function() {
+      var d = document, s = d.createElement("script");
+      s.src = "//isetta-engine.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../week-8/" title="[Week 8] Patching Holes" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                [Week 8] Patching Holes
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../week-10/" title="[Week 10] Grab A Bucket" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                [Week 10] Grab A Bucket
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2019 Isetta Team
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.css">
+    
+      <a href="mailto:isetta.engine@gmail.com" class="md-footer-social__link fa fa-envelope"></a>
+    
+      <a href="https://twitter.com/IsettaEngine" class="md-footer-social__link fa fa-twitter"></a>
+    
+      <a href="https://github.com/Isetta-Team" class="md-footer-social__link fa fa-github"></a>
+    
+  </div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      
+      <script>app.initialize({version:"1.0.2",url:{base:"../.."}})</script>
+      
+        <script src="../../extra.js"></script>
+      
+    
+    
+      
+        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-124729724-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      
+    
+  </body>
+</html>

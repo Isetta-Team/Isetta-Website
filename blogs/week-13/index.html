@@ -1,0 +1,2985 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="We are making a game engine and documenting the process">
+      
+      
+        <link rel="canonical" href="https://isetta.io/blogs/week-13/">
+      
+      
+        <meta name="author" content="Caleb, Chaojie, Jacob, Jared, Yidi">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../images/isetta_icon.ico">
+      <meta name="generator" content="mkdocs-1.0.2, mkdocs-material-3.0.3">
+    
+    
+      
+        <title>[Week 13] Is This a Game Engine? - Isetta Engine</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Source+Code+Pro">
+        <style>body,input{font-family:"Lato","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Source Code Pro","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="../../extra.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="light-blue" data-md-color-accent="cyan">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../../#is-this-a-game-engine" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <!--
+  Copyright (c) 2016-2018 Martin Donath <martin.donath@squidfunk.com>
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Application header -->
+<header class="md-header" data-md-component="header">
+
+  <!-- Top-level navigation -->
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+
+      <!-- Link to home -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://isetta.io/" title="Isetta Engine" class="md-header-nav__button md-logo">
+          
+          <img id="isetta-logo" src="../../images/isetta_logo.png" width="24" height="24" />
+          
+        </a>
+      </div>
+
+      <!-- Button to toggle drawer -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+
+      <!-- Header title -->
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+          
+          <span class="md-header-nav__topic back_to_top cursor_pointer">
+            Isetta Engine
+          </span>
+          <span class="md-header-nav__topic back_to_top cursor_pointer">
+            [Week 13] Is This a Game Engine?
+            <span style="padding-left: 10px;">⇫</span>
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <!-- Button to open search dialogue -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+        
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+
+        <!-- Search interface -->
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+        
+      </div>
+
+      <!-- Repository containing source -->
+      
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <div class="md-header-nav__source">
+          
+
+
+  
+
+
+  <a href="https://github.com/Isetta-Team/Isetta-Engine" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      Isetta Engine
+    </div>
+  </a>
+
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Tabs with outline
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../compendium/" title="Compendium" class="md-tabs__link">
+          Compendium
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../week-0/" title="Blogs" class="md-tabs__link md-tabs__link--active">
+          Blogs
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../interviews/" title="Interviews" class="md-tabs__link">
+          Interviews
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../engine_docs/home/" title="Usage" class="md-tabs__link">
+          Usage
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+       -->
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../compendium/" title="Compendium" class="md-tabs__link">
+          Compendium
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../week-0/" title="Blogs" class="md-tabs__link md-tabs__link--active">
+          Blogs
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../interviews/" title="Interviews" class="md-tabs__link">
+          Interviews
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../engine_docs/home/" title="Usage" class="md-tabs__link">
+          Usage
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://isetta.io/" title="Isetta Engine" class="md-nav__button md-logo">
+      
+        <img src="../../images/isetta_logo.png" width="48" height="48">
+      
+    </a>
+    Isetta Engine
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/Isetta-Team/Isetta-Engine" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      Isetta Engine
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../about/" title="About" class="md-nav__link">
+      About
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../team/" title="Team" class="md-nav__link">
+      Team
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../schedule/" title="Schedule" class="md-nav__link">
+      Schedule
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../resources/" title="Resources" class="md-nav__link">
+      Resources
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../glossary/" title="Glossary" class="md-nav__link">
+      Glossary
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../faq/" title="FAQ" class="md-nav__link">
+      FAQ
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Compendium
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Compendium
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2" type="checkbox" id="nav-8-2">
+    
+    <label class="md-nav__link" for="nav-8-2">
+      Engine Postmortem
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-8-2">
+        Engine Postmortem
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-1" type="checkbox" id="nav-8-2-1">
+    
+    <label class="md-nav__link" for="nav-8-2-1">
+      Lessons
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-1">
+        Lessons
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/BuildGames/" title="Build Games with Your Game Engine" class="md-nav__link">
+      Build Games with Your Game Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/RubberduckDeveloping/" title="Rubberduck Developing: Forced Explanation" class="md-nav__link">
+      Rubberduck Developing: Forced Explanation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/ItsNotThatHard/" title="It's Not That Hard" class="md-nav__link">
+      It's Not That Hard
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-2" type="checkbox" id="nav-8-2-2">
+    
+    <label class="md-nav__link" for="nav-8-2-2">
+      What went right
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-2">
+        What went right
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/HostingGameJam/" title="Hosting a Game Jam" class="md-nav__link">
+      Hosting a Game Jam
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/NoviceTeam/" title="Having a Team of Novices" class="md-nav__link">
+      Having a Team of Novices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/LeveragingProfessionals/" title="Leveraging Professionals for Input" class="md-nav__link">
+      Leveraging Professionals for Input
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-3" type="checkbox" id="nav-8-2-3">
+    
+    <label class="md-nav__link" for="nav-8-2-3">
+      What went wrong
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-3">
+        What went wrong
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/QuestionsForProfessionals/" title="Questions for the Professionals" class="md-nav__link">
+      Questions for the Professionals
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/SoftwareDevelopment/" title="Basic Software Development Practices" class="md-nav__link">
+      Basic Software Development Practices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/Crunch/" title="Crunch is Bad" class="md-nav__link">
+      Crunch is Bad
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/3rdParty/" title="3rd Party" class="md-nav__link">
+      3rd Party
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Build-ResourceManagement/" title="Build & Resource Management" class="md-nav__link">
+      Build & Resource Management
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Collisions/" title="Collisions" class="md-nav__link">
+      Collisions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Gameplay/" title="Gameplay" class="md-nav__link">
+      Gameplay
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Interviews/" title="Interviews" class="md-nav__link">
+      Interviews
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Memory/" title="Memory" class="md-nav__link">
+      Memory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Networking/" title="Networking" class="md-nav__link">
+      Networking
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Other/" title="Other Topics" class="md-nav__link">
+      Other Topics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Scene-Loop/" title="Scene & Engine Loop" class="md-nav__link">
+      Scene & Engine Loop
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Tools/" title="Tools" class="md-nav__link">
+      Tools
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9" checked>
+    
+    <label class="md-nav__link" for="nav-9">
+      Blogs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        Blogs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-0/" title="[Week 0] Preparation" class="md-nav__link">
+      [Week 0] Preparation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-1/" title="[Week 1] The Building Blocks" class="md-nav__link">
+      [Week 1] The Building Blocks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../engine-architecture/" title="Engine Architecture" class="md-nav__link">
+      Engine Architecture
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-2/" title="[Week 2] Ramping Up" class="md-nav__link">
+      [Week 2] Ramping Up
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-3/" title="[Week 3] "Completing" the Core" class="md-nav__link">
+      [Week 3] "Completing" the Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-4/" title="[Week 4] Buried in Comments" class="md-nav__link">
+      [Week 4] Buried in Comments
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-5/" title="[Week 5] Back in Business" class="md-nav__link">
+      [Week 5] Back in Business
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-6/" title="[Week 6] We Think It's Playable" class="md-nav__link">
+      [Week 6] We Think It's Playable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-7/" title="[Week 7] A Real Game Engine" class="md-nav__link">
+      [Week 7] A Real Game Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-8/" title="[Week 8] Patching Holes" class="md-nav__link">
+      [Week 8] Patching Holes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-9/" title="[Week 9] Hello from the West Coast" class="md-nav__link">
+      [Week 9] Hello from the West Coast
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-10/" title="[Week 10] Grab A Bucket" class="md-nav__link">
+      [Week 10] Grab A Bucket
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-11/" title="[Week 11] The One Where the Team Picks a Font" class="md-nav__link">
+      [Week 11] The One Where the Team Picks a Font
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-12/" title="[Week 12] Getting Ready for Game Jam!" class="md-nav__link">
+      [Week 12] Getting Ready for Game Jam!
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        [Week 13] Is This a Game Engine?
+      </label>
+    
+    <a href="./" title="[Week 13] Is This a Game Engine?" class="md-nav__link md-nav__link--active">
+      [Week 13] Is This a Game Engine?
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#byte-sized-updates" title="Byte-Sized Updates" class="md-nav__link">
+    Byte-Sized Updates
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-feature-demo-game" title="Full-Feature Demo Game" class="md-nav__link">
+    Full-Feature Demo Game
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hitscan" title="Hitscan" class="md-nav__link">
+    Hitscan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-hitscan" title="Why Hitscan?" class="md-nav__link">
+    Why Hitscan?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementing-hitscan" title="Implementing Hitscan" class="md-nav__link">
+    Implementing Hitscan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hitscan-is-easy-with-an-existing-collision-system" title="Hitscan is Easy (with an Existing Collision System)" class="md-nav__link">
+    Hitscan is Easy (with an Existing Collision System)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#being-mindful-of-the-data" title="Being Mindful of the Data" class="md-nav__link">
+    Being Mindful of the Data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-results" title="The Results" class="md-nav__link">
+    The Results
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-knight-game" title="The Knight Game" class="md-nav__link">
+    The Knight Game
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collision-solving" title="Collision Solving" class="md-nav__link">
+    Collision Solving
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-math-of-a-box" title="The Math of a Box" class="md-nav__link">
+    The Math of a Box
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#that-epsilon-spice" title="That Epsilon Spice" class="md-nav__link">
+    That Epsilon Spice
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mass-in-a-collision-system" title=""Mass" in a Collision System" class="md-nav__link">
+    "Mass" in a Collision System
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-system" title="Build System" class="md-nav__link">
+    Build System
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#networking" title="Networking" class="md-nav__link">
+    Networking
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#networked-game-management" title="Networked Game Management" class="md-nav__link">
+    Networked Game Management
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#network-role-monitoring" title="Network Role Monitoring" class="md-nav__link">
+    Network Role Monitoring
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updates-to-network-messaging-api" title="Updates to Network Messaging API" class="md-nav__link">
+    Updates to Network Messaging API
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-load-level" title="Network Load Level" class="md-nav__link">
+    Network Load Level
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-discovery" title="Network Discovery" class="md-nav__link">
+    Network Discovery
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring-memory-leaks" title="Monitoring Memory Leaks" class="md-nav__link">
+    Monitoring Memory Leaks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#engine-vs-game-resources" title="Engine vs. Game Resources" class="md-nav__link">
+    Engine vs. Game Resources
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patch-notes" title="Patch Notes" class="md-nav__link">
+    Patch Notes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#collision-solving-and-collision-callbacks" title="Collision Solving and Collision Callbacks" class="md-nav__link">
+    Collision Solving and Collision Callbacks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-entities" title="Static Entities" class="md-nav__link">
+    Static Entities
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#revisiting-transform-in-the-component-class" title="Revisiting transform in the Component Class" class="md-nav__link">
+    Revisiting transform in the Component Class
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delegates" title="Delegates" class="md-nav__link">
+    Delegates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#move-assignment-operator-for-arrays" title="Move Assignment Operator for Arrays" class="md-nav__link">
+    Move Assignment Operator for Arrays
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#window" title="Window" class="md-nav__link">
+    Window
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coming-soon" title="Coming Soon" class="md-nav__link">
+    Coming Soon
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" title="Resources" class="md-nav__link">
+    Resources
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+        <li class="md-nav__item">
+          <a href="#__comments" title="Comments" class="md-nav__link md-nav__link--active">
+            Comments
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-14/" title="[Week 14] The Last Blog." class="md-nav__link">
+      [Week 14] The Last Blog.
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
+    
+    <label class="md-nav__link" for="nav-10">
+      Interviews
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-10">
+        Interviews
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-2" type="checkbox" id="nav-10-2">
+    
+    <label class="md-nav__link" for="nav-10-2">
+      Elan Ruskin
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-2">
+        Elan Ruskin
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ElanRuskin-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ElanRuskin-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-3" type="checkbox" id="nav-10-3">
+    
+    <label class="md-nav__link" for="nav-10-3">
+      Shanee Nishry
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-3">
+        Shanee Nishry
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ShaneeNishry-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ShaneeNishry-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-4" type="checkbox" id="nav-10-4">
+    
+    <label class="md-nav__link" for="nav-10-4">
+      Jeff Preshing
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-4">
+        Jeff Preshing
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JeffPreshing-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JeffPreshing-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/MartinMiddleton-interview/" title="Martin Middleton" class="md-nav__link">
+      Martin Middleton
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-6" type="checkbox" id="nav-10-6">
+    
+    <label class="md-nav__link" for="nav-10-6">
+      Raymond Graham
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-6">
+        Raymond Graham
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/RaymondGraham-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/RaymondGraham-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-7" type="checkbox" id="nav-10-7">
+    
+    <label class="md-nav__link" for="nav-10-7">
+      Aras Pranckevicius
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-7">
+        Aras Pranckevicius
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ArasPranckevicius-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ArasPranckevicius-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-8" type="checkbox" id="nav-10-8">
+    
+    <label class="md-nav__link" for="nav-10-8">
+      Amandine Coget
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-8">
+        Amandine Coget
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmandineCoget-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmandineCoget-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-9" type="checkbox" id="nav-10-9">
+    
+    <label class="md-nav__link" for="nav-10-9">
+      Tommy Refenes
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-9">
+        Tommy Refenes
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/TommyRefenes-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/TommyRefenes-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-10" type="checkbox" id="nav-10-10">
+    
+    <label class="md-nav__link" for="nav-10-10">
+      Casey Muratori
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-10">
+        Casey Muratori
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-hmh-video/" title="Video Interview" class="md-nav__link">
+      Video Interview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-11" type="checkbox" id="nav-10-11">
+    
+    <label class="md-nav__link" for="nav-10-11">
+      Adam Serdar
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-11">
+        Adam Serdar
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AdamSerdar-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AdamSerdar-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-12" type="checkbox" id="nav-10-12">
+    
+    <label class="md-nav__link" for="nav-10-12">
+      Summarized Advice
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-12">
+        Summarized Advice
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AliceChing-advice/" title="Alice Ching" class="md-nav__link">
+      Alice Ching
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmitRob-advice/" title="Amit Patel & Rob Shillingsburg" class="md-nav__link">
+      Amit Patel & Rob Shillingsburg
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JasonGregory-advice/" title="Jason Gregory" class="md-nav__link">
+      Jason Gregory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/OliverFranzke-advice/" title="Oliver Franzke" class="md-nav__link">
+      Oliver Franzke
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/WaltDestler-advice/" title="Walt Destler" class="md-nav__link">
+      Walt Destler
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-11" type="checkbox" id="nav-11">
+    
+    <label class="md-nav__link" for="nav-11">
+      Usage
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-11">
+        Usage
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/home/" title="FAQs" class="md-nav__link">
+      FAQs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/basics/" title="Basics" class="md-nav__link">
+      Basics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/level/" title="Level" class="md-nav__link">
+      Level
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/entity/" title="Entity/Transform" class="md-nav__link">
+      Entity/Transform
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/component/" title="Component" class="md-nav__link">
+      Component
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/graphics/" title="Graphics" class="md-nav__link">
+      Graphics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/input/" title="Input" class="md-nav__link">
+      Input
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/debug_logging/" title="Debug Logging" class="md-nav__link">
+      Debug Logging
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/debug_draw/" title="Debug Draw" class="md-nav__link">
+      Debug Draw
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/gui/" title="GUI" class="md-nav__link">
+      GUI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/audio/" title="Audio" class="md-nav__link">
+      Audio
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/collisions/" title="Collisions" class="md-nav__link">
+      Collisions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/networking/" title="Networking" class="md-nav__link">
+      Networking
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#byte-sized-updates" title="Byte-Sized Updates" class="md-nav__link">
+    Byte-Sized Updates
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-feature-demo-game" title="Full-Feature Demo Game" class="md-nav__link">
+    Full-Feature Demo Game
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hitscan" title="Hitscan" class="md-nav__link">
+    Hitscan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-hitscan" title="Why Hitscan?" class="md-nav__link">
+    Why Hitscan?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementing-hitscan" title="Implementing Hitscan" class="md-nav__link">
+    Implementing Hitscan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hitscan-is-easy-with-an-existing-collision-system" title="Hitscan is Easy (with an Existing Collision System)" class="md-nav__link">
+    Hitscan is Easy (with an Existing Collision System)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#being-mindful-of-the-data" title="Being Mindful of the Data" class="md-nav__link">
+    Being Mindful of the Data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-results" title="The Results" class="md-nav__link">
+    The Results
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-knight-game" title="The Knight Game" class="md-nav__link">
+    The Knight Game
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collision-solving" title="Collision Solving" class="md-nav__link">
+    Collision Solving
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-math-of-a-box" title="The Math of a Box" class="md-nav__link">
+    The Math of a Box
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#that-epsilon-spice" title="That Epsilon Spice" class="md-nav__link">
+    That Epsilon Spice
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mass-in-a-collision-system" title=""Mass" in a Collision System" class="md-nav__link">
+    "Mass" in a Collision System
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-system" title="Build System" class="md-nav__link">
+    Build System
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#networking" title="Networking" class="md-nav__link">
+    Networking
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#networked-game-management" title="Networked Game Management" class="md-nav__link">
+    Networked Game Management
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#network-role-monitoring" title="Network Role Monitoring" class="md-nav__link">
+    Network Role Monitoring
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updates-to-network-messaging-api" title="Updates to Network Messaging API" class="md-nav__link">
+    Updates to Network Messaging API
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-load-level" title="Network Load Level" class="md-nav__link">
+    Network Load Level
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-discovery" title="Network Discovery" class="md-nav__link">
+    Network Discovery
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring-memory-leaks" title="Monitoring Memory Leaks" class="md-nav__link">
+    Monitoring Memory Leaks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#engine-vs-game-resources" title="Engine vs. Game Resources" class="md-nav__link">
+    Engine vs. Game Resources
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patch-notes" title="Patch Notes" class="md-nav__link">
+    Patch Notes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#collision-solving-and-collision-callbacks" title="Collision Solving and Collision Callbacks" class="md-nav__link">
+    Collision Solving and Collision Callbacks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-entities" title="Static Entities" class="md-nav__link">
+    Static Entities
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#revisiting-transform-in-the-component-class" title="Revisiting transform in the Component Class" class="md-nav__link">
+    Revisiting transform in the Component Class
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delegates" title="Delegates" class="md-nav__link">
+    Delegates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#move-assignment-operator-for-arrays" title="Move Assignment Operator for Arrays" class="md-nav__link">
+    Move Assignment Operator for Arrays
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#window" title="Window" class="md-nav__link">
+    Window
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coming-soon" title="Coming Soon" class="md-nav__link">
+    Coming Soon
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" title="Resources" class="md-nav__link">
+    Resources
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+        <li class="md-nav__item">
+          <a href="#__comments" title="Comments" class="md-nav__link md-nav__link--active">
+            Comments
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="is-this-a-game-engine">Is This a Game Engine?<a class="headerlink" href="#is-this-a-game-engine" title="Permanent link">&para;</a></h1>
+<h2 id="byte-sized-updates">Byte-Sized Updates<a class="headerlink" href="#byte-sized-updates" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#full-feature-demo-game">Full-Feature Demo Game</a>: Implemented hitscan to be used in our feature game.</li>
+<li><a href="#the-knight-game">The Knight Game</a>: Developed another game that flexes some of our new components and our collision system that hasn't been shown in a game just yet.</li>
+<li><a href="#collision-solving">Collision Solving</a>: Wrapped up our collision solver by making it moderately more correct, and added a "mass" feature.</li>
+<li><a href="#build-system">Build System</a>: Set up a build pipeline for our engine after one too many rebuilds aggravated our programmers to no end.</li>
+<li><a href="#networked-game-management">Networked Game Management</a>: Added functions like start/stop server and client, added callbacks related to client connection status, and added networked level loading.</li>
+<li><a href="#network-discovery">Network Discovery</a>: Added LAN (local area network) broadcasting functionality so we no longer need to type in IP by hand!</li>
+<li><a href="#monitoring-memory-leaks">Monitoring Memory Leaks</a>: We added memory allocation/free tracking and let the user know what's leaking on our free list by object name and amount.</li>
+<li><a href="#patch-notes">Patch Notes</a>: As we get to the end we seem to be patching more holes than making an actual boat.</li>
+</ul>
+<p><img alt="Engine Architecture" src="../../images/engine_architecture/week13.png" title="Week 13 Progress Architecture" /></p>
+<p>As you can see from the architectural diagram, the engine looks complete! We are still hunting bugs as we develop, but we are at feature lock (hopefully). This is actually harder for us than being still in development because there is so much more we would like to add and iterate on. We have accepted that we <em>have to</em> stop development to ensure the final release isn't broken. We are really focused on three things this week: </p>
+<ol>
+<li>Preparing for our game jam</li>
+<li>Starting our engine postmortems</li>
+<li>Finishing our full-feature demo game, including finishing necessary features for the game</li>
+</ol>
+<p>Now the real question we are asking is:
+<img alt="Engine Architecture" src="../../images/blogs/week-13/is_this_an_engine.png" title="Is This An Engine?" /></p>
+<h2 id="full-feature-demo-game">Full-Feature Demo Game<a class="headerlink" href="#full-feature-demo-game" title="Permanent link">&para;</a></h2>
+<p>We're continuing to build our <a href="../week-0/#the-example-game">feature game</a>. We still needed a few engine features discussed in this blog to finish the game, so we used that as an excuse to do some more engine development before putting down serious work into the game's foundation. (That being said, we've already made a <a href="../week-7/#first-game">basic version</a> of it, so it shouldn't be too hard to just expand upon that!)</p>
+<h3 id="hitscan">Hitscan<a class="headerlink" href="#hitscan" title="Permanent link">&para;</a></h3>
+<p>One of the features that we've begun work on is the shooting system. In our first game (and even in our Unreal example!), we effectively did collision checks on all of the enemies for each bullet. That's a really simple method for checking if bullets hit an object and it's easy to wrap one's mind around, but it's not terribly performant. How could you do this check faster, though? The answer is <em>hitscan</em>.</p>
+<p>Hitscan is simply a method of checking whether or not a bullet hits an object. It's pretty simple conceptually; when a gun is fired, you create a line from the gun in the direction of the gunshot and you check if that intersects any objects. You take the nearest intersected object and apply the gunshot to that object. Simple, right?</p>
+<p>When you go deeper into the feature, you might realize that there are more details that spill out of a hitscan system than you would think at first glance. For instance, what about bullet travel? Some guns shoot bullet more slowly than others. You can't just instantly check for an intersection if you want the bullet to have travel time, you need to simulate the travel time by only checking intersections with certain parts of the line segment depending on how long it's been since we fired the bullet.</p>
+<p><img alt="Instant Hitscan" src="../../images/blogs/week-13/instant_hitscan.png" />
+<em>Instant hitscan travel</em></p>
+<p><img alt="Hitscan Over Time" src="../../images/blogs/week-13/hitscan_over_time.png" />
+<em>Hitscan traveling over time</em></p>
+<h3 id="why-hitscan">Why Hitscan?<a class="headerlink" href="#why-hitscan" title="Permanent link">&para;</a></h3>
+<p>Above, we said that checking every object against every other object wouldn't be performant, but with a good collision system with spatial partitioning<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>, it would be pretty good, right? We can actually just reason about this to get a good answer, so long as we know what goes behind "entities" in an engine like ours.</p>
+<p>Each entity has a transform, and each transform needs to recalculate its own and all of its children's transformation matrices if it's moved, rotated, or scaled during the current frame. After doing all of that math, we still need to perform collision tests for every bullet object. But we're still not done! If a collision occurs and we remove the bullet from the scene, then we possibly need to regenerate our spatial partition in our collision system for the next frame. All of these operations aren't even including the overhead of data and runtime an entity might carry itself, being a generic object type that's used in our scene hierarchy.</p>
+<p>If that's not a good enough reason for investigating a faster method of bullet detection for you, then you will probably want to skip this section! However, we like to squeeze what we can out of our engine in terms of performance, and hitscan also poses a pretty interesting problem, so we moved forward with implementation.</p>
+<h3 id="implementing-hitscan">Implementing Hitscan<a class="headerlink" href="#implementing-hitscan" title="Permanent link">&para;</a></h3>
+<p>Like we said earlier, hitscan is something that gets larger and larger as you add more features into it. Fortunately, it's also naturally upgradable if you're mindful of how you implement it initially. </p>
+<p>We won't delve into too many details here because it's not quite engine development, but it is still a pretty interesting system to develop. We started our <code>Hitscan</code> component with a few decisions:</p>
+<ol>
+<li>Each bullet should <em>not</em> be its own entity (obviously)</li>
+<li>Each bullet should have its own properties, so if our gun starts shooting different bullets, our existing bullets won't change</li>
+<li>Bullets get blocked by any collider that is not a trigger</li>
+</ol>
+<p>Since we're building up from these decisions, they're the least likely to change in our system now, so it's important that they're chosen correctly. The one that may still change is that our bullets could get selectively blocked by different layers of colliders, but after a certain in point in development, we'll likely have to cement that decision in or face consequences later.</p>
+<h3 id="hitscan-is-easy-with-an-existing-collision-system">Hitscan is Easy (with an Existing Collision System)<a class="headerlink" href="#hitscan-is-easy-with-an-existing-collision-system" title="Permanent link">&para;</a></h3>
+<p>For our first decision, we need a different method of simulating each bullet than giving each one its own <code>Entity</code> and (expensively) moving it using our scene hierarchy. Luckily, we've already implemented <a href="../week-7/#collisions">raycasting in our collisions</a>, so we can leverage that functionality with the <code>Ray</code> class for performing hitscans. We also need to keep track of the <code>travel</code> distance for each bullet as well. In all, it should look a little something like this:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// Check if the bullet collides with anything</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">Collisions</span><span class="o">::</span><span class="n">Raycast</span><span class="p">(</span><span class="n">bullet</span><span class="p">.</span><span class="n">ray</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">hit</span><span class="p">,</span> <span class="n">bulletRange</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+        <span class="n">hit</span><span class="p">.</span><span class="n">GetDistance</span><span class="p">()</span> <span class="o">-</span> <span class="n">bullet</span><span class="p">.</span><span class="n">travel</span> <span class="o">&lt;</span> <span class="n">bullet</span><span class="p">.</span><span class="n">speed</span> <span class="o">*</span> <span class="n">deltaTime</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">bullets</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="n">bullet</span><span class="p">);</span>
+
+  <span class="c1">// … Get the hit collider and run functions on it</span>
+  <span class="k">continue</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Propogate the bullet through the space</span>
+<span class="n">bullet</span><span class="p">.</span><span class="n">travel</span> <span class="o">+=</span> <span class="n">bullet</span><span class="p">.</span><span class="n">speed</span> <span class="o">*</span> <span class="n">deltaTime</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">bullet</span><span class="p">.</span><span class="n">travel</span> <span class="o">&gt;</span> <span class="n">bullet</span><span class="p">.</span><span class="n">range</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">bullets</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="n">bullet</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>It's pretty straightforward. We check a raycast in our scene with our bullet, and if it hits anything then we kill it and run the appropriate code, and if it doesn't hit anything then we keep propagating it through the scene. That's it! Granted, this relies heavily on our collisions system with its intersection testing code, but once that's in place, the gameplay code is pretty easy.</p>
+<h3 id="being-mindful-of-the-data">Being Mindful of the Data<a class="headerlink" href="#being-mindful-of-the-data" title="Permanent link">&para;</a></h3>
+<p>Our second decision is a bit more interesting of a problem. For every bullet to have its own properties, we <em>could</em> store the bullet's properties in itself, and that would be easy. But think about that for a moment—how often will we be changing the properties of our gun? Maybe a few times in a game with power-ups? It's not zero, so we can't just forgo each bullet having their own properties, but since the number is so low, we need to think of something that will be less wasteful than repeating data way more than it needs to be.</p>
+<p>This is where pointers are nice. We could use an <code>unordered_map</code> from bullet to property or something, but that's much more complex than we need. With pointers to property objects, we only need to store eight bytes worth of data in each bullet to have arbitrarily complex properties on them!</p>
+<p><img alt="Bullets with Data" src="../../images/blogs/week-13/bullets_with_data.png" />
+<em>Bullets that contain their own data</em></p>
+<p><img alt="Bullets with Pointers" src="../../images/blogs/week-13/bullets_with_pointers.png" />
+<em>Bullets that contain pointers to their shared data</em></p>
+<p>It's so simple and straightforward...what's the catch? For those of you who were suspicious of this solution, you were right to be wary. One thing that we need to be mindful of is when we should "get rid of" the property objects. When we've destroyed all of the bullets that are using a particular property, do we just leave it for eternity? And if we destroy the property objects, how do we know that no other bullets are referencing it? This problem is solved with reference counting, where we keep track of the number of bullets using the property object and we decrement our count whenever one of those bullets is destroyed.</p>
+<p>We also need to keep track of when properties on our gun change so that we can create a new property object for the bullets after that point. That's mostly just writing mutator functions for any of the properties on the gun, which is simply boilerplate. With all of that set up, the code boils down to this:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// If any properties changed or we don&#39;t have any property objects</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">propertiesChanged</span> <span class="o">||</span> <span class="n">bulletProps</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Create our property object and assign it to the bullet</span>
+  <span class="n">bullet</span><span class="p">.</span><span class="n">props</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">bulletProps</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">properties</span><span class="p">);</span>
+  <span class="n">propertiesChanged</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="c1">// We can just use our most recent property object</span>
+  <span class="n">bullet</span><span class="p">.</span><span class="n">props</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">bulletProps</span><span class="p">.</span><span class="n">back</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="c1">// Don&#39;t forget to increase the reference count!</span>
+<span class="o">++</span><span class="n">bullet</span><span class="p">.</span><span class="n">props</span><span class="o">-&gt;</span><span class="n">refCount</span><span class="p">;</span>
+</pre></div>
+
+<h3 id="the-results">The Results<a class="headerlink" href="#the-results" title="Permanent link">&para;</a></h3>
+<p>After these things, most of the work was iterative. The gun has more properties than the bullets do since we need things like fire rate, and we can implement more properties on the bullet in the monolith <code>Update</code> function like a <code>piercing</code> property.</p>
+<p>The work on the hitscan system was quick and iterative, and we made a lot of improvements over time. This is one of the perks of having a built engine underneath our game code because we didn't have to deal with any engine rebuilding to iterate. That being said, we did have to revisit our engine code a few times to provide functionality that we were missing!</p>
+<p>Check out some progress videos of our hitscan work!</p>
+<div class="video-wrapper">
+ <video playsinline autoplay muted loop>
+   <source src="../../images/blogs/week-13/Hitscan-1.mp4" type="video/mp4">
+Your browser does not support the video tag.
+ </video>
+</div>
+
+<p><p/></p>
+<div class="video-wrapper">
+ <video playsinline autoplay muted loop>
+   <source src="../../images/blogs/week-13/Hitscan-2.mp4" type="video/mp4">
+Your browser does not support the video tag.
+ </video>
+</div>
+
+<p><p/></p>
+<div class="video-wrapper">
+ <video playsinline autoplay muted loop>
+   <source src="../../images/blogs/week-13/Hitscan-3.mp4" type="video/mp4">
+Your browser does not support the video tag.
+ </video>
+</div>
+
+<p>And here's a quick snapshot of the performance of our hitscan implementation. The top left contains frame rate info, and to its immediate right is our hitscan data. Over 4,000 shots at ~20ms is not bad, especially when you consider that 95% of the frame time is spent on the <code>DebugDraw</code> calls!</p>
+<p><img alt="Sick Hitscan Performance" src="../../images/blogs/week-13/sick_hitscan_perf.png" /></p>
+<h2 id="the-knight-game">The Knight Game<a class="headerlink" href="#the-knight-game" title="Permanent link">&para;</a></h2>
+<p>We've spent the last couple of weeks creating another game, or something that sort of resembles one... The gist of the game is an infinite runner where you, as the knight, run from a barrier (a collider) and slash training dummies (capsules) to rack up a high score. The focused-on engine features were colliders and animation as we had yet to really have a game focus on either (although we included animation in our first game). The development was relatively intermittent since we were just adding in features that we thought might be interesting and we definitely didn't have a design plan going into it.</p>
+<p>The development started by gathering additional assets and reworking them in Blender, which as you would expect for a programmer, took longer than estimated. Our struggle with this was that the downloaded models were scaled at 100 times the unit scale of our engine and Horde3D's engine. Scaling a model in-engine isn't that difficult, but it is nice to have a model already at scale, so we attempted to scale in modeling software which broke the connection between the mesh/skeletal rig and animation. Initially, we had a model file which was a COLLADA (.dae) model with mesh and rig and we also had other .dae files which were purely animation with the same rig, no mesh data. Without scaling we were able to successfully import the mesh and animation into Unity, but once the mesh and animation were scaled, something about the .dae file format broke the connection, and so not even Unity could process the files this way. After a night of struggling with that, we decided to use animation files which contained the mesh (although only .anim files were being exported with the asset processor) which worked even after scaling. The biggest struggle of this was that we were at the whim of two things out of our control: 1) the .dae file format and 2) the Horde3D rendering engine. Although we could read the .dae file, once they were turned into Horde3D's .geo and .anim files, all bets were off for whether the file was being processed properly or if the actual rendering/animation code was breaking. Here is the knight moving at correct scale:</p>
+<div class="video-wrapper">
+
+ <video playsinline autoplay muted loop>
+
+   <source src="../../images/blogs/week-13/Knight_walk.mp4" type="video/mp4">
+
+Your browser does not support the video tag.
+
+ </video>
+
+</div>
+
+<p>Once the actual animation was working in the engine, we wanted to "attach" a sword to the knight character which would follow a certain joint in its rig. Prior <a href="../week-12/#expose-more-functionalities-from-horde3d"><code>MeshComponent::GetJointWorldTransform</code></a> there was no way to do this. The functionality before wasn't sufficient because although the sword could have been parented to the knight, there is no way to get the hand's transform information. With this function, the sword can be attached to the hands and will move through an animation. We were then able to get the knight chopping with his sword!</p>
+<div class="video-wrapper">
+
+ <video playsinline autoplay muted loop>
+
+   <source src="../../images/blogs/week-13/Knight_sword.mp4" type="video/mp4">
+
+Your browser does not support the video tag.
+
+ </video>
+
+</div>
+
+<p>With the assets set up, we wanted to focus on the collision of the sword with an "enemy". Keeping it simple, we just wanted to ensure we could align a collider with a mesh as desired. What we found out was, first, the pivot of the sword was in a terrible location, but more importantly, the collider drawn was displaying shearing as spoken about <a href="../week-12/#collider-debug-shearing">last week</a>.  After fixing that, we attached a <code>CollisionHandler</code> to a box to cause a splitting effect. This was a great exercise in using our own API. It had been a few weeks since some of us had touched collisions, so remembering how they worked took a minute. Because there weren't any examples of how to use the <code>CollisionHandler</code> before, it hadn't occurred to even use some functionality, such as the <code>IgnoreCollisionLayer</code>. Here is how it was looking:</p>
+<div class="video-wrapper">
+
+ <video playsinline autoplay muted loop>
+
+   <source src="../../images/blogs/week-13/Knight_shearing.mp4" type="video/mp4">
+
+Your browser does not support the video tag.
+
+ </video>
+
+</div>
+
+<p>Well that obviously looks (and is!) broken. There were a few things with the collision system that needed small bug fixes. One of those fixes was with regards to a box and capsule, we had noticed that a simple case of box-capsule collision wasn't being detected. Going into the box-capsule code was a nightmare for us because this particular collision detection was just not performed the way we needed this particular collision detection to be performed. Luckily, the error was found quickly by using our debug drawing system to find where the contact and closest point were and stepping through the code. In the end, we got the collision working (hopefully the full-feature demo game won't need more fixes)! With all of the necessary capsule collisions working, the knight who had a capsule collider surrounding him could be killed, and the alive enemies who were represented as capsules could be cycled (basically a pool that would translate to a position on the other side of the screen once they went off-screen).</p>
+<p>When we began cycling the enemies, the game started to feel like an actual game with a lose state and a goal! However there was something weird happening with when the capsules collided with the wall to reset their position. The collision would happen and be detected—everything working so far. The <code>CollisionHandler</code> callback would then set the position of the entity to the other side of the screen—that works. Then the object would teleport back to point of collision... wait what? The solution deals with the ordering of <code>CollisionSolver::Update</code> and when the collision callbacks occur; <a href="#collision-solving-and-collision-callbacks">read more below</a>. With all these bugs ironed out, the game took shape and although simple is slightly enjoyable to play. Here's what a slice of gameplay looks like:</p>
+<div class="video-wrapper">
+
+ <video playsinline autoplay muted loop>
+
+   <source src="../../images/blogs/week-13/Knight_game.mp4" type="video/mp4">
+
+Your browser does not support the video tag.
+
+ </video>
+
+</div>
+
+<h2 id="collision-solving">Collision Solving<a class="headerlink" href="#collision-solving" title="Permanent link">&para;</a></h2>
+<p>Collisions and physics, in general, is a deep field in video games, and beyond features and correctness, optimizations can always be done. As such, we decided to wrap up our collision solving system by getting it to be close to correct and leave it at that. One very convenient aspect of the collisions part of the field is that getting everything solved and good <em>eventually</em> is usually good enough—it will just mean a couple rendered frames of jitter or so.</p>
+<h3 id="the-math-of-a-box">The Math of a Box<a class="headerlink" href="#the-math-of-a-box" title="Permanent link">&para;</a></h3>
+<p><a href="../week-11/#future-plans-with-collision-solving">Last time</a>, we mentioned that we had a pretty good idea for how to make our box collision responses more...correct. Previously, our boxes would correctly detect the collision, but on most of the edges the box would shove itself and the other collider completely out of the way of each other if the collision point was far enough from the center of one of the box's faces:</p>
+<div class="video-wrapper">
+
+ <video playsinline autoplay muted loop>
+
+   <source src="../../images/blogs/week-13/Bad-Box-Collision-Solving.mp4" type="video/mp4">
+
+Your browser does not support the video tag.
+
+ </video>
+
+</div>
+
+<p>The reason this happened is because our collision detection for box colliders would pass the collision point to the collision solver, which would then try to extrapolate the push direction of the collision from that point. This might not seem like a problem for things like spheres, but for boxes, it's a different story. When the collision point on that box is on a face instead of an edge, it's really easy to figure out which face of the box determines which direction the colliders are pushed in:</p>
+<p><img alt="Easy Box Collision Solve" src="../../images/blogs/week-13/box_collision_solve_easy.png" /></p>
+<p>But what about when the collision point is on an edge? That is, when the point lies at the max extent of two faces as opposed to just one?</p>
+<p><img alt="Not As Easy Box Collision Solve" src="../../images/blogs/week-13/box_collision_solve_not_as_easy.png" /></p>
+<p>In our case, the box would get pushed to the side because code is run sequentially. When determining the furthest distance on an axis, our code always checks in the order of the x-axis, then the y-axis, then the z-axis. If the point is equally distanced on the x-axis and the z-axis, then the x-axis wins.</p>
+<p>This can be solved by doing some of the collision solving work while we're detecting the collision point. The other collider is probably not perfectly distanced at the corner of our box collider; it's probably a little closer to one face or the other. While we're determining the collision point, we can also check for the furthest axis distance <em>without being constrained to the extents of the box</em>. We store that information for later, where the collision solver can then respond appropriately:</p>
+<p><img alt="Solved the Not Easy Box Collision" src="../../images/blogs/week-13/solved_not_easy_box_collision.png" /></p>
+<div class="video-wrapper">
+
+ <video playsinline autoplay muted loop>
+
+   <source src="../../images/blogs/week-13/Correct-Box-Collision-Solving.mp4" type="video/mp4">
+
+Your browser does not support the video tag.
+
+ </video>
+
+</div>
+
+<h3 id="that-epsilon-spice">That Epsilon Spice<a class="headerlink" href="#that-epsilon-spice" title="Permanent link">&para;</a></h3>
+<p>We may have gotten some silky smooth box colliding now, but we're not devoid of troubles yet:</p>
+<div class="video-wrapper">
+
+ <video playsinline autoplay muted loop>
+
+   <source src="../../images/blogs/week-13/Sticky-Collisions.mp4" type="video/mp4">
+
+Your browser does not support the video tag.
+
+ </video>
+
+</div>
+
+<p>As neat of a gameplay mechanic as stickiness can be, it's not exactly great as a game developer to have to make all of your games gum-themed. Fortunately, this problem is easy to solve. When collision solving, you shouldn't just put the colliders in the correct position depending on the collision—you should put them a little further, an epsilon amount, from the solved position. That way, you aren't colliding again after you solve the collision.</p>
+<h3 id="mass-in-a-collision-system">"Mass" in a Collision System<a class="headerlink" href="#mass-in-a-collision-system" title="Permanent link">&para;</a></h3>
+<p>One last small feature one of our developers convinced us to develop for the collisions system is something that's usually thought of more as a physics parameter: mass. Obviously, we're not developing an entire physics system for this one last feature, so what do we mean by "mass"?</p>
+<p>Well, the way our collision solver currently works, everything is considered to be equally movable barring any static colliders. This means that a box that is 100x the size of another box can get shoved around by the tiny box as easily as by any other collider.</p>
+<div class="video-wrapper">
+
+ <video playsinline autoplay muted loop>
+
+   <source src="../../images/blogs/week-13/Box-Bully.mp4" type="video/mp4">
+
+Your browser does not support the video tag.
+
+ </video>
+
+</div>
+
+<p>This happens because each collider receives an equal part of the collision response when wrapping up the collision solver calculations. Thankfully for us, having a system that calculates out a shared collision response that gets split between colliders is really convenient when we want to upgrade the system to unevenly distribute that response. By adding a <code>mass</code> field to the <code>Collider</code> class, we can now just check against the weighting of the colliders to determine how "heavy" certain objects should be!</p>
+<div class="video-wrapper">
+
+ <video playsinline autoplay muted loop>
+
+   <source src="../../images/blogs/week-13/Box-Anti-Bully.mp4" type="video/mp4">
+
+Your browser does not support the video tag.
+
+ </video>
+
+</div>
+
+<blockquote>
+<p>An interesting feature that this also adds to our engine is "negative mass". That effectively makes objects counteract any objects that push on them, which is actually something that could be useful for gameplay!</p>
+</blockquote>
+<h2 id="build-system">Build System<a class="headerlink" href="#build-system" title="Permanent link">&para;</a></h2>
+<p><a href="../week-12/#exporting-headers">Last week</a>, we talked about how we needed to export all of our headers in order for people to use our built engine. This got us most of the way there, but we were quickly finding that we need to rebuild our engine DLL's often during gameplay development (so many bugs!) then re-run our export tool and do a bunch of file shifting. The cherry on top? We would need to update our git repository with the engine and everything, which would usually involve annoying merge problems (our opinion of git has steadily dropped throughout the semester).</p>
+<p>Being programmers, we decided that this repetition was not worth our time and we started drafting up a build system for the engine. We've already been using <a href="https://jenkins.io">Jenkins</a> on a shared machine in the room for building our website, so we've already got the pipeline there, we just need to automate the steps for building the engine. Thanks to our batch file that handles the exporting of the build and the header files, the main technical part that we needed to add was building each configuration of the engine, which just involved getting <code>devenv.exe</code> from the Visual Studio program files added to the PATH environment variable and running it with the correct parameters in order to rebuild.</p>
+<p>Once that was working, we still needed the computer to push the built engine to a shared location. We decided on that should be our <a href="https://github.com/Isetta-Team/Isetta-Game">feature game repository</a>, and set off in the land of git commands. Adding the newly built files to a commit and pushing that to the repo was easy, but getting the commit message to be our most recent engine commit message was a bit more annoying in batch script because we had to be mindful of escape characters (which is ^ in batch).</p>
+<p>After we got a build pipeline working, we quickly realized that pushing up a new build regardless of whether we have built the engine at that commit is not a good idea. If we want to debug a problematic build, we'd have to look through dozens or hundreds of commits! So the last feature we built into our build system was an up-to-date verification system, which we already had a good reference for from a past Jenkins function, but it still caused quite a few headaches. The basic idea was to write our pushed commits to a build history file, which we then read on later builds to confirm that that commit hasn't already been built and pushed.  Unfortunately, Jenkins does not remember system variables across build steps, so we had to come up with a very janky solution of creating and conditionally deleting a file to determine whether or not we should be trying to build the engine again.</p>
+<p>All in all, this whole process took about 12 hours worth of development time. Was it worth it? In the long run, it very likely would be; after all, we were already feeling pretty aggravated because of our build times. However, in the short term, we may not see too many dividends.</p>
+<h2 id="networking">Networking<a class="headerlink" href="#networking" title="Permanent link">&para;</a></h2>
+<h3 id="networked-game-management">Networked Game Management<a class="headerlink" href="#networked-game-management" title="Permanent link">&para;</a></h3>
+<p>This week we finally got the chance to extend our networking module and add game management features. The features our game needs are pretty simple - clients and server just need to know when each other is connected and disconnected, so we added four callbacks:</p>
+<ul>
+<li><code>OnConnectedToServer</code>: a client callback called when a client successfully connects to the server, mainly for initialization right after the connection is established</li>
+<li><code>OnDisconnectedFromServer</code>: a client callback called when the client is disconnected from the server - either caused by losing connection or manually calling <code>StopClient</code>. Developers can use this to stop their networking features and keep track of networking state</li>
+<li><code>OnClientConnected</code>: a server callback called when any client is connected. To provide more valuable information like client's IP address, we also created a <code>ClientInfo</code> struct that's sent to the server when the client is connected.</li>
+<li><code>OnClientDisconnected</code>: a server callback called when any client is disconnected. Because the client may drop out any time without notifying the server about that, this event is monitored on the server every frame and is called when any client's state changed</li>
+</ul>
+<p>The new addition of our <a href="#delegates"><code>Delegate</code></a> data structure made implementing these callbacks super easy! All we needed to do is create an interface for subscribing and unsubscribing from the events, finding the right places to invoke the callbacks and send network messages, and making several maps to track clients' state. Now, we can get nice messages like this by using the new callbacks (we were running host so we get all callbacks):</p>
+<p><img alt="Using network callbacks" src="../../images/blogs/week-13/network_callbacks.png" /></p>
+<p>We then discovered that our API for creating server and client were not unified with one being called <code>CreateServer</code> while another called <code>ConnectToServer</code>, and we didn't have a function for "starting as host". We refactored those functions into <code>StartClient</code>, <code>StartServer</code>, <code>CloseClient</code>, <code>CloseServer</code>, etc., which we think will be more intuitive for the developers.</p>
+<h4 id="network-role-monitoring">Network Role Monitoring<a class="headerlink" href="#network-role-monitoring" title="Permanent link">&para;</a></h4>
+<p>Another feature we need for the game is to easily get the network role of their instance, "am I running as host? Or server? Or client?" Luckily, yojimbo already exposes simple state querying functions like <code>Client::IsRunning</code> so we were able to easily make a wrapper on top of those for the developers to use. When debugging them, we also made a component that draws network information through our GUI as shown in the picture below. In the end, we thought this can also be useful for the game developers, so we refactored it and put it in our engine.</p>
+<p><img alt="Network Monitor" src="../../images/blogs/week-13/network_monitor.png" /></p>
+<h4 id="updates-to-network-messaging-api">Updates to Network Messaging API<a class="headerlink" href="#updates-to-network-messaging-api" title="Permanent link">&para;</a></h4>
+<p>One of the things we left in our sea of TODOs is unifying <code>GenerateNetworkMessage</code> and <code>SendNetworkMessage</code> but we never found a good way to do it, neither did we have a better reason than, "so developers can write less code". Well, the need finally comes when we want to send a message from the server to all of the clients. If you remember our long journey of evolving network messages in the <a href="../week-7/#networking">week 7 blog post,</a> each message generated on the server is only meant to be sent to a single client and <code>GenerateMessageFromServer</code> always take one parameter as client index. So when you want to send the same message to all clients, who do you generate it for? Here is the need in our API!</p>
+<p>Therefore, we decided to change our <code>SendMessage</code> functions from taking a message pointer to taking an <code>Action&lt;T*&gt;</code> that initialize the message. Inside the function body, it will generate a new message and initialize that message with the given initializer. This also saves the developer from the tedious work of <code>reinterpret_cast</code> messages to their message type every time. By doing this, we effectively eliminated the need for calling both <code>Generate</code> and <code>Send</code> - they are nicely unified in one now!</p>
+<div class="codehilite"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">NetworkManager</span><span class="o">::</span><span class="n">SendMessageFromServerToAll</span><span class="p">(</span><span class="n">Action</span><span class="o">&lt;</span><span class="n">T</span><span class="o">*&gt;</span> <span class="n">messageInitializer</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">GetMaxClients</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">IsClientConnected</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">continue</span><span class="p">;</span>
+
+    <span class="n">yojimbo</span><span class="o">::</span><span class="n">Message</span><span class="o">*</span> <span class="n">newMessage</span> <span class="o">=</span> <span class="n">GenerateMessageFromServer</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+    <span class="n">messageInitializer</span><span class="p">(</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">newMessage</span><span class="p">));</span>
+    <span class="n">SendMessageFromServer</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">newMessage</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>However, we also realized we shouldn't remove the old method because there are still scenarios where we need to pass in already built messages. For example, a lot of times the client would send a message to the server and the server needs to then broadcast that message to all clients. So we decided to leave it in—however, this might be a potentially confusing API design for our users.</p>
+<h4 id="network-load-level">Network Load Level<a class="headerlink" href="#network-load-level" title="Permanent link">&para;</a></h4>
+<p>The last feature we need in terms of game management is networked level loading. We thought about making it in the game and keeping it in the game, but this really seems like something many games need and would be good to have in the engine. However, to do that, we had to bring in <code>LevelManager</code> to our <code>NetworkingModule</code>. The <code>LevelManager</code> is used within a <code>NetworkModule</code> callback to signal all clients to also load the same level as the server, thus cannot be separated from the module. This can be seen as code pollution in some sense, but we decided to tolerate it at this stage. </p>
+<p>As mentioned before, we already have some other built-in network messages like <code>ClientConnectedMessage</code>, so it's easy to create another <code>LoadLevelMessage</code>. The rest of the task is again finding the right place to inject the code (like registering the callback for the message and sending the message) and making nice interfaces for game developers. </p>
+<p>A tricky part along the process is actually figuring out how to let messages hold and serialize strings. We initially created a <code>const char*</code> member variable in the messages without thinking too much about it but it didn't work! Because the string data we pass into the message is generated by another module and is a temporary object, and that temporary object deletes the data as soon as it's destroyed. We fixed it by changing the type to <code>char[]</code> so we can make a copy of that string to the message and let the message own that copy. Then the problem is how long do we want the <code>char[]</code> to be. For IPs it's easy - just make it 16 bytes long. But for things like level names we can never be sure how long they are, in the end, we gave it 64 cause we really don't think users will have level names more than 64 characters long… If they do, we give them an error for now.</p>
+<h3 id="network-discovery">Network Discovery<a class="headerlink" href="#network-discovery" title="Permanent link">&para;</a></h3>
+<p>This is probably the last new feature we are adding to the game so it's a little sad to write about. Our demo game is supposed to be played with controllers and thus players should be able to create and join rooms using their controllers. However, with our current setup the user always need to <em>know</em> and <em>type in</em> the IP address of the host they want to join with a keyboard. Based on our previous experience of playing LAN (Local Area Network) games and using Unity's networking system, we had the idea of making a <code>NetworkDiscovery</code> class, which allows the hosts to broadcast messages to all devices within the same LAN and allows those devices to respond to the messages.</p>
+<p>The API design for this class is super easy: <code>Start/StopBroadcasting</code>, <code>Start/StopListening</code>, and <code>Add/RemoveMessageCallback</code> are all we needed. <code>StartBroadcasting</code> also accepts the message, broadcast duration, and interval as parameters. We again used our <code>Delegate</code> data structure to manage callbacks.</p>
+<p>The actual implementation is, however, not as simple as the API. We looked through yojimbo and the two networking libraries it's using (<a href="https://github.com/networkprotocol/netcode.io">netcode.io</a> and <a href="https://github.com/networkprotocol/reliable.io">reliable.io</a>) for message broadcasting functionalities but surprisingly didn't find anything useful! So we had to get our hands dirty with some basic socket programming. As we don't care about reliability, sequence, latency, etc — because we are just broadcasting messages where losing messages is really not a big deal — socket programming is shockingly easy! We followed this <a href="https://www.cs.rutgers.edu/~pxk/417/notes/sockets/udp.html">tutorial</a> from Rutgers University for basic sockets set up and communication, and referred to the two source files (<a href="http://cs.ecs.baylor.edu/~donahoo/practical/CSockets/code/BroadcastSender.c">BroadcastSender.c</a> and <a href="http://cs.ecs.baylor.edu/~donahoo/practical/CSockets/code/BroadcastReceiver.c">BroadcastReceiver.c</a>) by Baylor University on how to configure sockets for broadcasting — and we are done!</p>
+<div class="video-wrapper">
+ <video playsinline autoplay muted loop>
+   <source src="../../images/blogs/week-13/connectionless_broadcasting.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+ </video>
+</div>
+
+<p>With <code>NetworkDiscovery</code>, we no longer rely on specifying server IP address in the config because it's included in the broadcast message. This will definitely create a better experience for our demo game's players, and be useful for developers who want to implement similar functionality — even though it can be used for a lot more!</p>
+<h2 id="monitoring-memory-leaks">Monitoring Memory Leaks<a class="headerlink" href="#monitoring-memory-leaks" title="Permanent link">&para;</a></h2>
+<p>One of the side effects of having our own memory manager is that we never realized how much memory can be leaking on the freelist because it's just always silent. Good news is that we can easily track every single allocation and free! By doing that we can not only dump all of the memory leaks and blame the developers, but also provide valuable information for them to find and fix them! </p>
+<p>Even a small feature like this took us some iterations to get right. In the beginning, we were only tracking <code>Freelist::Alloc</code> and <code>Freelist::Free</code>. It does provide us with <em>some</em> information, but I would say it helps much when all it presents is something like this:</p>
+<p><img alt="Memory Leaks Alloc" src="../../images/blogs/week-13/memory_leak_1.png" /></p>
+<blockquote>
+<p>See the nice arrows?! Yeah, it took us a good 10 minutes to find their Unicode and figure out how to print them.</p>
+</blockquote>
+<p>We wanted more information! So we also added tracking to our <code>Freelist::New</code>, <code>Freelist::Delete</code> utilities and their array counterparts. So we get something like this when we forget to free these things: </p>
+<div class="codehilite"><pre><span></span><span class="n">MemoryManager</span><span class="o">::</span><span class="n">NewOnFreeList</span><span class="o">&lt;</span><span class="n">SystemInfo</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="n">MemoryManager</span><span class="o">::</span><span class="n">NewOnFreeList</span><span class="o">&lt;</span><span class="n">Math</span><span class="o">::</span><span class="n">Vector3</span><span class="o">*&gt;</span><span class="p">();</span>
+<span class="n">MemoryManager</span><span class="o">::</span><span class="n">NewArrOnFreeList</span><span class="o">&lt;</span><span class="n">yojimbo</span><span class="o">::</span><span class="n">Message</span><span class="o">*&gt;</span><span class="p">(</span><span class="mi">256</span><span class="p">);</span>
+<span class="n">MemoryManager</span><span class="o">::</span><span class="n">NewArrOnFreeList</span><span class="o">&lt;</span><span class="n">Math</span><span class="o">::</span><span class="n">Matrix4</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">512</span><span class="p">);</span>
+</pre></div>
+
+<p><img alt="Memory Leaks New Delete" src="../../images/blogs/week-13/memory_leak_2.png" /></p>
+<p>They are nicer! But it still took a while to figure out what's leaking, so we added some string manipulation to "translate" the leaked resources to something that we can recognize, and got this:</p>
+<p><img alt="Memory Leaks String Manipulation" src="../../images/blogs/week-13/memory_leak_3.png" /></p>
+<p>It's a lot of unexpected work, and the performance may not be pretty… But the work definitely pays off as it's much easier to identify who is leaking, and we wrapped memory tracking in <code>_DEBUG</code> preprocessors so they won't get run in release mode.</p>
+<p>By adding this feature we not only fixed a bunch of memory leaks but also found some fishy allocations. For example, we once had several array allocations of size 0 - turned out they are from <code>Array&lt;T&gt;</code>s of capacity 0, which is a corner case we should have taken care of.</p>
+<p>Last but not least, if you don't have memory leaks, our engine actually praises you!</p>
+<p><img alt="No memory leak" src="../../images/blogs/week-13/memory_leak_4.png" /></p>
+<blockquote>
+<p>We should be doing more of this! Developers always love appreciation to their hard work, right?</p>
+</blockquote>
+<h2 id="engine-vs-game-resources">Engine vs. Game Resources<a class="headerlink" href="#engine-vs-game-resources" title="Permanent link">&para;</a></h2>
+<p>In the past week, we have been working on getting more and more ready for our game jam. Part of that has been moving our levels from inside the engine to the <code>IsettaTestbed</code>. The reason for this shift is because these levels aren't really part of the engine, but rather levels that we are using to test out systems and demo different features. We are also going to leverage these levels for our game jammers as examples of how to use different features of the engine. This shift also caused us to move resource files, like model and audio files, from the engine to the testbed. However, there are certain resources like the primitive meshes and lighting shaders that should just be packaged with the engine. Part of this change affected the <a href="../week-12/#exporting-headers"><code>ExportHeaders</code> batch script</a> which needed to copy over the resources from the engine that are needed to use the engine in general.</p>
+<p>This presented the problem of how should the engine know what path files should be loaded from, the engine or game? If we are packaging some of them with the engine while obviously the game developer will have their own files, how will we know? </p>
+<p>One solution, which we didn't think was a good solution, was to have the user "import" (copy) the engine resource files to their local game resources directory. There are a few problems we considered with this, one being it relies on the game developer to remember to copy files, which we had forgotten to do multiple times. The other is it muddles the game developer's folder with engine resources that they don't necessarily need knowledge of. </p>
+<p>So our alternate solution was to add an additional <code>engine_path</code> <code>CVar</code> to the config file, and similar to the <code>resource_path</code> which specifies where the game developer's resources are, the <code>engine_path</code> is the directory of the engine resources. Ideally, we would be able to know where the engine resources are relative to the game, however since our engine isn't something that is installed in the program files we can't guarantee its location and would rather allow the user the flexibility of moving it to where they would like. </p>
+<p>Our first idea with implementing the switch in the engine was to use <code>engine_path</code> as the path during <code>EngineLoop::StartUp</code> then switch back to <code>resource_path</code> before<code>EngineLoop::Update</code>, however, there were multiple problems with that. One of the problems was that <code>RenderModule</code> was caching the <code>resource_path</code> on its own startup (which would be <code>engine_path</code> at the time) causing the resources loaded after startup to be using the <code>engine_path</code> directory, even after reverting back to <code>resource_path</code> after startup so that wouldn't work. Also, another problem comes with components that are used by the game developer, such as during a level load, components like <code>LightComponent</code> should load its default light shader from the engine so the game developer doesn't <em>need</em> to create their own, but can if they want. There are also the <code>Primitive</code> entities whose resources should also be loaded from the engine, every game developer doesn't need to create their own cube model. These systems won't work by setting the <code>resource_path</code> to the <code>engine_path</code> at startup. </p>
+<p>Ok, the next solution is to modify how the resources are loaded. Rather than caching <code>resource_path</code> and always prepending <code>resource_path</code> to the file path, it needs to be specified if it is "in engine" or "in game". For most components, this doesn't need to be exposed to the developer, and ideally it wouldn't be at all because anything the developer is specifying is "in game". However, for the <code>MeshComponent</code> which primitives rely on, we need to be able to specify within the constructor if it should load from the engine directory. For other components, like <code>LightComponent</code>, we don't have the option exposed to the user, however this is actually limiting features of the lighting in the case the game developer wants to specify their own default lighting (using the default constructor) they won't be able to because it will point to the engine path. This solution doesn't seem like the best and we think this is one of the systems we might put more time into when creating our next engine so not only is it easier to do something like this but easier to use in general.</p>
+<blockquote>
+<p>Woah! Hit the brakes, we can't wait until our next engine to put more time into this. After writing this we found there was a <strong>huge</strong> problem with this method and had to completely refactor, the refactored changes.</p>
+</blockquote>
+<p>So there are two problems with this method: one occurs when running the executable and the other is associated with Horde3D's asset processing. For a while, we had been thinking about the consequences of our decisions when running the executable (.exe), however, until this week we hadn't really tried to. What happened was exactly as expected, a crash, because the resources weren't located in the same relative path as they were when debugging. So just get the resources in the build folder, right? Our first change was to perform a post-build copy of the resource files into the build folder. However, the engine path from the build folder wasn't guaranteed to be the same as for the project, thus would be wrong in the configuration file as well. This means the solution suggested above just wouldn't work, unless the engine path from the project was the same as from the build folder. That's a big if and big assumption. The other problem associated with Horde3D's asset processing is some shader and texture properties are just assumed to be in a certain folder directory, it is baked into the model description files during processing. We could dig into Horde3D to attempt to change this, but this is something we have told ourselves we don't want to modify Horde3D and would be better to work around. There is no way during load for us to know if this file is located in the engine or game resources. We could keep a list of resources in the engine directory, but that just doesn't feel right either. So <em>completely throw out the solution we had suggested above</em>.</p>
+<p>After basically reverting the idea of an <code>engine_path</code>, which wasn't nice in its own right because specifying paths in a config file isn't very clean, we came up with two solutions. The first solution was to copy the resources of the engine into the game resources folder (which is what we were trying to avoid to begin with). The problem with this solution is that we are putting the engine resources in their own folder to abstract those details from a developer. A game developer shouldn't need to see the render pipeline, for example, if they aren't interested in it. Even copying the files during a build event is still messy because although the developer isn't physically copying them, they would still see the files while browsing their resource folder. Our other solution was to copy the engine resources and game resources to a resources folder in the build folder, which was already needed to run the executable, and change the working directory of the solution to be the same as the build folder. The solution solves most of the problems that we have and most importantly lets us run both the solution and executable. There are two big drawbacks to this solution: 1) engine resources can and will be overwritten if a game resource has the same path and name 2) copying the resources to the build folder is a little unreliable. We worked for awhile trying to come up with a better way of copying the resource files, and the best solution we were able to do was on an actual build all the files of the resource folder will be copied then when individual resource files change, so long as they were included in the last build, those will be changed and copied over. Files that are added won't be copied before an actual build is triggered. Filesystem management hasn't been one of our biggest priorities with this engine, especially with being stuck with Horde3D's choices and assumptions, so we aren't going to advocate for this approach. One problem was that we didn't know what the requirements of a good filesystem were almost until it was too late; we all have vocalized that next time developing an engine this is something that should have more thought with early on.</p>
+<h2 id="patch-notes">Patch Notes<a class="headerlink" href="#patch-notes" title="Permanent link">&para;</a></h2>
+<h3 id="collision-solving-and-collision-callbacks">Collision Solving and Collision Callbacks<a class="headerlink" href="#collision-solving-and-collision-callbacks" title="Permanent link">&para;</a></h3>
+<p>As mentioned within <a href="#the-knight-game">The Knight Game</a> section, the order of when the collision callbacks are called and the collision solving matters. Prior to any change, we were performing our collision checks which would then trigger any corresponding collision callback (OnEnter, OnStay, OnExit), then the collision solver would resolve the collisions so no two colliders were interpenetrating. The problem came from altering the position of a transform in the collision callback. The movement that would occur in the callback would basically be reverted/ignored because after the callback the solver would try to solve an outdated BVTree, it is outdated because the entity was moved but the tree wasn't updated. The solver would resolve the collision by shifting the collider out of the other with a closest point heuristic, this movement essentially overwrites any movement that happens in the callbacks. </p>
+<p>So why doesn't the callback update the tree? Why not just always have an up-to-date tree? The main reason is performance. The act of updating the tree would then require getting all AABB collision pairs and then intersections being recalculated, this is basically performing the <code>CollisionModule::Update</code> a second time. It already is a performance hog and now we have to do it twice! Well not quite. The just as easy, but not necessarily apparent solution, was to delay the callbacks for collisions until after the solver has solved,  so the callbacks are separated from intersection tests. This delay wouldn't affect which callbacks were being called because the callbacks could be cached until after the solver had finished, thus aptly labeled <code>CollisionModule::LateUpdate</code>. The new order is now update the <code>BVTree</code>, grab the AABB collision pairs, test for intersections, solve for collisions, <em>then</em> perform the callbacks. Just another example of how much ordering matters in a game engine.</p>
+<h3 id="static-entities">Static Entities<a class="headerlink" href="#static-entities" title="Permanent link">&para;</a></h3>
+<p>When we were implementing our <a href="../week-11/#collision-solving">collision solver</a>, we added static attribute to the entities to mark whether the entity is moveable by the collision or anything else. However, we were not utilizing that attribute to manage the movement of the entity elsewhere. This week, we went back to fix this missing feature and to make the transform of a static entity unchangeable.</p>
+<p>It sounds simple, right? The only thing we needed to do seems to be checking the static-ness before changing the transform, with any <code>SetXXX</code> in the <code>Transform</code> class. This is not necessarily true. The main reason of it is that we cannot assign the transformation information, including the position, the rotation and the scale when creating the entity. And with the static attribute, we can neither set the transform later. This causes all static entities to be instantiated at the  origin of the world with no rotation or scale, they all must be there! Poor statics!</p>
+<p>We changed our definition of static attribute later to solve this problem. The transform of a static entity is no longer unchangeable throughout the lifetime of the entity. Instead, it can be moved wherever and however you want until the level finish loading. As we are using <code>Level::Load</code> to replace the level scene file, this makes so much sense when compared with Unity and Unreal Editor where static entities/GameObjects can be moved before we hit the play button!</p>
+<h3 id="revisiting-transform-in-the-component-class">Revisiting <code>transform</code> in the <code>Component</code> Class<a class="headerlink" href="#revisiting-transform-in-the-component-class" title="Permanent link">&para;</a></h3>
+<p>Last week, when we were replacing all <code>GetTransform</code> function to <code>transform</code> variable, we introduced two static member variables in <code>Component</code> class to deal with the const initialization issue: since we can only assign the value of a <code>Transform* const</code> in the constructor and we cannot pass in the transform for it to point to, we can just make a shared state in the <code>Component</code> class for the component to read in its constructor. It seems working well but, as mentioned last week, this method changes and exposes (not directly available for the game developer though) the shared state.</p>
+<p>This code smelled so bad that it kept us awake at night. This week, we came up with another method that can remove the static variable in the class but is still relatively unsafe, internally. Since C++ doesn't have a strict management of constant variables, we can cast the variable to <code>Transform&amp;</code> and assign our transform to it.</p>
+<p>Before we removed the <code>GetTransform</code> function, the <code>AddComponent</code> was like this:</p>
+<div class="codehilite"><pre><span></span><span class="p">...</span>
+<span class="n">T</span> <span class="o">*</span><span class="n">component</span> <span class="o">=</span> <span class="n">MemoryManager</span><span class="o">::</span><span class="n">NewOnFreeList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)...);</span>
+<span class="n">component</span><span class="o">-&gt;</span><span class="n">entity</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+<span class="p">...</span>
+</pre></div>
+
+<p>After last week change, the <code>AddComponent</code> is like this:</p>
+<div class="codehilite"><pre><span></span><span class="p">...</span>
+<span class="n">Component</span><span class="o">::</span><span class="n">curEntity</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+<span class="n">Component</span><span class="o">::</span><span class="n">curTransform</span> <span class="o">=</span> <span class="n">transform</span><span class="p">;</span>
+<span class="n">T</span> <span class="o">*</span><span class="n">component</span> <span class="o">=</span> <span class="n">MemoryManager</span><span class="o">::</span><span class="n">NewOnFreeList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)...)</span>
+<span class="p">...</span>
+</pre></div>
+
+<p>And now, it's like this:</p>
+<div class="codehilite"><pre><span></span><span class="p">...</span>
+<span class="n">T</span> <span class="o">*</span><span class="n">component</span> <span class="o">=</span> <span class="n">MemoryManager</span><span class="o">::</span><span class="n">NewOnFreeList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)...);</span>
+<span class="p">(</span><span class="n">Entity</span><span class="o">*&amp;</span><span class="p">)(</span><span class="n">component</span><span class="o">-&gt;</span><span class="n">entity</span><span class="p">)</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+<span class="p">(</span><span class="n">Transform</span><span class="o">*&amp;</span><span class="p">)(</span><span class="n">component</span><span class="o">-&gt;</span><span class="n">transform</span><span class="p">)</span> <span class="o">=</span> <span class="n">transform</span><span class="p">;</span>
+<span class="p">...</span>
+</pre></div>
+
+<p>We still cannot sleep like a baby. It was us who set the transform pointer to be a pointer that points to a constant value; it was also us who broke the law and casted it to a normal pointer. This behavior is so dangerous that if any game developer tries to use this trick and change the transform of a component, the game will break, most likely. Luckily, we know what we are doing here, so we might just leave it here, for now.</p>
+<blockquote>
+<p>This is where we would really love a C++ guru to save us. If you happen to be one, let us know how to fix it in the comments!</p>
+</blockquote>
+<h3 id="delegates">Delegates<a class="headerlink" href="#delegates" title="Permanent link">&para;</a></h3>
+<p>One thing we forgot to mention weeks ago is that we abstracted our <a href="../week-3/#input-module">callback-handle structure</a> out. Originally, we only had callbacks in input module, so we used member functions like  <code>RegisterCallback</code> and <code>UnregisterCallback</code> in <code>InputModule</code> to handle them. Later we found that the game engine is much more event-driven than we thought. In addition to the event messaging system, which is designed for global events, we still need a unified structure to deal with point-to-point event subscription. Thus, just like what <a href="../../interviews/CaseyMuratori-interview/#problem-2-the-complexity-explosion">Casey Muratori</a> said before, we wrote it out first, and then we pulled it out. This structure is called <code>Delegate</code>.</p>
+<p>Implementing the <code>Delegate</code> is not hard. The interface is simple, with only four functions: <code>Subscribe</code>, <code>Unsubscribe</code>, <code>Invoke</code> and <code>Clear</code>. In the first two functions, we integrated the <code>HandleBin</code> we implemented before so that it can revoke the handles after it's unsubscribed. It was a little bit tricky when we were implementing the <code>Invoke</code> function. It iterates through all the handle-function pairs and invokes the corresponding functions. However, simply using a range-based for loop is not enough. When the callback function is unsubscribing itself, it will invalidate the iterator we are visiting and thus break the <code>for</code> loop in the <code>Invoke</code> function.</p>
+<p>How do we deal with that? We decided to use a two phase strategy to invoke all the callbacks. In the first pass, we filtered all the callbacks out to a new array. We then called all callbacks in the new array in the second pass. Since unsubscribing only changes the original pair array, the array we are iterating through now is unaffected and safe.</p>
+<p>The related code is like this:</p>
+<div class="codehilite"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="n">Action</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">ActionArgs</span><span class="o">&amp;</span><span class="p">...</span><span class="o">&gt;&gt;</span> <span class="n">callbacks</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="n">KeyPair</span><span class="o">&amp;</span> <span class="nl">callback</span> <span class="p">:</span> <span class="n">actions</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">callbacks</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">callback</span><span class="p">.</span><span class="n">second</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="n">Action</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">ActionArgs</span><span class="o">&amp;</span><span class="p">...</span><span class="o">&gt;&amp;</span> <span class="nl">callback</span> <span class="p">:</span> <span class="n">callbacks</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">cllback</span><span class="p">(</span><span class="n">args</span><span class="p">...);</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>There was another problem we needed to solve in <code>Delegate</code>. Due to the handle revocation, it's very hard to tell whether a handle originally owned by some object is still valid or not. Since the handle can be revoked during unsubscribing and be re-assigned when another object, the old owner can accidentally unsubscribe others' callback with the handle. The solution to that is we changed the starting number of the handle bin from 0 to 1 and defined that if a handle is 0, it is invalid. So now in every <code>Unsubscribe</code> function, we reset the passed-in handle to 0 to invalidate it.</p>
+<h3 id="move-assignment-operator-for-arrays">Move Assignment Operator for Arrays<a class="headerlink" href="#move-assignment-operator-for-arrays" title="Permanent link">&para;</a></h3>
+<p>When we were working on <a href="#hitscan">hitscan</a> for the feature game, we heavily used our <code>Collisions::Raycast</code> function, and eventually realized that we could probably use a <code>Collisions::RaycastAll</code> function as well. The addition of this function was straightforward because we basically only had to take the <code>Raycast</code> code and make it utilize an <code>Array</code> for any hits. Our solution for this uncovered both an amazing performance boost and a massive memory leak! Doubtlessly, these things were related. As it turns out, our move assignment operator for <code>Array</code> was <em>mostly</em> correct, except for the fact that it didn't free all of our previous array data. We set up the operator to compare the data of the current and moved array, and delete if they were different. No more memory leak! (Also this brought our performance back to where it was previously, so we had to pull some other tricks out of our hat to bring up the performance).</p>
+<h3 id="window">Window<a class="headerlink" href="#window" title="Permanent link">&para;</a></h3>
+<p>We've had a <code>WindowModule</code> since <a href="../week-2/#the-window-module">week 2</a>, but only the <code>RenderModule</code> and <code>GUIModule</code> had direct access to it. We've had some need for some window-like features but have been able to just shove them in other classes up until now. However, for our <a href="#the-knight-game">knight game</a> we needed to use the actual window size but there was no good access to it. So we decided why not, like all our other modules, have an accessing class, appropriately named <code>Window</code>. The class is relatively simple acting as an access point to get width and height of the window as well as change some other GLFW properties. There are a few properties like the cursor sprite and visibility that we would like to change but ImGui is also managing those properties so it isn't as simple as adding in a function but actually getting it to function with multiple modules.</p>
+<h3 id="coming-soon">Coming Soon<a class="headerlink" href="#coming-soon" title="Permanent link">&para;</a></h3>
+<p>Not much is left to be coming soon. We have one last blog post we will make about our last bit of development as well as posting about our GameJam. We will be trying to add some additional maneuverability to our documentation by adding a compendium tab, which will chronologize each section of the engine week by week as well as roping in the relevant interviews to that topic. We will also have postmortems coming to wrap up our project as a whole, so be on the look out for that.</p>
+<h2 id="resources"><a href="../../resources/">Resources</a><a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
+<p>Probably no one has added much to the page this week, since it has been more focus on refining and bug fixing over adding new features. Hopefully it will get one last boost in the next few weeks as we dumb any resources we've been hoarding on there!</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Spatial partitioning is defined by Bob Nystrom as a way to "efficiently locate objects by storing them in a data structure organized by their positions". If you are interested in learning more, refer to the <a href="http://gameprogrammingpatterns.com/spatial-partition.html">Spatial Partitioning chapter</a> in his Game Programming Patterns book.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+                
+                  
+                
+              
+              
+                
+
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://isetta.io/blogs/week-13/";
+      this.page.identifier =
+        "blogs/week-13/";
+    };
+    (function() {
+      var d = document, s = d.createElement("script");
+      s.src = "//isetta-engine.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../week-12/" title="[Week 12] Getting Ready for Game Jam!" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                [Week 12] Getting Ready for Game Jam!
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../week-14/" title="[Week 14] The Last Blog." class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                [Week 14] The Last Blog.
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2019 Isetta Team
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.css">
+    
+      <a href="mailto:isetta.engine@gmail.com" class="md-footer-social__link fa fa-envelope"></a>
+    
+      <a href="https://twitter.com/IsettaEngine" class="md-footer-social__link fa fa-twitter"></a>
+    
+      <a href="https://github.com/Isetta-Team" class="md-footer-social__link fa fa-github"></a>
+    
+  </div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      
+      <script>app.initialize({version:"1.0.2",url:{base:"../.."}})</script>
+      
+        <script src="../../extra.js"></script>
+      
+    
+    
+      
+        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-124729724-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      
+    
+  </body>
+</html>

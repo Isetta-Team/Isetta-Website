@@ -1,0 +1,2889 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="We are making a game engine and documenting the process">
+      
+      
+        <link rel="canonical" href="https://isetta.io/blogs/week-7/">
+      
+      
+        <meta name="author" content="Caleb, Chaojie, Jacob, Jared, Yidi">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../images/isetta_icon.ico">
+      <meta name="generator" content="mkdocs-1.0.2, mkdocs-material-3.0.3">
+    
+    
+      
+        <title>[Week 7] A Real Game Engine - Isetta Engine</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Source+Code+Pro">
+        <style>body,input{font-family:"Lato","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Source Code Pro","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="../../extra.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="light-blue" data-md-color-accent="cyan">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../../#a-real-game-engine" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <!--
+  Copyright (c) 2016-2018 Martin Donath <martin.donath@squidfunk.com>
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Application header -->
+<header class="md-header" data-md-component="header">
+
+  <!-- Top-level navigation -->
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+
+      <!-- Link to home -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://isetta.io/" title="Isetta Engine" class="md-header-nav__button md-logo">
+          
+          <img id="isetta-logo" src="../../images/isetta_logo.png" width="24" height="24" />
+          
+        </a>
+      </div>
+
+      <!-- Button to toggle drawer -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+
+      <!-- Header title -->
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+          
+          <span class="md-header-nav__topic back_to_top cursor_pointer">
+            Isetta Engine
+          </span>
+          <span class="md-header-nav__topic back_to_top cursor_pointer">
+            [Week 7] A Real Game Engine
+            <span style="padding-left: 10px;">⇫</span>
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <!-- Button to open search dialogue -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+        
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+
+        <!-- Search interface -->
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+        
+      </div>
+
+      <!-- Repository containing source -->
+      
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <div class="md-header-nav__source">
+          
+
+
+  
+
+
+  <a href="https://github.com/Isetta-Team/Isetta-Engine" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      Isetta Engine
+    </div>
+  </a>
+
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Tabs with outline
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../compendium/" title="Compendium" class="md-tabs__link">
+          Compendium
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../week-0/" title="Blogs" class="md-tabs__link md-tabs__link--active">
+          Blogs
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../interviews/" title="Interviews" class="md-tabs__link">
+          Interviews
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../engine_docs/home/" title="Usage" class="md-tabs__link">
+          Usage
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+       -->
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../compendium/" title="Compendium" class="md-tabs__link">
+          Compendium
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../week-0/" title="Blogs" class="md-tabs__link md-tabs__link--active">
+          Blogs
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../interviews/" title="Interviews" class="md-tabs__link">
+          Interviews
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../engine_docs/home/" title="Usage" class="md-tabs__link">
+          Usage
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://isetta.io/" title="Isetta Engine" class="md-nav__button md-logo">
+      
+        <img src="../../images/isetta_logo.png" width="48" height="48">
+      
+    </a>
+    Isetta Engine
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/Isetta-Team/Isetta-Engine" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      Isetta Engine
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../about/" title="About" class="md-nav__link">
+      About
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../team/" title="Team" class="md-nav__link">
+      Team
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../schedule/" title="Schedule" class="md-nav__link">
+      Schedule
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../resources/" title="Resources" class="md-nav__link">
+      Resources
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../glossary/" title="Glossary" class="md-nav__link">
+      Glossary
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../faq/" title="FAQ" class="md-nav__link">
+      FAQ
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Compendium
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Compendium
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2" type="checkbox" id="nav-8-2">
+    
+    <label class="md-nav__link" for="nav-8-2">
+      Engine Postmortem
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-8-2">
+        Engine Postmortem
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-1" type="checkbox" id="nav-8-2-1">
+    
+    <label class="md-nav__link" for="nav-8-2-1">
+      Lessons
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-1">
+        Lessons
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/BuildGames/" title="Build Games with Your Game Engine" class="md-nav__link">
+      Build Games with Your Game Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/RubberduckDeveloping/" title="Rubberduck Developing: Forced Explanation" class="md-nav__link">
+      Rubberduck Developing: Forced Explanation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/ItsNotThatHard/" title="It's Not That Hard" class="md-nav__link">
+      It's Not That Hard
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-2" type="checkbox" id="nav-8-2-2">
+    
+    <label class="md-nav__link" for="nav-8-2-2">
+      What went right
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-2">
+        What went right
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/HostingGameJam/" title="Hosting a Game Jam" class="md-nav__link">
+      Hosting a Game Jam
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/NoviceTeam/" title="Having a Team of Novices" class="md-nav__link">
+      Having a Team of Novices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/LeveragingProfessionals/" title="Leveraging Professionals for Input" class="md-nav__link">
+      Leveraging Professionals for Input
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-3" type="checkbox" id="nav-8-2-3">
+    
+    <label class="md-nav__link" for="nav-8-2-3">
+      What went wrong
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-3">
+        What went wrong
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/QuestionsForProfessionals/" title="Questions for the Professionals" class="md-nav__link">
+      Questions for the Professionals
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/SoftwareDevelopment/" title="Basic Software Development Practices" class="md-nav__link">
+      Basic Software Development Practices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/Crunch/" title="Crunch is Bad" class="md-nav__link">
+      Crunch is Bad
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/3rdParty/" title="3rd Party" class="md-nav__link">
+      3rd Party
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Build-ResourceManagement/" title="Build & Resource Management" class="md-nav__link">
+      Build & Resource Management
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Collisions/" title="Collisions" class="md-nav__link">
+      Collisions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Gameplay/" title="Gameplay" class="md-nav__link">
+      Gameplay
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Interviews/" title="Interviews" class="md-nav__link">
+      Interviews
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Memory/" title="Memory" class="md-nav__link">
+      Memory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Networking/" title="Networking" class="md-nav__link">
+      Networking
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Other/" title="Other Topics" class="md-nav__link">
+      Other Topics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Scene-Loop/" title="Scene & Engine Loop" class="md-nav__link">
+      Scene & Engine Loop
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Tools/" title="Tools" class="md-nav__link">
+      Tools
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9" checked>
+    
+    <label class="md-nav__link" for="nav-9">
+      Blogs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        Blogs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-0/" title="[Week 0] Preparation" class="md-nav__link">
+      [Week 0] Preparation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-1/" title="[Week 1] The Building Blocks" class="md-nav__link">
+      [Week 1] The Building Blocks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../engine-architecture/" title="Engine Architecture" class="md-nav__link">
+      Engine Architecture
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-2/" title="[Week 2] Ramping Up" class="md-nav__link">
+      [Week 2] Ramping Up
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-3/" title="[Week 3] "Completing" the Core" class="md-nav__link">
+      [Week 3] "Completing" the Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-4/" title="[Week 4] Buried in Comments" class="md-nav__link">
+      [Week 4] Buried in Comments
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-5/" title="[Week 5] Back in Business" class="md-nav__link">
+      [Week 5] Back in Business
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-6/" title="[Week 6] We Think It's Playable" class="md-nav__link">
+      [Week 6] We Think It's Playable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        [Week 7] A Real Game Engine
+      </label>
+    
+    <a href="./" title="[Week 7] A Real Game Engine" class="md-nav__link md-nav__link--active">
+      [Week 7] A Real Game Engine
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#byte-sized-updates" title="Byte-Sized Updates" class="md-nav__link">
+    Byte-Sized Updates
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collisions" title="Collisions" class="md-nav__link">
+    Collisions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#speeding-it-up" title="Speeding it Up" class="md-nav__link">
+    Speeding it Up
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sending-collision-events" title="Sending Collision Events" class="md-nav__link">
+    Sending Collision Events
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#networking" title="Networking" class="md-nav__link">
+    Networking
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-way-messages-are-made" title="The Way Messages Are Made" class="md-nav__link">
+    The Way Messages Are Made
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rpcs" title="RPCs" class="md-nav__link">
+    RPCs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#first-pass-at-rpc-messages" title="First Pass at RPC Messages" class="md-nav__link">
+    First Pass at RPC Messages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#second-pass-at-rpc-messages" title="Second Pass at RPC Messages" class="md-nav__link">
+    Second Pass at RPC Messages
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aside-on-messagecopy" title="Aside on Message::Copy" class="md-nav__link">
+    Aside on Message::Copy
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-identities" title="Network Identities" class="md-nav__link">
+    Network Identities
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-it-all-out" title="Testing It All Out" class="md-nav__link">
+    Testing It All Out
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#and-a-third-pass-at-rpc-messages" title="...And a Third Pass at RPC Messages" class="md-nav__link">
+    ...And a Third Pass at RPC Messages
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-initialization-20" title="Static Initialization 2.0" class="md-nav__link">
+    Static Initialization 2.0
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#making-a-level" title="Making a Level" class="md-nav__link">
+    Making a Level
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serialization" title="Serialization" class="md-nav__link">
+    Serialization
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#serializing-our-own-data" title="Serializing Our Own Data" class="md-nav__link">
+    Serializing Our Own Data
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#first-game" title="First Game" class="md-nav__link">
+    First Game
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patch-notes" title="Patch Notes" class="md-nav__link">
+    Patch Notes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#editor" title="Editor" class="md-nav__link">
+    Editor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#freelistallocator-alignment" title="FreeListAllocator Alignment" class="md-nav__link">
+    FreeListAllocator Alignment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#camera-vs-cameracomponent" title=""Camera" vs. "CameraComponent"" class="md-nav__link">
+    "Camera" vs. "CameraComponent"
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coming-soon" title="Coming Soon" class="md-nav__link">
+    Coming Soon
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" title="Resources" class="md-nav__link">
+    Resources
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+        <li class="md-nav__item">
+          <a href="#__comments" title="Comments" class="md-nav__link md-nav__link--active">
+            Comments
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-8/" title="[Week 8] Patching Holes" class="md-nav__link">
+      [Week 8] Patching Holes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-9/" title="[Week 9] Hello from the West Coast" class="md-nav__link">
+      [Week 9] Hello from the West Coast
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-10/" title="[Week 10] Grab A Bucket" class="md-nav__link">
+      [Week 10] Grab A Bucket
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-11/" title="[Week 11] The One Where the Team Picks a Font" class="md-nav__link">
+      [Week 11] The One Where the Team Picks a Font
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-12/" title="[Week 12] Getting Ready for Game Jam!" class="md-nav__link">
+      [Week 12] Getting Ready for Game Jam!
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-13/" title="[Week 13] Is This a Game Engine?" class="md-nav__link">
+      [Week 13] Is This a Game Engine?
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-14/" title="[Week 14] The Last Blog." class="md-nav__link">
+      [Week 14] The Last Blog.
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
+    
+    <label class="md-nav__link" for="nav-10">
+      Interviews
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-10">
+        Interviews
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-2" type="checkbox" id="nav-10-2">
+    
+    <label class="md-nav__link" for="nav-10-2">
+      Elan Ruskin
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-2">
+        Elan Ruskin
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ElanRuskin-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ElanRuskin-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-3" type="checkbox" id="nav-10-3">
+    
+    <label class="md-nav__link" for="nav-10-3">
+      Shanee Nishry
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-3">
+        Shanee Nishry
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ShaneeNishry-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ShaneeNishry-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-4" type="checkbox" id="nav-10-4">
+    
+    <label class="md-nav__link" for="nav-10-4">
+      Jeff Preshing
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-4">
+        Jeff Preshing
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JeffPreshing-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JeffPreshing-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/MartinMiddleton-interview/" title="Martin Middleton" class="md-nav__link">
+      Martin Middleton
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-6" type="checkbox" id="nav-10-6">
+    
+    <label class="md-nav__link" for="nav-10-6">
+      Raymond Graham
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-6">
+        Raymond Graham
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/RaymondGraham-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/RaymondGraham-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-7" type="checkbox" id="nav-10-7">
+    
+    <label class="md-nav__link" for="nav-10-7">
+      Aras Pranckevicius
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-7">
+        Aras Pranckevicius
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ArasPranckevicius-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ArasPranckevicius-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-8" type="checkbox" id="nav-10-8">
+    
+    <label class="md-nav__link" for="nav-10-8">
+      Amandine Coget
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-8">
+        Amandine Coget
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmandineCoget-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmandineCoget-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-9" type="checkbox" id="nav-10-9">
+    
+    <label class="md-nav__link" for="nav-10-9">
+      Tommy Refenes
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-9">
+        Tommy Refenes
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/TommyRefenes-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/TommyRefenes-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-10" type="checkbox" id="nav-10-10">
+    
+    <label class="md-nav__link" for="nav-10-10">
+      Casey Muratori
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-10">
+        Casey Muratori
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-hmh-video/" title="Video Interview" class="md-nav__link">
+      Video Interview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-11" type="checkbox" id="nav-10-11">
+    
+    <label class="md-nav__link" for="nav-10-11">
+      Adam Serdar
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-11">
+        Adam Serdar
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AdamSerdar-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AdamSerdar-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-12" type="checkbox" id="nav-10-12">
+    
+    <label class="md-nav__link" for="nav-10-12">
+      Summarized Advice
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-12">
+        Summarized Advice
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AliceChing-advice/" title="Alice Ching" class="md-nav__link">
+      Alice Ching
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmitRob-advice/" title="Amit Patel & Rob Shillingsburg" class="md-nav__link">
+      Amit Patel & Rob Shillingsburg
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JasonGregory-advice/" title="Jason Gregory" class="md-nav__link">
+      Jason Gregory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/OliverFranzke-advice/" title="Oliver Franzke" class="md-nav__link">
+      Oliver Franzke
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/WaltDestler-advice/" title="Walt Destler" class="md-nav__link">
+      Walt Destler
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-11" type="checkbox" id="nav-11">
+    
+    <label class="md-nav__link" for="nav-11">
+      Usage
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-11">
+        Usage
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/home/" title="FAQs" class="md-nav__link">
+      FAQs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/basics/" title="Basics" class="md-nav__link">
+      Basics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/level/" title="Level" class="md-nav__link">
+      Level
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/entity/" title="Entity/Transform" class="md-nav__link">
+      Entity/Transform
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/component/" title="Component" class="md-nav__link">
+      Component
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/graphics/" title="Graphics" class="md-nav__link">
+      Graphics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/input/" title="Input" class="md-nav__link">
+      Input
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/debug_logging/" title="Debug Logging" class="md-nav__link">
+      Debug Logging
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/debug_draw/" title="Debug Draw" class="md-nav__link">
+      Debug Draw
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/gui/" title="GUI" class="md-nav__link">
+      GUI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/audio/" title="Audio" class="md-nav__link">
+      Audio
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/collisions/" title="Collisions" class="md-nav__link">
+      Collisions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/networking/" title="Networking" class="md-nav__link">
+      Networking
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#byte-sized-updates" title="Byte-Sized Updates" class="md-nav__link">
+    Byte-Sized Updates
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collisions" title="Collisions" class="md-nav__link">
+    Collisions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#speeding-it-up" title="Speeding it Up" class="md-nav__link">
+    Speeding it Up
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sending-collision-events" title="Sending Collision Events" class="md-nav__link">
+    Sending Collision Events
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#networking" title="Networking" class="md-nav__link">
+    Networking
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-way-messages-are-made" title="The Way Messages Are Made" class="md-nav__link">
+    The Way Messages Are Made
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rpcs" title="RPCs" class="md-nav__link">
+    RPCs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#first-pass-at-rpc-messages" title="First Pass at RPC Messages" class="md-nav__link">
+    First Pass at RPC Messages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#second-pass-at-rpc-messages" title="Second Pass at RPC Messages" class="md-nav__link">
+    Second Pass at RPC Messages
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aside-on-messagecopy" title="Aside on Message::Copy" class="md-nav__link">
+    Aside on Message::Copy
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-identities" title="Network Identities" class="md-nav__link">
+    Network Identities
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-it-all-out" title="Testing It All Out" class="md-nav__link">
+    Testing It All Out
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#and-a-third-pass-at-rpc-messages" title="...And a Third Pass at RPC Messages" class="md-nav__link">
+    ...And a Third Pass at RPC Messages
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-initialization-20" title="Static Initialization 2.0" class="md-nav__link">
+    Static Initialization 2.0
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#making-a-level" title="Making a Level" class="md-nav__link">
+    Making a Level
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serialization" title="Serialization" class="md-nav__link">
+    Serialization
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#serializing-our-own-data" title="Serializing Our Own Data" class="md-nav__link">
+    Serializing Our Own Data
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#first-game" title="First Game" class="md-nav__link">
+    First Game
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patch-notes" title="Patch Notes" class="md-nav__link">
+    Patch Notes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#editor" title="Editor" class="md-nav__link">
+    Editor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#freelistallocator-alignment" title="FreeListAllocator Alignment" class="md-nav__link">
+    FreeListAllocator Alignment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#camera-vs-cameracomponent" title=""Camera" vs. "CameraComponent"" class="md-nav__link">
+    "Camera" vs. "CameraComponent"
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coming-soon" title="Coming Soon" class="md-nav__link">
+    Coming Soon
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" title="Resources" class="md-nav__link">
+    Resources
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+        <li class="md-nav__item">
+          <a href="#__comments" title="Comments" class="md-nav__link md-nav__link--active">
+            Comments
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="a-real-game-engine">A Real Game Engine<a class="headerlink" href="#a-real-game-engine" title="Permanent link">&para;</a></h1>
+<h2 id="byte-sized-updates">Byte-Sized Updates<a class="headerlink" href="#byte-sized-updates" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#collisions">Collisions</a>: Collision system is taking form, and the most basic intersection tests have been implemented, but there is still a lot of work to be done.</li>
+<li><a href="#networking">Networking</a>: Tons of things happened, including user-defined network messages, a new static initialization system, and network IDs for synchronizing objects across the network.</li>
+<li><a href="#serialization">Serialization</a>: We discuss the state of serialization within our engine, and some problems we've faced with it.</li>
+<li><a href="#first-game">First Game</a>: We made a game with our engine and it's not crashing and it's not dropping frames and it's fun to play!</li>
+</ul>
+<p><img alt="Engine Architecture" src="../../images/engine_architecture/week7.png" title="Week 7 Progress Architecture" /></p>
+<h2 id="collisions">Collisions<a class="headerlink" href="#collisions" title="Permanent link">&para;</a></h2>
+<p>Collisions happen when an object touches, or intersects, another object. But bear in mind, there is a distinction between collisions and physics; physics is the interaction and reaction of objects by applying forces, such as gravity. Collisions are typically used in a physics system, but the opposite isn't true, so when books or developers mention a physics system they typically mean a physics-collision system. There is mostly no need to develop a physics engine nowadays (coming from the ones developing an engine—ironic, right?), since even AAA companies are using 3<sup>rd</sup> parties like <a href="https://www.havok.com/">Havok</a>, <a href="https://developer.nvidia.com/gameworks-physx-overview">PhysX</a>, <a href="https://github.com/bulletphysics/bullet3">Bullet3D</a>, and <a href="https://www.ode.org/">ODE</a>. </p>
+<p>In our target game, we only need some basic collision detection but don't need physics. Also, since physics are fairly computationally expensive and don't play well with networking, we decided to only implement collision detection in our engine.</p>
+<p>The cases in our game which need collisions are player's bullets hitting enemies (may instantly hit or have some travel time), enemies attacking the player, and walling in the player. The responsibilities of our collision system then take shape from those features. We need detecting collisions between colliders of primitive shapes (sphere, box, and capsules), raycasting against colliders in the scene,  collision callbacks for enter, stay, and exit, and collision-solving (determining where to place objects when they have collided). </p>
+<p>The collision-intersections for primitive shapes is a mostly solved-science within the games industry, and they cover most if not all use cases. And the primitive shapes of spheres, boxes, and capsules cover most game simulation needs pretty well, and very rarely would someone need a more advanced collider shape. The capsule may stand out since it isn't a primitive shape in some other contexts, such as computer graphics, but games usually include it because it wraps a humanoid character much more cleanly than a sphere or box would.</p>
+<p>The way our system was developed is similar to audio, in which there is a component class <code>Collider</code> that gets attached to entities, and a module class <code>CollisionsModule</code> which does management. The <code>Collider</code> class is just an abstract class that holds data and helper functions, and the actual colliders are <code>BoxCollider</code>, <code>SphereCollider</code>, and <code>CapsuleCollider</code>, which each contain three things:</p>
+<ul>
+<li>Parameters that define the shape<ul>
+<li>For debug only: Update methods to draw the wireframe shape of the object</li>
+</ul>
+</li>
+<li>Raycast method, since raycasting against different shapes is different</li>
+<li>A helper method for the intersection tests</li>
+</ul>
+<p>The actual intersection tests are on the <code>CollisionsModule</code> because an intersection test requires 2 colliders, which could be of differing types, so putting detection code on colliders would result in duplicating code in both colliders or letting one collider hold the method and the other call that method. Neither of those options seem clean or logical, so we took the data-oriented approach where the components only hold the data and the <code>CollisionsModule</code> holds all intersections tests. The intersection tests of primitives are fairly straightforward vector math, so we aren't going to try to explain that here. The most valuable resource on this subject was <em><a href="https://realtimecollisiondetection.net/">Real-Time Collision Detection by Christer Ericson</a></em>, the book covers collisions much better than we can ever do. Some of our takeaways from it are:</p>
+<ul>
+<li>Box intersection tests in general are harder to understand than spheres or capsules</li>
+<li>Box-Capsule intersection test aren't simple, and at the time of publishing is the only test we have yet to complete (hopefully next week we'll have something for it...)</li>
+</ul>
+<p>Back to the <code>CollisionsModule</code>, again at the time of writing we are taking a naive approach to collision testing, which is to have an array of <code>Collider</code>s check against all other colliders in the array, and that ends up as an <code>O(n^2)</code> approach. We have a slight speedup by only checking dynamic entities against the static and other dynamic entities, but this speedup is probably negligible when compared to using a proper data structure for holding colliders, like a dynamic bounding volume tree (DBVT, see chapter 6 of the above book for details). The DBVT is a balanced tree that holds some primitive type, either axis-aligned bounding boxes or bounding spheres, that encompasses all elements held in the tree. As the tree is constructed, the parents expand to encompass its children and only the leaves are actual elements inserted into the tree. The typical balancing heuristic<sup id="fnref:3829"><a class="footnote-ref" href="#fn:3829" rel="footnote">1</a></sup> is based on increasing the surface area of the parent as little as possible. It can also be based on volume. An example BVT is constructed below. </p>
+<p><img alt="Dynamic Bounding Volume Tree" src="../../images/blogs/week-7/bvtree.PNG" title="Example Dynamic Bounding Volume Tree" /></p>
+<h3 id="speeding-it-up">Speeding it Up<a class="headerlink" href="#speeding-it-up" title="Permanent link">&para;</a></h3>
+<p>Constructing a tree allows us to split collision detection into multiple phases, rather than just iterating over the entire list. In the most basic cases you only have one phase—the narrow phase—and in the next step you'd have a broad phase and narrow phase. The narrow phase is checking individual colliders for intersection, such as checking if a sphere and capsule are colliding. The broad phase is used to pare down the number of objects to do collision tests with by adding more intersection tests.</p>
+<blockquote>
+<p>Wait what, more checks?</p>
+</blockquote>
+<p>Kind of. By walking the tree and checking for collisions against each node (i.e. a group of collisions), it can be determined which nodes to check against. As we haven't implemented this yet, we won't try to explain too much more of the implementation. You'll have to come back next week to find out how we did it!</p>
+<h3 id="sending-collision-events">Sending Collision Events<a class="headerlink" href="#sending-collision-events" title="Permanent link">&para;</a></h3>
+<p>The main discussion our team had regarding the collision system was about how a game developer would be notified about the event of a collision. We knew we wanted to have callbacks for collision enter/stay/exit that could be on any component, but once the collision system has detected the collision, how do all the collision events get called? In addition, how do we avoid performing intersection tests on colliders attached to the same entities? There were a few solutions that we came up with, but none were perfect. </p>
+<p>One option was to have collision callback lists on each collider, and when the collider intersects with another, its callback list is iterated through and called. This allows for any component on any entity (including the collider's children) to subscribe to the collision callbacks, but that doesn't fix the problem of two colliders on the same object. It actually makes things slightly more confusing because now tracking which callback is called could become difficult, because it could be anything in the scene, not just the collider entity or its children. In addition, if an entity has two colliders, which list should other components subscribe to? Should it be both? Or just the first? It isn't clear.</p>
+<p>The next option solves one of these issues by having the collision callbacks be functions on the colliders themselves, so tracking bugs would be relatively straightforward. However, this is far too limiting and would cause tight coupling of the collider and other game logic.</p>
+<p>A third option would be that when a collision callback event is to occur, we loop through all components and call their collision callbacks. This is very performance-heavy because we would need to get all components currently on the entity and call the collision functions. The collision function would be declared virtual in the base <code>Component</code> class, so regardless of whether the component implements them, they would be called. There are some things we could do to stop this from being such a performance hit, similar to <code>NEEDS_UPDATE</code> in <code>Entity</code>.</p>
+<p>The final option would be to have a <code>Collisions</code> component which holds a list of colliders on the entity and a list of collision callbacks. Other components could then subscribe to the <code>Collisions</code> components list and the callback would be called for intersection of any collider within its list. This forces the addition of an additional component which ends up only being a container for lists, so it's not quite ideal. It also has the same problem as the first solution of allowing any entity to add to the list.</p>
+<p><img alt="Collision Component Design" src="../../images/blogs/week-7/collision-component-design.PNG" title="Collision Component Design" /></p>
+<p>We don't have a solution that we are confident in picking yet, and there is probably a better solution out there that might be a combination of these. Next week will talk about what we actually selected and why. </p>
+<p>No matter how we decide to do the collision callbacks or walk through the tree, the collision-intersection tests still need to occur. Here is our first test by looping over all the colliders in a vector:</p>
+<div class="video-wrapper">
+<video playsinline autoplay muted loop>
+  <source src="../../images/blogs/week-7/box-collision.webm" type="video/webm">
+Your browser does not support the video tag.
+</video>
+</div>
+
+<p>You'll probably notice the colliders remain red even after the colliders are no longer intersecting. This is because, at the time, there was no way to determine whether the colliders had exited yet; that required knowing they had collided before and were colliding the last frame. The solution to this is to have a collision pair set, where the IDs of the colliders (just the index in the vector at this point) are hashed into a set. It is important the hash ignores the order, since a collision of entity A with entity B is identical to a collision of entity B with entity A, so we can avoid doubling our collision checks. With a simple unordered set of pairs and the intersection test for most (excluding box-capsule), you'll get a result like this:</p>
+<div class="video-wrapper">
+<video playsinline autoplay muted loop>
+  <source src="../../images/blogs/week-7/collisions-test.webm" type="video/webm">
+Your browser does not support the video tag.
+</video>
+</div>
+
+<p>There is still obviously a lot to do with the collision system such as testing raycasts and fixing the box-capsule intersections. More to come next week!</p>
+<h2 id="networking">Networking<a class="headerlink" href="#networking" title="Permanent link">&para;</a></h2>
+<p>This has been a big week for the network! And this time, it's not from refactoring our memory allocators! (In fact, we haven't switched <code>NetworkingModule</code> over to using our free list allocator yet like we said we would two weeks ago, so it's definitely not that)</p>
+<p>To test our network previously, our messaging system was hard-coded into the engine loop. We didn't think much of this when we wrote it, but we were forced to take another look at it when designing a generic network message system that a game developer could use with our engine, and this is what we found:</p>
+<div class="codehilite"><pre><span></span><span class="kt">void</span> <span class="n">NetworkingModule</span><span class="o">::</span><span class="n">ProcessClientToServerMessages</span><span class="p">(</span><span class="kt">int</span> <span class="n">clientIdx</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">channelIdx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
+    <span class="n">Message</span><span class="o">*</span> <span class="n">message</span> <span class="o">=</span> <span class="n">server</span><span class="o">-&gt;</span><span class="n">ReceiveMessage</span><span class="p">(</span><span class="n">clientIdx</span><span class="p">,</span> <span class="n">channelIdx</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">message</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">switch</span> <span class="p">(</span><span class="n">message</span><span class="o">-&gt;</span><span class="n">GetType</span><span class="p">())</span> <span class="p">{</span>
+      <span class="k">case</span> <span class="nl">HANDLE_MESSAGE</span><span class="p">:</span> <span class="p">{</span>
+        <span class="c1">// … more code here ...</span>
+      <span class="p">}</span> <span class="k">break</span><span class="p">;</span>
+      <span class="k">case</span> <span class="nl">STRING_MESSAGE</span><span class="p">:</span> <span class="p">{</span>
+        <span class="c1">// … more code here ...</span>
+      <span class="p">}</span> <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">server</span><span class="o">-&gt;</span><span class="n">ReleaseMessage</span><span class="p">(</span><span class="n">clientIdx</span><span class="p">,</span> <span class="n">message</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>As if this wasn't bad enough, in order to utilize these messages, the game programmer would need to fill out entries in an object factory<sup id="fnref:28392"><a class="footnote-ref" href="#fn:28392" rel="footnote">2</a></sup> using some macros like the following (which also is not exposed to the game developer, being in our engine and all):</p>
+<div class="codehilite"><pre><span></span><span class="n">MESSAGE_FACTORY_START</span><span class="p">(</span><span class="n">IsettaMessageFactory</span><span class="p">,</span> <span class="n">NUM_MESSAGE_TYPES</span><span class="p">);</span>
+<span class="n">DECLARE_MESSAGE_TYPE</span><span class="p">(</span><span class="n">HANDLE_MESSAGE</span><span class="p">,</span> <span class="n">HandleMessage</span><span class="p">);</span>
+<span class="n">DECLARE_MESSAGE_TYPE</span><span class="p">(</span><span class="n">STRING_MESSAGE</span><span class="p">,</span> <span class="n">StringMessage</span><span class="p">);</span>
+<span class="n">MESSAGE_FACTORY_FINISH</span><span class="p">();</span>
+</pre></div>
+
+<p>It feels like we were thinking the game developer could just use our crappy generalized network messages for any of their networking needs! Unless the game programmers had access to our engine code, this would be impossible to work with (and even if they did have access to it, there <em>has</em> to be a more appropriate way to design network messages!). The first thing that we needed to do was to abstract out our messaging system so that someone could still use it without writing code directly into our <code>NetworkingModule</code> class.</p>
+<h3 id="the-way-messages-are-made">The Way Messages Are Made<a class="headerlink" href="#the-way-messages-are-made" title="Permanent link">&para;</a></h3>
+<p>The basic problem we face is that we need to add references to each of our message types to some message object factory. There are a few other problems that we need to solve out of the gate as well:</p>
+<ol>
+<li>These message types also need callback functions for the client and the server that get run when a message is received.</li>
+<li>The memory used to instantiate the message objects needs to be managed by our low-level network library.</li>
+<li>The message object factory needs to know the total number of message types that it can send. This is so that we can send the minimum number of bits possible for encoding the message types inside of the message packets.</li>
+</ol>
+<p>Number 1 is fairly straightforward as far as C++ is concerned, since we just need to pass a function pointer around wherever we have to deal with messages. Number 2 is also straightforward because our networking library, <a href="https://github.com/networkprotocol/yojimbo/">yojimbo</a>, already has a standard for allocating its memory, which we can just use when we instantiate a message object. So as you might guess, Number 3 is the real issue here.</p>
+<p>If we were making a single game with our code and we maintained access to all of the source code, Number 3 wouldn't be a big deal.  We would probably handle it for quite some time in the same way we were originally handling it by hardcoding the message types in our message object factory, which would guarantee the number of messages we'll be sending. However, we're not just making one game with this code, and more importantly, we're trying to create a separation between the user code (a.k.a. game code) and the actual engine code, but good network messages tend to be highly customized and optimized for the relevant game's specific needs, and that can only happen if the game developer can create their own message objects. Creating custom message objects isn't a difficult problem in and of itself either if you utilize inheritance and typecasting<sup id="fnref:352252"><a class="footnote-ref" href="#fn:352252" rel="footnote">3</a></sup>, but the custom message objects need to be known before we initialize our message factory, which happens during the initialization of our <code>NetworkingModule</code>.</p>
+<p>Our solution: A little bit of "macro magic." Macros in C++ are very powerful tools, and one of the things that they excel at is automating boilerplate code<sup id="fnref:3954920"><a class="footnote-ref" href="#fn:3954920" rel="footnote">4</a></sup>. The <code>MESSAGE_FACTORY_START</code> macros above are an example of that. But the question remains, how do you get a developer's code to be run by <em>your</em> code? Macros can't exactly take code from some part of code and inject it into something else. Or can they?</p>
+<p>Well, no, they can't. Macros are just named fragments of code that expand at compile time. However, the C language's love of pointers <em>does</em> allow us to essentially "inject" user code (functions, really) into our own code, it just tends to be convoluted and require a lot of copied code. And hiding all of that is what macros are good at!</p>
+<h3 id="rpcs">RPCs<a class="headerlink" href="#rpcs" title="Permanent link">&para;</a></h3>
+<p>Before we go any further, let's make sure everyone's caught up on the newest lingo. In real-time networking, you have two basic types of networking: networked data and networked functions. Networked data is objects and data primitives that you sync across a network; one example of networked data would be an object's position being simulated by the server and sent out to every client. This data is much more appropriate for unreliable streamed network data because we can typically just forget about old, lost packets and take the newest ones as ground truth.</p>
+<p>Networked functions are also known as <em>remote procedure calls</em>, or <em>RPCs</em>. An RPC function is effectively just an integer handle and some data that is sent once from client to server or server to client, and once the receiver gets the message, they run a function that corresponds to the integer handle using the data that was sent as parameters. This is easier to keep track of in games because you can define the processing on either side of the delivery chain and you get to call it as frequently or infrequently as you want. However, you also have to be more careful about this data. Obviously if you lose the packets of an RPC call, you either need those packets to get sent again or you're losing out on whatever the other side was trying to tell you. An RPC is usually something like a "pause menu" event in a multiplayer game like <em>Super Smash Bros.</em> When one person pauses, the other screens also pause, but this is obviously a one-time event and not some synced variable (although it probably could be!).</p>
+<p>On the Isetta Engine team, we had a lengthy discussion about what we should use in our engine. These two types of networking aren't exclusive in any way, but with our inexperience with network programming, we wanted to ground ourselves with one implementation before extending into more use cases. The side that eventually won out was the RPC methods because RPCs can effectively emulate synced variables, just with some runtime and network bandwidth wasted, and RPCs are also a more straightforward API to design than a serialization standard that game developers would need to abide by in our engine!</p>
+<h3 id="first-pass-at-rpc-messages">First Pass at RPC Messages<a class="headerlink" href="#first-pass-at-rpc-messages" title="Permanent link">&para;</a></h3>
+<p>The following implementation of RPC networked messages draws heavily from Tamás Szelei's blog <a href="http://szelei.me/cpp-static-init-block/">Emulating the static initialization blocks of Java in C++</a>, so if you're interested in the idea feel free to take a peek at his article (we also go beyond this implementation in our second pass similarly to how our <a href="https://github.com/Isetta-Team/Isetta-Engine/blob/9ff4a996d6da5e382f48b1b4b17e029c7be004ac/Isetta/IsettaEngine/Scene/LevelManager.h">LevelManager</a> now handles static initialization).</p>
+<p>The main idea is that we can leverage C++'s <code>static</code> keyword along with a "registry" class to register our message types to the object factory at startup. If you do it right, this can be very effective, but the first implementation we landed on was pretty naive and didn't help very much. We created a macro for starting and ending a message object declaration, and inside of that macro we also packaged a special static "helper" class:</p>
+<div class="codehilite"><pre><span></span><span class="cp">#define RPC_START(MessageClass)                  \</span>
+<span class="cp">  class MessageClass : public Message {          \</span>
+<span class="cp">   private:                                      \</span>
+<span class="cp">    static MessageClass* Create(void* memory) {  \</span>
+<span class="cp">      return new (memory) MessageClass();        \</span>
+<span class="cp">    }                                            \</span>
+<span class="cp">    friend class RPCMessageFactory;              \</span>
+<span class="cp">    static RPCRegistryHelper MessageClass##_RPCRegistryHelper;</span>
+  <span class="p">;</span>
+</pre></div>
+
+<p>The <code>RPCRegistryHelper</code> is a class that registers a given message type's information when its constructor is called. ...if you're at all familiar with C++, then you probably know that these static objects can't just be declared—they need to be initialized. And the way that you do <em>that</em> is to define that variable somewhere in some other code, perhaps in <code>NetworkingModule</code>'s <code>StartUp</code> function maybe? In any case, we still have what should be external, user-defined code within our engine code at the end of the day, so more work will need to be done on that.</p>
+<p>Obviously this only got us halfway there as far as functionality goes, too.  If we're sending RPC message objects, then we also need to define RPC message functions to be run when the objects are received! Just like with the object type declaration macro, these macros essentially just define a name that can be used throughout the code:</p>
+<div class="codehilite"><pre><span></span><span class="cp">#define RPC_CLIENT_FUNC                                      \</span>
+<span class="cp"> public:                                                     \</span>
+<span class="cp">   static void RpcClient(Client* client, Message* message)   \</span>
+<span class="cp"> #define RPC_SERVER_FUNC                                     \</span>
+<span class="cp"> public:                                                     \</span>
+<span class="cp">  static void RpcServer(int clientIdx, Server* server,       \</span>
+<span class="cp">                        Message* message)                    \</span>
+<span class="cp">#define RPC_MESSAGE_FINISH(MessageClass, Tag)                \</span>
+<span class="cp"> public:                                                     \</span>
+<span class="cp">  VIRTUAL_SERIALIZE_FUNCTIONS();                             \</span>
+<span class="cp">  }                                                          \</span>
+<span class="cp">  ; </span>
+
+ <span class="cp">#define RPC_MESSAGE_INIT(MessageClass, Tag)           \</span>
+<span class="cp">  NetworkRegistry::RegisterMessageType(                \</span>
+<span class="cp">      sizeof(MessageClass), MessageClass::Create, Tag, \</span>
+<span class="cp">      MessageClass::RpcClient, MessageClass::RpcServer);</span>
+</pre></div>
+
+<p>With that, we technically had an RPC message system running, even if it still required a bit much with jumping through hoops. Once a message class had been defined like <code>HandleMessage</code>, the user could then generate those messages by calling a function on the <code>NetworkManager</code> and giving it the appropriate string tag, which in the case of <code>HandleMessage</code> was <code>&quot;HNDL&quot;</code>. With the generated message in-hand, the user can then populate its data however they like then send it on its merry way through the <code>NetworkManager</code>—and on the other side of the network, someone would receive that message and run a function defined inside of the message class itself that has no scoping and no parameters! Sounds useful, huh?</p>
+<h3 id="second-pass-at-rpc-messages">Second Pass at RPC Messages<a class="headerlink" href="#second-pass-at-rpc-messages" title="Permanent link">&para;</a></h3>
+<p>With what we had implemented essentially enforcing the use of global variables and poor scoping, we knew we had to do something better. There were several places for us to improve upon, but the first was simple: Why in the world did we need a <code>NetworkRegistry</code> static class and a <code>NetworkManager</code> static class? It turns out, there is no reason! We had originally implemented the <code>NetworkRegistry</code> as a globally accessible form of using messages, but the <code>NetworkManager</code> already effectively serves that purpose, so we just went ahead and combined those two things.</p>
+<blockquote>
+<p>(It was also at around this time that one of our developers refactored our codebase to use multiple projects, such as IsettaEngine, IsettaTestbed, and IsettaTest. Turns out, this can be a massive headache for anyone who was changing code when this happens! It really messed with our git commits and was an overall bad time. Would not recommend.)</p>
+</blockquote>
+<p>Another improvement that we strove to get this time around was an actually usable message callback system. The previous one forced the developer to pair the functions that would be run when the RPC message object was received with the actual class of the message object itself, which obviously has very limited capability. Our immediate solution was to make a subscription-based callback system, much like our how <code>Input</code> class handles callback functions. Any message that is defined would get its own associated list of function pointers, and anybody in the world (who has the correct function parameters) can add their own function to that list. When that message object is received, every function in that callback list is called using that message object's data.</p>
+<p>This method does have a few drawbacks. Namely, you get more overhead either from having to check at runtime inside your callback functions whether you really want to be run due to a particular message that was received, or you get more overhead from creating more message objects that would be linked to sparser sets of callback functions. You also need to keep track of integer handles for every function that you link to the message objects, otherwise you won't be able to unsubscribe functions. However, as you might also imagine, this is an extremely user-friendly way of defining callback functions, and its usable anywhere in our code if you know the corresponding string tag! (Like <code>&quot;HNDL&quot;</code> for <code>HandleMessage</code> from before)</p>
+<p>To contrast the macros showed earlier that generate the singular message callback functions, this is an example of how a user might register a callback function at this point in development:</p>
+<div class="codehilite"><pre><span></span> <span class="n">exampleClientHandleId</span> <span class="o">=</span> <span class="n">NetworkManager</span><span class="o">::</span><span class="n">RegisterClientCallback</span><span class="p">(</span>
+      <span class="s">&quot;HNDL&quot;</span><span class="p">,</span> <span class="p">[](</span><span class="n">Message</span><span class="o">*</span> <span class="n">message</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">HandleMessage</span><span class="o">*</span> <span class="n">handleMessage</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">HandleMessage</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">message</span><span class="p">);</span>
+        <span class="c1">// … use the handle somehow ...</span>
+      <span class="p">});</span>
+   <span class="n">exampleServerHandleId</span> <span class="o">=</span> <span class="n">NetworkManager</span><span class="o">::</span><span class="n">RegisterServerCallback</span><span class="p">(</span>
+      <span class="s">&quot;HNDL&quot;</span><span class="p">,</span> <span class="p">[](</span><span class="kt">int</span> <span class="n">clientIdx</span><span class="p">,</span> <span class="n">Message</span><span class="o">*</span> <span class="n">message</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">HandleMessage</span><span class="o">*</span> <span class="n">handleMessage</span> <span class="o">=</span>
+            <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">HandleMessage</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">message</span><span class="p">);</span>
+        <span class="c1">// … use the handle somehow ...</span>
+         <span class="n">NetworkManager</span><span class="o">::</span><span class="n">SendAllMessageFromServer</span><span class="p">(</span><span class="s">&quot;HNDL&quot;</span><span class="p">,</span> <span class="n">handleMessage</span><span class="p">);</span>
+      <span class="p">});</span>
+</pre></div>
+
+<p>Isn't that so much more refreshing? Also, since we're using C++ lambda functions for registering the callbacks, we can include any scoping that we want to be used by the function as well. So even if our only input parameter is essentially the message object itself, we can still influence the world outside of that callback function's scope!</p>
+<h4 id="aside-on-messagecopy">Aside on Message::Copy<a class="headerlink" href="#aside-on-messagecopy" title="Permanent link">&para;</a></h4>
+<p>The <code>NetworkManager::RegisterServerCallback</code> example shows another cool feature that we implemented at this point. Before now, you would have to iterate through every single client and manually send them a message if you created a server callback function whose message you wanted to broadcast to all clients. This was sort of okay when the function was tied to the message object, but now that the functions can be defined anywhere, it gets a little more awkward to have to know about the individual clients that we're sending to. So we implemented a "SendToAll" type function instead, but we ran into an issue with our networking library: Every message that gets sent from the server to a client needs to be generated <em>specifically for that client</em>. It's wasteful, but it also allows us to track whether or not our messages have been received (which can be important!). But that was making message objects difficult to broadcast because we couldn't just send out the exact same message we received, we would have to copy its data to a bunch of new message objects and send those instead!</p>
+<p>And so our solution was to extend the requirements of an RPC message object. Now, not only do you need to define a serialization function, but you also need to define a <em>copy</em> function that can fill out its own data based on another message of the same type. With that one quick addition, we can now hide anything to do with connected clients or client numbers from the game developer!</p>
+<h3 id="network-identities">Network Identities<a class="headerlink" href="#network-identities" title="Permanent link">&para;</a></h3>
+<p>So RPC networking is effectively implemented, what else is there even to do? We basically have everything we need, right?</p>
+<p>Not quite! Although RPC messages can account for most of the functionality of our engine (although we probably don't want to use them for <em>everything</em>), there's one more very important piece that we need before this can actually be utilized: <em>network identities.</em> A <em>network identity</em> is an ID that can be attached to individual objects that will be correctly mapped across the network to the corresponding object on the other client and server machines. Typically the way that game programmers reference other objects is via their pointers, which works fine and dandy when you're on a single machine, but do you think those pointers will conveniently line up on someone else's computer? Without these IDs, the game would have no way of directing its message data to the correct objects!</p>
+<p>Now technically this is something that could be implemented on the game level and not the engine level if we stopped right here and only left our networking system as a bunch of RPCs, but we actually do need to have at least a networked transform in order to keep our characters in sync with one another on people's individual computers, and that's impossible to do without some sort of identifier that will point the transform data to the correct object. Fortunately, we've recently built up our component system and tested it out in the demo game, so we can implement our <code>NetworkIdentity</code> class as a component that will be held by individual game objects (or "entities") within the game. This way, the game developer can specify which objects in their game they want to have synced across the network so that they don't have to waste a bunch of networking bandwidth keeping a bunch of immobile, uninteresting things synced up with each other.</p>
+<p>Currently, the <code>NetworkIdentity</code> component is pretty much just a wrapper around some <code>NetworkManager</code> functionality that generates an identifier and maps it to the component that asked for it, but because we're developing a game engine and everything needs to be abstracted <em>just enough</em> to annoy the programming team, we also want the <code>NetworkIdentity</code> component to dictate the sync rate and authorities of the networked data that is associated with it. This will be more important when we talk about networked transforms though, so we'll leave that discussion for another day. </p>
+<h3 id="testing-it-all-out">Testing It All Out<a class="headerlink" href="#testing-it-all-out" title="Permanent link">&para;</a></h3>
+<p>So now that we've mapped out a pretty robust system for sending networked messages, you can imagine our excitement to see some synced behavior between two computers across a network. When it came time to test, however, we faced a frustrating bug. For some reason the network IDs would not sync up! We thoroughly vetted the rest of our serialized data and saw that all of that was being correctly sent, but it seemed the network ID would never be properly sent from the client. With even more digging, we discovered that the ID <em>was</em> being properly sent from the client. So what in the world was happening between the two computers?</p>
+<p>As it turns out, we were storing the received network ID in the wrong place. The network IDs that we've implemented are unsigned integers for obvious reasons, but we don't have a serialization function for unsigned integers and the developer here was too lazy to implement that. So instead, we casted the unsigned integer to an integer and passed that to be serialized. The following is the macro from our networking library yojimbo that we use for serializing integers:</p>
+<div class="codehilite"><pre><span></span><span class="kt">int</span> <span class="n">signedNetId</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">netId</span><span class="p">);</span>
+
+<span class="n">serialize_int</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">signedNetId</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">256</span><span class="p">);</span>
+</pre></div>
+
+<p>This expands to something like this:</p>
+<div class="codehilite"><pre><span></span><span class="cp">#define serialize_int(stream, value, min, max)   \</span>
+<span class="cp">  do {                                                   \</span>
+<span class="cp">    yojimbo_assert(min &lt; max);                           \</span>
+<span class="cp">    int32_t int32_value = 0;                             \</span>
+<span class="cp">    if (Stream::IsWriting) {                             \</span>
+<span class="cp">      yojimbo_assert(int64_t(value) &gt;= int64_t(min));    \</span>
+<span class="cp">      yojimbo_assert(int64_t(value) &lt;= int64_t(max));    \</span>
+<span class="cp">      int32_value = (int32_t)value;                      \</span>
+<span class="cp">    }                                                    \</span>
+<span class="cp">    if (!stream-&gt;SerializeInteger(int32_value, min, max)) {   \</span>
+<span class="cp">      return false;                                      \</span>
+<span class="cp">    }                                                    \</span>
+<span class="cp">    if (Stream::IsReading) {                             \</span>
+<span class="cp">      value = int32_value;                               \</span>
+<span class="cp">      if (int64_t(value) &lt; int64_t(min) || int64_t(value) &gt; int64_t(max)) {  \</span>
+<span class="cp">        return false;                                    \</span>
+<span class="cp">      }                                                  \</span>
+<span class="cp">    }                                                    \</span>
+<span class="cp">  } while (0)</span>
+</pre></div>
+
+<p>Depending on whether we're reading or writing from message data, the value either gets read or written to the variable that we're passing to the macro. Which means that, when we're reading from the stream (i.e. receiving a message), we write that data into the temporary <code>signedNetId</code> variable! And our <code>netId</code> variable is left at its initial value, 0.</p>
+<p>Acknowledging that we're very likely not to face the problem of too many network IDs, we changed our unsigned integer to a signed integer and left it at that. If we need to expand it to be unsigned, we can always write a serialize function.</p>
+<p>Oh, and one more bug popped up that we should note: As we alluded to above, each message object declaration requires a <code>Serialize</code> function. This function is where that <code>serialize_int</code> macro example comes from and is also what is used by yojimbo to generally serialize any subclass of its <code>Message</code> class. Well, one thing that we forgot when implementing the <code>NetworkIdentity</code> test messages was that <em>you must return true at the end of the <em><code>Serialize</code></em> function.</em> That's how yojimbo knows that the serialization succeeded. Unfortunately, the macro makes forgetting this piece of information non-fatal to the compile process, but then whenever you try to send a message that doesn't return true, your client will disconnect! So this is an incredibly important piece of tribal knowledge that we have to document somewhere to keep all of our future developers from tearing their hair out at our network messaging system.</p>
+<h3 id="and-a-third-pass-at-rpc-messages">...And a Third Pass at RPC Messages<a class="headerlink" href="#and-a-third-pass-at-rpc-messages" title="Permanent link">&para;</a></h3>
+<p>Oh, did you think we were done? We're just getting started! (Just kidding, don't worry, you're in the home stretch!)</p>
+<p>So after we finished the pre-code review version of our networking system, we had a bad taste left in our mouth. Why should the developer have to remember some weird string tag in order to send messages of a particular type, like <code>&quot;HNDL&quot;</code>? And what happens if we have conflicting string tags or need longer strings? Well, as it turns out, we already utilize a system similar to this tagging but by using actual <em>object types</em> somewhere else in the code: Our component system!</p>
+<p>Specifically, inside of <a href="https://github.com/Isetta-Team/Isetta-Engine/blob/7cbc43d4b3df5cea830ceacc3c58724685aa5ab7/Isetta/IsettaEngine/Scene/Entity.h">Entity.h</a> we have a vector of component types that we use for checking whether or not the current entity has a component that's requested using the <code>GetComponent</code> function. Since the function is a template function, it can utilize C++'s <code>std::type_index</code> class which essentially enumerates the classes. By a similar method, we can just enumerate our user-defined messages by their type if we turn all of our message-based functions into template functions<sup id="fnref:290252"><a class="footnote-ref" href="#fn:290252" rel="footnote">5</a></sup>!</p>
+<p>Now, if you've watched any of Mike Acton's talks, you'll probably have a critical eye of templates. And we acknowledge that they do drive up compile time and wreck iteration speed, but in such a short notice, they can be a nice step around a lot of code that could be much harder to maintain. And because we're using it, we can get rid of our gross string tag method and do a very simple type check:</p>
+<div class="codehilite"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">int</span> <span class="n">NetworkManager</span><span class="o">::</span><span class="n">GetMessageTypeId</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">typeMap</span><span class="p">[</span><span class="n">std</span><span class="o">::</span><span class="n">type_index</span><span class="p">(</span><span class="k">typeid</span><span class="p">(</span><span class="n">T</span><span class="p">))];</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>So clean! This also gives us the added benefit of knowing our message types for several of the other message-based functions. Some of them already perform casts on the messages in order to access their data, and this would let us conveniently skip that step.</p>
+<h4 id="static-initialization-20">Static Initialization 2.0<a class="headerlink" href="#static-initialization-20" title="Permanent link">&para;</a></h4>
+<p>We're not done quite with the networking yet—hang in there! There's still one more undesirable quality to our RPC message creation system. Remember the "static initialization" solution from before? Well, that technique hardly helps since the game developer is still required to initialize the static variables <em>somewhere</em>, and forgetting to do so can lead to a rabbit hole of debugging.</p>
+<p>Fortunately for us, we've already used an ever better system elsewhere in our code. In <a href="https://github.com/Isetta-Team/Isetta-Engine/blob/7cbc43d4b3df5cea830ceacc3c58724685aa5ab7/Isetta/IsettaEngine/Scene/LevelManager.h">LevelManager.h</a>, we define a static boolean variable whose initialization is also in the header file but is guarded by being a template function! So we don't have to worry about a multiple-definition error but we can also hide away the registration process from the game developer. You can read more about this technique in the section <a href="../week-6/#template-black-magic">Template Black Magic!</a> of our Week 6 blog.</p>
+<h3 id="making-a-level">Making a Level<a class="headerlink" href="#making-a-level" title="Permanent link">&para;</a></h3>
+<p>As a nice bow to wrap around this whole week of intense networking development, we also took all of our networking code out of the engine loop (where it was hard-coded) and put it into <a href="https://github.com/Isetta-Team/Isetta-Engine/blob/44a5c12abc6e03b6a3f6cc22540bc2a831634ad9/Isetta/IsettaEngine/Custom/NetworkLevel.cpp">NetworkLevel.cpp</a>. In doing this, we were able to test a complete separation between the engine's networking logic and the game's, and guess what? It works! Check out that spawning and despawning synced up!</p>
+<div class="video-wrapper">
+<video playsinline autoplay muted loop>
+  <source src="../../images/blogs/week-7/network_spawning.webm" type="video/webm">
+Your browser does not support the video tag.
+</video>
+</div>
+
+<p><em>This trippy zombie dance experience brought to you by the devs being too lazy to space out the spawns.</em></p>
+<p>That's it for this week! It might seem like a lot, but really we only worked through the fundamentals of a good networking system. In the next week or two, we will be introducing networked transforms into our system, which will let us have legitimate multiplayer going in our games!</p>
+<h2 id="serialization">Serialization<a class="headerlink" href="#serialization" title="Permanent link">&para;</a></h2>
+<p>We realized during the writing of the networking section above that we haven't discussed serialization at all yet. Part of the reason for that is because we haven't really done any serialization ourselves; for the networking, we're simply using the networking library <a href="https://github.com/networkprotocol/yojimbo/">yojimbo</a>'s own serialization functions, and beyond that we haven't really needed serialization because we're writing our game levels in C++ instead of encoded files.</p>
+<p>Serialization is the process of taking some object from our program into a stream of bytes that can be written somewhere, whether it's a file, a database, or even a network packet. It's a very important subject when looking at the big picture for game engines. It's not discussed very often because it's pretty disconnected from the game side of the engine, but a game engine's job is to move a lot of data through itself and process that data in some way. And when we say a lot, we mean <em>a lot</em>.</p>
+<p>Without serialization, your game engine would be at the whim of whatever other software saves out your resource files, and you would probably only write out simple text files that take ages to read and waste a lot of space.</p>
+<p>That being said, serialization itself is a difficult feature to tackle. How do you generate the serialized data in the first place (especially if you don't have good reflection data like in C++)? How do you guarantee backwards compatibility with the serialization, or do you even have it at all? These are all questions that we completely avoided by using big 3<sup>rd</sup> party libraries for things like audio and graphics! And for the time being, we don't have to worry about serialization with our .cpp level files, so we won't worry about it.</p>
+<p>If you're interested in the topic, <a href="https://preshing.com/20171218/how-to-write-your-own-cpp-game-engine/">Jeff Preshing</a> has a good introduction to the topic including links to several good resources to learn from.</p>
+<h3 id="serializing-our-own-data">Serializing Our Own Data<a class="headerlink" href="#serializing-our-own-data" title="Permanent link">&para;</a></h3>
+<p>Our plan is to not serialize our level data, but we were still interested in serializing our basic data types to avoid rewriting code, such as for Vector3 and Matrix4x4. The main thing that this serialization would be used for (i.e. the only thing it would be used for) is networking, so we thought we could utilize yojimbo's <code>serialize_object</code> macro and write <code>Serialize</code> functions for each of our data containers that could then be sent across the network.</p>
+<p>But there's one big problem that we hit. The <code>Serialize</code> function used by yojimbo must be templated or else it won't work. Why is that an issue? Aren't we using a bunch of templates already? Well, the problem isn't the template itself per se—it's the fact that a templated function must be defined inside of the header file. This means that, if we want to serialize a single class with yojimbo, we have to include the entire 6,000 lines of code in yojimbo.h to utilize the serialization macros. And including that much <em>network</em> code in our <em>math</em> data structures just didn't seem like a good idea.</p>
+<p>So for the time being, we'll leave serializing the data types to the game developer! We wish we could do more there, but it's currently not worth the time investment.</p>
+<h2 id="first-game">First Game<a class="headerlink" href="#first-game" title="Permanent link">&para;</a></h2>
+<p>A major milestone is that we made a real game with our engine! It's running smoothly at ~60 fps with sound, gamepad input, models, lighting, textures, animation blending, movement, score counting, tweakable variables, an in-game entity inspector… All the beautiful things you can imagine in a game engine. The game is also built in a whole new project! That means we can now bundle our entire engine into a DLL<sup id="fnref:669403"><a class="footnote-ref" href="#fn:669403" rel="footnote">6</a></sup> and pass it around for people to use. How exciting!</p>
+<p>Now, let's calm down and talk about how we did it. </p>
+<p>First, we built the entire engine into a DLL. Visual Studio is very helpful with this process by providing this <a href="https://docs.microsoft.com/en-us/cpp/build/walkthrough-creating-and-using-a-dynamic-link-library-cpp?view=vs-2017">document</a> which covers the process. Basically, we just needed to add a new configuration, set its format from <code>.exe</code> to <code>.dll</code>, and add a bunch of modifiers like <code>__declspec(dllexport)</code> and <code>__declspec(dllimport)</code> to the classes we want to export and import to the game project. We made a macro for this, so we can easily get different behavior in different environments:</p>
+<div class="codehilite"><pre><span></span><span class="cp">#ifdef ISETTA_EXPORTS</span>
+
+<span class="cp">#define ISETTA_API __declspec(dllexport)</span>
+
+<span class="cp">#else</span>
+
+<span class="cp">#define ISETTA_API __declspec(dllimport)</span>
+
+<span class="cp">#endif</span>
+</pre></div>
+
+<p>The tricky thing is, the game project needs not only the DLLs, but also the following (if you are not sure how to do any of these, please refer to the document linked above):</p>
+<ul>
+<li>The header files in the engine. This allows the game project to include classes and functions from the engine and know what functionality they provide.</li>
+<li>The <a href="https://docs.microsoft.com/en-us/cpp/build/reference/dot-lib-files-as-linker-input?view=vs-2017"><code>.lib</code> files</a>. They are generated together with the DLLs and tell the compiler where to find specific functions in the DLL.</li>
+<li>The header files and <code>.lib</code> files from external libraries, if needed. We are currently including everything from external libraries, which is certainly not optimal. We will try to find the cleanest way to include them, and post the update in a future blog</li>
+</ul>
+<p>If you see giant lists of "unresolved external symbols", don't panic! We had those too, so just check the above three things and make sure you have the appropriate ISETTA_API modifiers.</p>
+<p>Second, we downloaded some assets from <a href="https://www.mixamo.com/">Mixamo</a> and made some game assets with Blender (programmer art, yay!), and converted them into a format that our engine can read. Luckily, this step is also not very difficult—Horde3D comes with a ".dae to .geo converter"<sup id="fnref:41235"><a class="footnote-ref" href="#fn:41235" rel="footnote">7</a></sup> that, apparently, convert <code>.dae</code> files to <code>.geo</code> files, which is the file format Horde3D needs. But there are still two tricky things with it:</p>
+<ul>
+<li>The path to generated resource files still needs to be hard-coded into the game, so if the file structure changed, the game developer must remember to change those hard-coded value, too. Otherwise, the game will throw an exception.</li>
+<li>The units used by different software could be different. For example, in Maya, 1 unit is 1 centimeter by default, and in our engine, 1 unit is 1 meter. If we don't change the scale before exporting, the models will be huge in our engine. This can be fixed by changing the default scale in Maya, or by manually setting the object's scale in the game. If you don't, you may get a <em>giant</em> soldier, like we did:</li>
+</ul>
+<div class="video-wrapper">
+<video playsinline autoplay muted loop>
+  <source src="../../images/blogs/week-7/scale_problem_giant_soldier.webm" type="video/webm">
+Your browser does not support the video tag.
+</video>
+</div>
+
+<p>By the way, if you pass some code to DLL-imported function to find resources, it will try to find the resources relative to the game project, not the project where the DLL is from. This is pretty obvious, but took us a while to make it clear.</p>
+<p>Third, we started making the actual game and found out a ton of bugs in the engine, and fixed/worked around them. This experience firmly states that, <strong>making small test games is really a good way to test the engine</strong>! Here are some bugs we found out:</p>
+<ul>
+<li><code>Entity::Destroy</code> is not working properly. It does call the <code>OnDestroy</code> functions, but the entity itself is not removed from the entity list of the scene after that (we had a TODO there but no one remembered to fix it). Therefore, the <code>OnDestroy</code> function is called again and again and again, and the entity is never really "destroyed".<ul>
+<li>This also revealed another issue in our free list allocator. As the <code>OnDestroy</code> functions release memory in the free list allocator, when the same memory is freed the second time, our allocator would freak out and throw an exception. We improved our free list allocator to make it safer.</li>
+<li>To avoid this issue, we chose to not dynamically delete anything in the game. Instead, we pooled all of them.</li>
+</ul>
+</li>
+<li>The animation won't work correctly after turning the entity off and on again with <code>Entity::SetActive</code>. It's caused by our interface with Horde3d. We fixed it and it's working properly now, and we also added animation blending during the fixing process. You can see the version with broken animation <a href="https://youtu.be/VYwG8cBHxb8">here</a>.</li>
+<li>As mentioned before, we had scaling problems with imported models, and we chose to set their scale in the game. This choice revealed a problem in our <code>Transform</code> class: when an entity's scale is small, calling <code>TranslateWorld</code> (the function that we use to move objects in world space) on the entity is very ineffective as the world translation is somehow affected by the object's local scale. We dug into the code and realized the reason is that when we were constructing the object's matrix from the local position, local rotation, and local scale, we applied local position before local scale. This would cause the local position to be "scaled" by local scale, which should not be. So we simply changed the order of constructing the matrix and it worked fine.</li>
+</ul>
+<p>We also found out some missing features during the making of this game: </p>
+<ul>
+<li>When we were implementing our GUI module, we only created some interfaces with ImGUI and left out some other that we thought wouldn't be used. Well, it turned out we didn't perfectly predict what we need. When making this game, we wanted to tweak some values at runtime with in-game GUI, and a "float slider" would be the best option for that. However, we didn't have that in our GUI interface, so we went ahead and added it to our engine.</li>
+<li>The list of audio files to be used in the game was hard-coded into the AudioModule. It's certainly not desirable and would <strong>destroy</strong> iteration time. So we moved that to the config file, thus allow specifying audio files to be used in the config.</li>
+</ul>
+<p>Finally, we got the game working! Yay!</p>
+<div class="video-wrapper">
+<iframe src="https://www.youtube.com/embed/Th-JUNuTtZ4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>
+
+<h2 id="patch-notes">Patch Notes<a class="headerlink" href="#patch-notes" title="Permanent link">&para;</a></h2>
+<h3 id="editor">Editor<a class="headerlink" href="#editor" title="Permanent link">&para;</a></h3>
+<p>After making our transform and GUI system, we spent 20 minutes hacking together a "programmer UI" in-game editor that's capable of displaying entity hierarchy, transform information, component list, gizmo drawing, and has a "reset transform" button. Being able to see the list of entities and their information made it so much easier for us to debug the game and engine.</p>
+<p><img alt="Editor" src="../../images/blogs/week-7/editor.png" title="Editor" />
+<em>Our simple in-game inspector</em></p>
+<h3 id="freelistallocator-alignment"><code>FreeListAllocator</code> Alignment<a class="headerlink" href="#freelistallocator-alignment" title="Permanent link">&para;</a></h3>
+<p>When we were working on the networking system this week, we attached <code>NetworkIdentity</code> components to game objects to synchronize them across the network. After doing this twice, we would get a memory reference error inside of <code>FreeListAllocator</code>! The free list essentially tracks available nodes of memory in our own managed heap and tries to merge them if they're adjacent, so we looked into its allocation directly by stepping through the debugger to see what was going wrong. This is what we found:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// … node = a custom data structure containing a size and a pointer to the next node</span>
+
+  <span class="kt">intptr_t</span> <span class="n">rawAddress</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">intptr_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">node</span><span class="p">);</span>
+  <span class="n">rawAddress</span> <span class="o">+=</span> <span class="n">headerSize</span><span class="p">;</span>  <span class="c1">// leave size for header</span>
+  <span class="kt">intptr_t</span> <span class="n">misAlignment</span> <span class="o">=</span> <span class="n">rawAddress</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">alignment</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="kt">uint64_t</span> <span class="n">adjustment</span> <span class="o">=</span> <span class="n">alignment</span> <span class="o">-</span> <span class="n">misAlignment</span><span class="p">;</span>
+  <span class="kt">intptr_t</span> <span class="n">alignedAddress</span> <span class="o">=</span> <span class="n">rawAddress</span> <span class="o">+</span> <span class="n">adjustment</span><span class="p">;</span>
+
+  <span class="kt">size_t</span> <span class="n">occupiedSize</span> <span class="o">=</span> <span class="n">headerSize</span> <span class="o">+</span> <span class="n">adjustment</span> <span class="o">+</span> <span class="n">size</span><span class="p">;</span>
+  <span class="kt">intptr_t</span> <span class="n">headerAddress</span> <span class="o">=</span> <span class="n">alignedAddress</span> <span class="o">-</span> <span class="n">headerSize</span><span class="p">;</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">&gt;=</span> <span class="n">occupiedSize</span> <span class="o">+</span> <span class="n">nodeSize</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// enough space to put a node here</span>
+    <span class="k">auto</span><span class="o">*</span> <span class="n">header</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">headerAddress</span><span class="p">))</span>
+        <span class="n">AllocHeader</span><span class="p">(</span><span class="n">occupiedSize</span><span class="p">,</span> <span class="n">adjustment</span><span class="p">);</span>
+
+    <span class="n">InsertNodeAt</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="k">new</span> <span class="p">(</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">alignedAddress</span> <span class="o">+</span> <span class="n">size</span><span class="p">))</span> <span class="n">Node</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">-</span> <span class="n">occupiedSize</span><span class="p">));</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="c1">// ...</span>
+</pre></div>
+
+<p>The problem in this code stems from one spot: Where <code>auto* header</code> is allocated using <code>headerAddress</code>. If <code>headerAddress</code> happens to be only 8 bytes away from the <code>rawAddress</code> of <code>node</code>, then the <code>next</code> pointer of <code>node</code> will be overwritten by the new <code>header</code> allocation! (This is one of the problems you may face when you write your own memory allocation system!)</p>
+<p>But when is <code>headerAddress</code> only 8 bytes away from <code>node</code>, especially when our default alignment is 16 bytes? The answer lies in where we started. If <code>node</code> happens to be misaligned, then the first block of code is <em>not</em> actually aligning our next address, it only puts it 8 bytes after our address because it's "aligning"! To fix this, we can increase our adjustment so that it always "rounds up", so to speak. This can be done in a short math expression:</p>
+<div class="codehilite"><pre><span></span>  <span class="kt">uint64_t</span> <span class="n">adjustment</span> <span class="o">=</span> <span class="n">alignment</span> <span class="o">-</span> <span class="n">misAlignment</span><span class="p">;</span>
+  <span class="n">adjustment</span> <span class="o">+=</span> <span class="p">((</span><span class="o">~</span><span class="n">alignment</span> <span class="o">&amp;</span> <span class="n">adjustment</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="kt">intptr_t</span> <span class="n">alignedAddress</span> <span class="o">=</span> <span class="n">rawAddress</span> <span class="o">+</span> <span class="n">adjustment</span><span class="p">;</span>
+</pre></div>
+
+<p>There, no memory errors!</p>
+<h3 id="camera-vs-cameracomponent">"Camera" vs. "CameraComponent"<a class="headerlink" href="#camera-vs-cameracomponent" title="Permanent link">&para;</a></h3>
+<p>Regarding our engine's naming conventions, the Isetta Team is usually pretty lax. But for our components, we decided to turn it up a notch and argue over which is better: "Camera" or "CameraComponent." It remained an unresolved debate because one of our programmers was out at an interview over a couple days, but when he came back, we decided on a compromise. The component should include the word "Component" when the name of the component itself is only one word (e.g. "CameraComponent"), and it should not include "Component" when it already contains more than one word (e.g. "NetworkIdentity").</p>
+<h2 id="coming-soon">Coming Soon<a class="headerlink" href="#coming-soon" title="Permanent link">&para;</a></h2>
+<p>Go check out our interview with <a href="../../interviews/AmandineCoget-interview/">Amandine Coget</a>, where we talk about the Frostbite engine, developing good usability, and the pros and cons of different UI models.</p>
+<p>We also interviewed <a href="../../interviews/RaymondGraham-interview/">Raymond Graham</a> (<a href="https://twitter.com/wadarass">@wadarass</a>) this week, so expect his interview along with <a href="../../interviews/MartinMiddleton-interview/">Martin Middleton's</a> and <a href="../../interviews/ArasPranckevicius-interview/">Aras Pranckevicius's</a> (<a href="https://twitter.com/aras_p">@aras_p</a>) in the coming weeks.</p>
+<h2 id="resources"><a href="../../resources/">Resources</a><a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
+<p>From development we are acquiring a lot of great resources from where we learned certain topics, and as much as we try to synthesize things in our blogs you may be interested in the originals, which is why we have a page full of links for you to browse.</p>
+<p><em>Originally Published October 19, 2018.</em></p>
+<!-- GD2md-html version 1.0β13 -->
+
+<p><br></p>
+<!-- Begin MailChimp Signup Form -->
+
+<p><link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+<div id="mc_embed_signup" style="margin-top: -20px">
+    <form action="https://isetta.us19.list-manage.com/subscribe/post?u=1d83cb806c55e205be26db856&amp;id=860c7d79cf" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+            <h3>Subscribe to our mailing list</h3>
+            <p style="margin-bottom: -22px;">Get notifications about the upcoming blogs and interviews!</p>
+            <br><br>
+            <div class="mc-field-group">
+                <label for="mce-EMAIL"> </label>
+                <input type="email" placeholder="Email Address..." name="EMAIL" class="required email" id="mce-EMAIL">
+            </div>
+            <div id="mce-responses" class="clear">
+                <div class="response" id="mce-error-response" style="display:none"></div>
+                <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <input type="text" name="b_1d83cb806c55e205be26db856_860c7d79cf" tabindex="-1" value="">
+            </div>
+            <div class="clear" id="submit-button">
+                <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+            </div>
+        </div>
+    </form>
+</div>
+<!--End mc_embed_signup--></p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:3829">
+<p>A <strong>heuristic</strong> is a technique for solving a problem more quickly, often utilized in optimization problems for computer science.&#160;<a class="footnote-backref" href="#fnref:3829" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:28392">
+<p>An <strong>object factory</strong> is a programming pattern where you decouple object creation and destruction with the actual usage of the object. An object factory typically creates objects based on passed parameters, which you would then receive and use.&#160;<a class="footnote-backref" href="#fnref:28392" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:352252">
+<p><strong>Typecasting</strong>, also known as <strong>type conversion</strong>, is a method of changing one data type to another. It helps ensure that variables are processed correctly by functions, but can also be dangerous with the way they handle the conversion.&#160;<a class="footnote-backref" href="#fnref:352252" rev="footnote" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3954920">
+<p><strong>Boilerplate code</strong> is a section of code that has to be included in many places with little to no alteration.&#160;<a class="footnote-backref" href="#fnref:3954920" rev="footnote" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:290252">
+<p><strong>Function templates</strong> are functions definitions that, at compile time, generate individual function definitions for any types used with the template. This can be very useful for cutting out duplicate code, but greatly increases compile time and code size.&#160;<a class="footnote-backref" href="#fnref:290252" rev="footnote" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:669403">
+<p>A <strong>DLL</strong> is a dynamic-linked library which is Microsoft shared library concept which can be transported around easier than a project and contains information about the compiled project.&#160;<a class="footnote-backref" href="#fnref:669403" rev="footnote" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:41235">
+<p>The content pipeline of Horde3D is detailed on <a href="http://www.horde3d.org/docs/html/_contentpipe.html">this page</a>. Long story short, .dae, which stands for Digital Asset Exchange, is the file format that COLLADA (COLLAborative Design Activity) uses. COLLADA, in turn, supports portable representations for 3D assets. ".geo" is the file format that Horde3D uses to load in assets at runtime.&#160;<a class="footnote-backref" href="#fnref:41235" rev="footnote" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+                
+                  
+                
+              
+              
+                
+
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://isetta.io/blogs/week-7/";
+      this.page.identifier =
+        "blogs/week-7/";
+    };
+    (function() {
+      var d = document, s = d.createElement("script");
+      s.src = "//isetta-engine.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../week-6/" title="[Week 6] We Think It's Playable" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                [Week 6] We Think It's Playable
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../week-8/" title="[Week 8] Patching Holes" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                [Week 8] Patching Holes
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2019 Isetta Team
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.css">
+    
+      <a href="mailto:isetta.engine@gmail.com" class="md-footer-social__link fa fa-envelope"></a>
+    
+      <a href="https://twitter.com/IsettaEngine" class="md-footer-social__link fa fa-twitter"></a>
+    
+      <a href="https://github.com/Isetta-Team" class="md-footer-social__link fa fa-github"></a>
+    
+  </div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      
+      <script>app.initialize({version:"1.0.2",url:{base:"../.."}})</script>
+      
+        <script src="../../extra.js"></script>
+      
+    
+    
+      
+        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-124729724-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2885 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="We are making a game engine and documenting the process">
+      
+      
+        <link rel="canonical" href="https://isetta.io/blogs/week-5/">
+      
+      
+        <meta name="author" content="Caleb, Chaojie, Jacob, Jared, Yidi">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../images/isetta_icon.ico">
+      <meta name="generator" content="mkdocs-1.0.2, mkdocs-material-3.0.3">
+    
+    
+      
+        <title>[Week 5] Back in Business - Isetta Engine</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Source+Code+Pro">
+        <style>body,input{font-family:"Lato","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Source Code Pro","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="../../extra.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="light-blue" data-md-color-accent="cyan">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../../#back-in-business" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <!--
+  Copyright (c) 2016-2018 Martin Donath <martin.donath@squidfunk.com>
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Application header -->
+<header class="md-header" data-md-component="header">
+
+  <!-- Top-level navigation -->
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+
+      <!-- Link to home -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://isetta.io/" title="Isetta Engine" class="md-header-nav__button md-logo">
+          
+          <img id="isetta-logo" src="../../images/isetta_logo.png" width="24" height="24" />
+          
+        </a>
+      </div>
+
+      <!-- Button to toggle drawer -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+
+      <!-- Header title -->
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+          
+          <span class="md-header-nav__topic back_to_top cursor_pointer">
+            Isetta Engine
+          </span>
+          <span class="md-header-nav__topic back_to_top cursor_pointer">
+            [Week 5] Back in Business
+            <span style="padding-left: 10px;">⇫</span>
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <!-- Button to open search dialogue -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+        
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+
+        <!-- Search interface -->
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+        
+      </div>
+
+      <!-- Repository containing source -->
+      
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <div class="md-header-nav__source">
+          
+
+
+  
+
+
+  <a href="https://github.com/Isetta-Team/Isetta-Engine" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      Isetta Engine
+    </div>
+  </a>
+
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Tabs with outline
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../compendium/" title="Compendium" class="md-tabs__link">
+          Compendium
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../week-0/" title="Blogs" class="md-tabs__link md-tabs__link--active">
+          Blogs
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../interviews/" title="Interviews" class="md-tabs__link">
+          Interviews
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../engine_docs/home/" title="Usage" class="md-tabs__link">
+          Usage
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+       -->
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../compendium/" title="Compendium" class="md-tabs__link">
+          Compendium
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../week-0/" title="Blogs" class="md-tabs__link md-tabs__link--active">
+          Blogs
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../interviews/" title="Interviews" class="md-tabs__link">
+          Interviews
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../engine_docs/home/" title="Usage" class="md-tabs__link">
+          Usage
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://isetta.io/" title="Isetta Engine" class="md-nav__button md-logo">
+      
+        <img src="../../images/isetta_logo.png" width="48" height="48">
+      
+    </a>
+    Isetta Engine
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/Isetta-Team/Isetta-Engine" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      Isetta Engine
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../about/" title="About" class="md-nav__link">
+      About
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../team/" title="Team" class="md-nav__link">
+      Team
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../schedule/" title="Schedule" class="md-nav__link">
+      Schedule
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../resources/" title="Resources" class="md-nav__link">
+      Resources
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../glossary/" title="Glossary" class="md-nav__link">
+      Glossary
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../faq/" title="FAQ" class="md-nav__link">
+      FAQ
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Compendium
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Compendium
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2" type="checkbox" id="nav-8-2">
+    
+    <label class="md-nav__link" for="nav-8-2">
+      Engine Postmortem
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-8-2">
+        Engine Postmortem
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-1" type="checkbox" id="nav-8-2-1">
+    
+    <label class="md-nav__link" for="nav-8-2-1">
+      Lessons
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-1">
+        Lessons
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/BuildGames/" title="Build Games with Your Game Engine" class="md-nav__link">
+      Build Games with Your Game Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/RubberduckDeveloping/" title="Rubberduck Developing: Forced Explanation" class="md-nav__link">
+      Rubberduck Developing: Forced Explanation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/ItsNotThatHard/" title="It's Not That Hard" class="md-nav__link">
+      It's Not That Hard
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-2" type="checkbox" id="nav-8-2-2">
+    
+    <label class="md-nav__link" for="nav-8-2-2">
+      What went right
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-2">
+        What went right
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/HostingGameJam/" title="Hosting a Game Jam" class="md-nav__link">
+      Hosting a Game Jam
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/NoviceTeam/" title="Having a Team of Novices" class="md-nav__link">
+      Having a Team of Novices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/LeveragingProfessionals/" title="Leveraging Professionals for Input" class="md-nav__link">
+      Leveraging Professionals for Input
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2-3" type="checkbox" id="nav-8-2-3">
+    
+    <label class="md-nav__link" for="nav-8-2-3">
+      What went wrong
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-8-2-3">
+        What went wrong
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/QuestionsForProfessionals/" title="Questions for the Professionals" class="md-nav__link">
+      Questions for the Professionals
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/SoftwareDevelopment/" title="Basic Software Development Practices" class="md-nav__link">
+      Basic Software Development Practices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_postmortem/Crunch/" title="Crunch is Bad" class="md-nav__link">
+      Crunch is Bad
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/3rdParty/" title="3rd Party" class="md-nav__link">
+      3rd Party
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Build-ResourceManagement/" title="Build & Resource Management" class="md-nav__link">
+      Build & Resource Management
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Collisions/" title="Collisions" class="md-nav__link">
+      Collisions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Gameplay/" title="Gameplay" class="md-nav__link">
+      Gameplay
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Interviews/" title="Interviews" class="md-nav__link">
+      Interviews
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Memory/" title="Memory" class="md-nav__link">
+      Memory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Networking/" title="Networking" class="md-nav__link">
+      Networking
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Other/" title="Other Topics" class="md-nav__link">
+      Other Topics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Scene-Loop/" title="Scene & Engine Loop" class="md-nav__link">
+      Scene & Engine Loop
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../compendium/Tools/" title="Tools" class="md-nav__link">
+      Tools
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9" checked>
+    
+    <label class="md-nav__link" for="nav-9">
+      Blogs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        Blogs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-0/" title="[Week 0] Preparation" class="md-nav__link">
+      [Week 0] Preparation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-1/" title="[Week 1] The Building Blocks" class="md-nav__link">
+      [Week 1] The Building Blocks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../engine-architecture/" title="Engine Architecture" class="md-nav__link">
+      Engine Architecture
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-2/" title="[Week 2] Ramping Up" class="md-nav__link">
+      [Week 2] Ramping Up
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-3/" title="[Week 3] "Completing" the Core" class="md-nav__link">
+      [Week 3] "Completing" the Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-4/" title="[Week 4] Buried in Comments" class="md-nav__link">
+      [Week 4] Buried in Comments
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        [Week 5] Back in Business
+      </label>
+    
+    <a href="./" title="[Week 5] Back in Business" class="md-nav__link md-nav__link--active">
+      [Week 5] Back in Business
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#byte-sized-updates" title="Byte-Sized Updates" class="md-nav__link">
+    Byte-Sized Updates
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#goodbye-module-manager" title="Goodbye Module Manager" class="md-nav__link">
+    Goodbye Module Manager
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scene-graph-object-model" title="Scene Graph Object Model" class="md-nav__link">
+    Scene Graph Object Model
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#its-all-in-the-data" title="It's All in the Data" class="md-nav__link">
+    It's All in the Data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#to-oop-or-not-to-oop" title="To OOP or not to OOP" class="md-nav__link">
+    To OOP or not to OOP
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gui" title="GUI" class="md-nav__link">
+    GUI
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-do-we-need-gui" title="Why do we need GUI?" class="md-nav__link">
+    Why do we need GUI?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#so-many-gui-options" title="So Many GUI Options" class="md-nav__link">
+    So Many GUI Options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guimodule" title="GUIModule" class="md-nav__link">
+    GUIModule
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#immediate-vs-retained-modes" title="Immediate vs Retained Modes" class="md-nav__link">
+    Immediate vs Retained Modes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wrapping-all-the-features" title="Wrapping All the Features" class="md-nav__link">
+    Wrapping All the Features
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sort-of-related-lessons" title="Sort of Related Lessons" class="md-nav__link">
+    Sort of Related Lessons
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#more-on-horde3d" title="More on Horde3D" class="md-nav__link">
+    More on Horde3D
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gui-and-textures" title="GUI and Textures" class="md-nav__link">
+    GUI and Textures
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loading-nested-resources" title="Loading Nested Resources" class="md-nav__link">
+    Loading Nested Resources
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-anarchism" title="Memory Anarchism" class="md-nav__link">
+    Memory Anarchism
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory" title="Memory" class="md-nav__link">
+    Memory
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#freedom-of-the-free-list-allocator" title="Freedom of The Free List Allocator" class="md-nav__link">
+    Freedom of The Free List Allocator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-almighty-alloc-updates-on-memory-api-design" title="The Almighty Alloc - Updates on Memory API Design" class="md-nav__link">
+    The Almighty Alloc - Updates on Memory API Design
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abandoning-the-all-static-fantasy" title="Abandoning the "all static" fantasy" class="md-nav__link">
+    Abandoning the "all static" fantasy
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#networking" title="Networking" class="md-nav__link">
+    Networking
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#an-overview-of-the-future" title="An Overview of the Future" class="md-nav__link">
+    An Overview of the Future
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reworking-the-networking" title="Reworking the Networking" class="md-nav__link">
+    Reworking the Networking
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mo-players-mo-problems" title="Mo' Players, Mo' Problems" class="md-nav__link">
+    Mo' Players, Mo' Problems
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patch-notes" title="Patch Notes" class="md-nav__link">
+    Patch Notes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#explicit-startup-update-shutdown" title="Explicit StartUp, Update, ShutDown" class="md-nav__link">
+    Explicit StartUp, Update, ShutDown
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-updates" title="Memory Updates" class="md-nav__link">
+    Memory Updates
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coming-soon" title="Coming Soon" class="md-nav__link">
+    Coming Soon
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" title="Resources" class="md-nav__link">
+    Resources
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+        <li class="md-nav__item">
+          <a href="#__comments" title="Comments" class="md-nav__link md-nav__link--active">
+            Comments
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-6/" title="[Week 6] We Think It's Playable" class="md-nav__link">
+      [Week 6] We Think It's Playable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-7/" title="[Week 7] A Real Game Engine" class="md-nav__link">
+      [Week 7] A Real Game Engine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-8/" title="[Week 8] Patching Holes" class="md-nav__link">
+      [Week 8] Patching Holes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-9/" title="[Week 9] Hello from the West Coast" class="md-nav__link">
+      [Week 9] Hello from the West Coast
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-10/" title="[Week 10] Grab A Bucket" class="md-nav__link">
+      [Week 10] Grab A Bucket
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-11/" title="[Week 11] The One Where the Team Picks a Font" class="md-nav__link">
+      [Week 11] The One Where the Team Picks a Font
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-12/" title="[Week 12] Getting Ready for Game Jam!" class="md-nav__link">
+      [Week 12] Getting Ready for Game Jam!
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-13/" title="[Week 13] Is This a Game Engine?" class="md-nav__link">
+      [Week 13] Is This a Game Engine?
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../week-14/" title="[Week 14] The Last Blog." class="md-nav__link">
+      [Week 14] The Last Blog.
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
+    
+    <label class="md-nav__link" for="nav-10">
+      Interviews
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-10">
+        Interviews
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-2" type="checkbox" id="nav-10-2">
+    
+    <label class="md-nav__link" for="nav-10-2">
+      Elan Ruskin
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-2">
+        Elan Ruskin
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ElanRuskin-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ElanRuskin-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-3" type="checkbox" id="nav-10-3">
+    
+    <label class="md-nav__link" for="nav-10-3">
+      Shanee Nishry
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-3">
+        Shanee Nishry
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ShaneeNishry-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ShaneeNishry-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-4" type="checkbox" id="nav-10-4">
+    
+    <label class="md-nav__link" for="nav-10-4">
+      Jeff Preshing
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-4">
+        Jeff Preshing
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JeffPreshing-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JeffPreshing-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/MartinMiddleton-interview/" title="Martin Middleton" class="md-nav__link">
+      Martin Middleton
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-6" type="checkbox" id="nav-10-6">
+    
+    <label class="md-nav__link" for="nav-10-6">
+      Raymond Graham
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-6">
+        Raymond Graham
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/RaymondGraham-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/RaymondGraham-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-7" type="checkbox" id="nav-10-7">
+    
+    <label class="md-nav__link" for="nav-10-7">
+      Aras Pranckevicius
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-7">
+        Aras Pranckevicius
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ArasPranckevicius-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/ArasPranckevicius-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-8" type="checkbox" id="nav-10-8">
+    
+    <label class="md-nav__link" for="nav-10-8">
+      Amandine Coget
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-8">
+        Amandine Coget
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmandineCoget-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmandineCoget-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-9" type="checkbox" id="nav-10-9">
+    
+    <label class="md-nav__link" for="nav-10-9">
+      Tommy Refenes
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-9">
+        Tommy Refenes
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/TommyRefenes-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/TommyRefenes-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-10" type="checkbox" id="nav-10-10">
+    
+    <label class="md-nav__link" for="nav-10-10">
+      Casey Muratori
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-10">
+        Casey Muratori
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/CaseyMuratori-hmh-video/" title="Video Interview" class="md-nav__link">
+      Video Interview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-11" type="checkbox" id="nav-10-11">
+    
+    <label class="md-nav__link" for="nav-10-11">
+      Adam Serdar
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-11">
+        Adam Serdar
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AdamSerdar-interview/" title="Interview" class="md-nav__link">
+      Interview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AdamSerdar-video/" title="Video Story" class="md-nav__link">
+      Video Story
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-12" type="checkbox" id="nav-10-12">
+    
+    <label class="md-nav__link" for="nav-10-12">
+      Summarized Advice
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-12">
+        Summarized Advice
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AliceChing-advice/" title="Alice Ching" class="md-nav__link">
+      Alice Ching
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/AmitRob-advice/" title="Amit Patel & Rob Shillingsburg" class="md-nav__link">
+      Amit Patel & Rob Shillingsburg
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/JasonGregory-advice/" title="Jason Gregory" class="md-nav__link">
+      Jason Gregory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/OliverFranzke-advice/" title="Oliver Franzke" class="md-nav__link">
+      Oliver Franzke
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../interviews/WaltDestler-advice/" title="Walt Destler" class="md-nav__link">
+      Walt Destler
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-11" type="checkbox" id="nav-11">
+    
+    <label class="md-nav__link" for="nav-11">
+      Usage
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-11">
+        Usage
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/home/" title="FAQs" class="md-nav__link">
+      FAQs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/basics/" title="Basics" class="md-nav__link">
+      Basics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/level/" title="Level" class="md-nav__link">
+      Level
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/entity/" title="Entity/Transform" class="md-nav__link">
+      Entity/Transform
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/component/" title="Component" class="md-nav__link">
+      Component
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/graphics/" title="Graphics" class="md-nav__link">
+      Graphics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/input/" title="Input" class="md-nav__link">
+      Input
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/debug_logging/" title="Debug Logging" class="md-nav__link">
+      Debug Logging
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/debug_draw/" title="Debug Draw" class="md-nav__link">
+      Debug Draw
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/gui/" title="GUI" class="md-nav__link">
+      GUI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/audio/" title="Audio" class="md-nav__link">
+      Audio
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/collisions/" title="Collisions" class="md-nav__link">
+      Collisions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../engine_docs/networking/" title="Networking" class="md-nav__link">
+      Networking
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#byte-sized-updates" title="Byte-Sized Updates" class="md-nav__link">
+    Byte-Sized Updates
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#goodbye-module-manager" title="Goodbye Module Manager" class="md-nav__link">
+    Goodbye Module Manager
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scene-graph-object-model" title="Scene Graph Object Model" class="md-nav__link">
+    Scene Graph Object Model
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#its-all-in-the-data" title="It's All in the Data" class="md-nav__link">
+    It's All in the Data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#to-oop-or-not-to-oop" title="To OOP or not to OOP" class="md-nav__link">
+    To OOP or not to OOP
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gui" title="GUI" class="md-nav__link">
+    GUI
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-do-we-need-gui" title="Why do we need GUI?" class="md-nav__link">
+    Why do we need GUI?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#so-many-gui-options" title="So Many GUI Options" class="md-nav__link">
+    So Many GUI Options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guimodule" title="GUIModule" class="md-nav__link">
+    GUIModule
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#immediate-vs-retained-modes" title="Immediate vs Retained Modes" class="md-nav__link">
+    Immediate vs Retained Modes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wrapping-all-the-features" title="Wrapping All the Features" class="md-nav__link">
+    Wrapping All the Features
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sort-of-related-lessons" title="Sort of Related Lessons" class="md-nav__link">
+    Sort of Related Lessons
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#more-on-horde3d" title="More on Horde3D" class="md-nav__link">
+    More on Horde3D
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gui-and-textures" title="GUI and Textures" class="md-nav__link">
+    GUI and Textures
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loading-nested-resources" title="Loading Nested Resources" class="md-nav__link">
+    Loading Nested Resources
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-anarchism" title="Memory Anarchism" class="md-nav__link">
+    Memory Anarchism
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory" title="Memory" class="md-nav__link">
+    Memory
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#freedom-of-the-free-list-allocator" title="Freedom of The Free List Allocator" class="md-nav__link">
+    Freedom of The Free List Allocator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-almighty-alloc-updates-on-memory-api-design" title="The Almighty Alloc - Updates on Memory API Design" class="md-nav__link">
+    The Almighty Alloc - Updates on Memory API Design
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abandoning-the-all-static-fantasy" title="Abandoning the "all static" fantasy" class="md-nav__link">
+    Abandoning the "all static" fantasy
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#networking" title="Networking" class="md-nav__link">
+    Networking
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#an-overview-of-the-future" title="An Overview of the Future" class="md-nav__link">
+    An Overview of the Future
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reworking-the-networking" title="Reworking the Networking" class="md-nav__link">
+    Reworking the Networking
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mo-players-mo-problems" title="Mo' Players, Mo' Problems" class="md-nav__link">
+    Mo' Players, Mo' Problems
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patch-notes" title="Patch Notes" class="md-nav__link">
+    Patch Notes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#explicit-startup-update-shutdown" title="Explicit StartUp, Update, ShutDown" class="md-nav__link">
+    Explicit StartUp, Update, ShutDown
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-updates" title="Memory Updates" class="md-nav__link">
+    Memory Updates
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coming-soon" title="Coming Soon" class="md-nav__link">
+    Coming Soon
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" title="Resources" class="md-nav__link">
+    Resources
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+        <li class="md-nav__item">
+          <a href="#__comments" title="Comments" class="md-nav__link md-nav__link--active">
+            Comments
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="back-in-business">Back in Business!<a class="headerlink" href="#back-in-business" title="Permanent link">&para;</a></h1>
+<h2 id="byte-sized-updates">Byte-Sized Updates<a class="headerlink" href="#byte-sized-updates" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#goodbye-module-manager">Goodbye Module Manager</a>: Removed the manager that handled the lifecycle of all of our modules because redundancy.</li>
+<li><a href="#scene-graph-object-model">Scene Graph Object Model</a>: Determined to use a blend of data-oriented and object-oriented design for our scene graph object model for the rest of development (or until we change our minds).</li>
+<li><a href="#gui">GUI</a>: Created a module for the GUI system, and learned why having a sample game is important for engine development.</li>
+<li><a href="#more-on-horde3d">More on Horde3D</a>: Fixed the issues that Horde3D's lightweight-ness brought back to us.</li>
+<li><a href="#memory">Memory</a>: As the team is integrating memory manager to their modules, we got a better sense of how to do it and made some updates. We added a free list allocator, abandoned our "all static" fantasy and is updating our <code>alloc</code> API design.</li>
+<li><a href="#networking">Networking</a>: Replaced the memory management with our own system and discussed some big design decisions for the networking backend coming down the line.</li>
+</ul>
+<p>Although things look like they are not changing much, most of the current work is stemming from the need to rework systems after integration. The dependencies of a system are driving additional development on that system, almost like feature requests. We are pushing forward with an increased focus on the game's needs, and we're planning to start the game as soon as possible to find more cracks in our system.</p>
+<p><img alt="Engine Architecture" src="../../images/engine_architecture/week5.png" title="Week 5 Progress Architecture" /></p>
+<h2 id="goodbye-module-manager">Goodbye Module Manager<a class="headerlink" href="#goodbye-module-manager" title="Permanent link">&para;</a></h2>
+<p>You will not be missed. What <code>ModuleManager</code> became was a container that held all of the modules and dictated their lifecycle. It was originally meant to act as a protective barrier for the game developer, as described in <a href="../week-1/#module-manager">Week 1</a>, to stop them from "accidentally" starting or stopping a module.</p>
+<p>So why <em>are</em> we removing something that is at the center of our engine, holding all of the module's lifecycle? Well, that's exactly the reason we are removing the manager. We could easily see the module manager becoming the central hub of the engine, i.e. everything needs to go through the module manager to work, which doesn't make sense.</p>
+<p>This decision stemmed from our conversation about the needs of the <code>SceneGraph</code>. The <code>InputModule</code> needs to be updated prior to the <code>SceneGraph</code> update, and the <code>AudioModule</code> needs to be updated after (see code below); the game developer should be able to use the input in their gameplay code and trigger audio that is played on the same frame as its triggered. </p>
+<div class="codehilite"><pre><span></span><span class="n">ModuleManager</span><span class="o">::</span><span class="n">Update</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">inputModule</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="c1">// Need SceneGraph.Update() here</span>
+  <span class="n">audioModule</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Since <code>SceneGraph</code> isn't a module, it shouldn't be part of <code>ModuleManager</code> and <code>ModuleManager</code> only has the <code>Update</code> function, so then how do you get <code>SceneGraph</code> update between them? There are numerous hacky ways:</p>
+<ul>
+<li>Pass functions as parameters to <code>ModuleManager</code>'s <code>Update</code> and <code>RenderUpdate</code></li>
+<li>Have <code>PreUpdate</code>, <code>Update</code>, <code>LateUpdate</code> functions in <code>ModuleManager</code>, and the same three for the <code>RenderUpdate</code></li>
+</ul>
+<p>Neither of these felt right and it kept begging the question: What was <code>ModuleManager</code> providing us that we couldn't just get by having the modules as member variables of the <code>EngineLoop</code>? The answer was nothing. It was protecting them no more than the <code>EngineLoop</code> could, so we cut out the middleman.</p>
+<p>The decision also made us reconsider our update loops. Firstly, we were calling the 2 update functions <code>SimulationUpdate</code> and <code>RenderUpdate</code>, but realized those are inaccurate names. We've since renamed them and will be referencing them in the future as <code>FixedUpdate</code> and <code>VariableUpdate</code>. These names better portray the functionality and remove the misconception that <code>RenderUpdate</code> should only have rendering functions inside. With this out of the way, we started considering why we have our input, audio, gameplay, and all other update functions except network and physics inside <code>FixedUpdate</code>. By having these updates within <code>FixedUpdate</code>, the gameplay will appear to be stuttery and input won't be captured as frequently as rendering occurs. Networking and physics are the only 2 systems that are dependent on deterministic behavior<sup id="fnref:877"><a class="footnote-ref" href="#fn:877" rel="footnote">1</a></sup>, everything else can use a variable delta time. So now our new update loop looks like:</p>
+<div class="codehilite"><pre><span></span><span class="n">EngineLoop</span><span class="o">::</span><span class="n">Update</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">while</span><span class="p">(...)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(...)</span> <span class="p">{</span>
+      <span class="n">FixedUpdate</span><span class="p">(</span><span class="n">intervalTime</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">VariableUpdate</span><span class="p">(</span><span class="n">deltaTime</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">EngineLoop</span><span class="o">::</span><span class="n">VariableUpdate</span><span class="p">(</span><span class="n">deltaTime</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">inputModule</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span> <span class="c1">// should happen prior to gameplay updates</span>
+  <span class="n">sceneGraph</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">sceneGraph</span><span class="o">-&gt;</span><span class="n">LateUpdate</span><span class="p">();</span> <span class="c1">// happens after the regular gameplay, but not after anything else so gameplay can still affect the current frame</span>
+  <span class="n">audioModule</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span> <span class="c1">// happen after gameplay to play triggered audio and positioned based on gameplay</span>
+  <span class="n">renderModule</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span> <span class="c1">// happen after gameplay for positioning and visibility</span>
+  <span class="n">guiModule</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span> <span class="c1">// happen after rendering so it is displayed ontop of render</span>
+  <span class="n">windowModule</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span> <span class="c1">// happen after render, gui, input to swap buffers because each depend on window handle</span>
+  <span class="n">memoryManager</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span> <span class="c1">// happen at the end of the frame to clear single frame allocator and swap double frame allocators</span>
+<span class="p">}</span>
+
+<span class="n">EngineLoop</span><span class="o">::</span><span class="n">FixedUpdate</span><span class="p">(</span><span class="n">intervalTime</span><span class="p">)</span> <span class="p">{</span>
+ <span class="n">networking</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span> <span class="c1">// happens first to receive, process, and send packets</span>
+ <span class="n">sceneGraph</span><span class="o">-&gt;</span><span class="n">FixedUpdate</span><span class="p">();</span> <span class="c1">// happens before physics so collisions can still be solved if one occurs</span>
+ <span class="n">physicsModule</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span> <span class="c1">// after all gameplay to solve any collisions</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Laying out our updates this way also let us reconcile some other conversations we were having. One of those conversations was how <code>MemoryManager</code>'s single and double frame allocators "frames" were peculiar. They were updated based on the simulation tick, but typically you associate a frame with rendering; this felt wrong. Since we weren't using the frame allocators at the time, we ignored the peculiarity. However, now the <code>MemoryManager</code> updates in the same frame as rendering, thus the frame allocators correspond to actual frames. </p>
+<h2 id="scene-graph-object-model">Scene Graph Object Model<a class="headerlink" href="#scene-graph-object-model" title="Permanent link">&para;</a></h2>
+<p>Now that we're getting to our high-level systems like the scene graph, we decided to sit down and determine what our object model would be. At its most basic, object models for game programming can be split into roughly two schools of design: data-oriented and object-oriented.</p>
+<h3 id="its-all-in-the-data">It's All in the Data<a class="headerlink" href="#its-all-in-the-data" title="Permanent link">&para;</a></h3>
+<p>Data-oriented design is a <a href="http://aras-p.info/texts/files/2018Academy%20-%20ECS-DoD.pdf">very</a> <a href="https://www.youtube.com/watch?v=rX0ItVEVjHc">strongly</a>-<a href="https://www.youtube.com/watch?v=NTWSeQtHZ9M">touted</a> <a href="https://www.dice.se/wp-content/uploads/2014/12/Introduction_to_Data-Oriented_Design.pdf">and</a> <a href="http://bitsquid.blogspot.com/2010/05/practical-examples-in-data-oriented.html">thoroughly</a> <a href="https://www.youtube.com/watch?v=ZHqFrNyLlpA">discussed</a> philosophy that is essentially built around one concept: everything is data, and turning that data into something else is the end goal. More specifically, this manifests itself into a lot of thinking about data locality<sup id="fnref:32402"><a class="footnote-ref" href="#fn:32402" rel="footnote">2</a></sup> and minimal branching<sup id="fnref:74893"><a class="footnote-ref" href="#fn:74893" rel="footnote">3</a></sup>, and how to process similar data all together quickly. It came into the public eye around the seventh game console generation because CPUs began to be more powerful than necessary and memory was still slow, so game programmers did what they do best and <del>yelled at the artists</del> figured out how to best operate around the machine's memory accesses and data caches.</p>
+<p>If you don't come from video games, you very well may have never heard of data-oriented design. That's fair—it's not really necessary unless you have a running-time limited system like video games. But in the video game world, data-oriented design has only gotten more and more popular, especially now that GPUs are becoming more generally programmable and CPUs are getting enough cores that they're effectively GPU-lites. And as game developers, we do want to use the best options available for our systems, but we face a conundrum: data-oriented programming tends to be very difficult and brittle in big, messy systems like a <em>game engine</em>.</p>
+<h3 id="to-oop-or-not-to-oop">To OOP or not to OOP<a class="headerlink" href="#to-oop-or-not-to-oop" title="Permanent link">&para;</a></h3>
+<p>This is where object-oriented programming (or OOP) comes in. Everyone knows it, and programmers who have had as little as one programming class are already "indoctrinated" with OOP practices. It's very simple to think about conceptually, and its abstractions  tend to make code cleaner when you having communicative or shared systems. However, OOP is almost on the opposite side of the spectrum from data-oriented programming, and it tends to prevent optimization at a high level. So you can imagine why game developers don't particularly like OOP.</p>
+<p>So which one do we go with? Data-oriented or object-oriented?</p>
+<p>Turns out, it's not a binary choice! Data-oriented concepts such as keeping similar data packed together or minding the data cache can still be put into practice with an object-oriented architecture, and the most significant blemish with OOP is inheritance (<a href="https://softwareengineering.stackexchange.com/a/260354">this covers some of the misuses</a>), which we can specifically avoid while we're using other OOP concepts like composition and interfaces. We acknowledge that we don't have the time or experience to handle the difficulty of fully utilizing data-oriented design, and as a short yet ambitious project, we want to keep moving at top speed! So we settled on an object-oriented composition approach, where we can try to utilize data-oriented practices in cut-and-dry cases that won't cause more complication.</p>
+<p>Essentially, this means we're going to have objects very similar to Unity's GameObjects with their Components. Is it derivative? Slightly. But you know what? Convenient object models are used for a reason!</p>
+<h2 id="gui">GUI<a class="headerlink" href="#gui" title="Permanent link">&para;</a></h2>
+<h3 id="why-do-we-need-gui">Why do we need GUI?<a class="headerlink" href="#why-do-we-need-gui" title="Permanent link">&para;</a></h3>
+<p>GUI, or Graphical User Interface, is one way a player is able to interact with the game and also allows the developer to display important information to the player. As mentioned in the <a href="../week-3/#gui">week 3 blog</a>, Horde3D isn't packaged directly with a user interface. However, our sample game needs some basic UI features. We had assumed any rendering library wouldn't be complete without a programmable GUI, which was our naive assumption from looking at <a href="https://www.ogre3d.org/">Ogre3D</a> as the tentpole.</p>
+<p>So with that, let's look at the demo to see what we need:</p>
+<p><img alt="UI-game" src="../../images/blogs/week-5/UI_game_needs.PNG" title="GUI Gameplay UI" /></p>
+<p>The gameplay needs are fairly basic: <em>static text</em> for "Health" and "Score", <em>dynamic text</em> for the score value, and a <em>filled rectangle</em> to display the health bar. However, we realized that the gameplay demo isn't a complete picture of what the game needs (especially in the case of multiplayer). The actual game flow is depicted below, with needs of a menu to select single player or multiplayer and, at the very least, to be able to select whether the game client will be hosting or which host to connect to. These type of decisions require something like a <em>button</em> for selection.</p>
+<p><img alt="game-flow" src="../../images/blogs/week-5/game_flow.PNG" title="Sample Game Flow" /></p>
+<p>While thinking of the UI flow of the game, we did a quick mock-up of what the menu may look like. The menu would probably require a title and (as mentioned) buttons, as well as some way of choosing single player or multiplayer. For multiplayer, if you are a host, there would need to be feedback to alert you of the number of clients in your lobby as well as an additional button to start the game (the host holds all the authority in our game, because they will be acting as the server the clients communicate with). If connecting to a host, the most basic solution would be to have an <em>input field</em> for the host's IP address (a more complicated one would be to have a list of lobbies to connect to, which we may try doing with local addresses).</p>
+<p><img alt="menu-flow" src="../../images/blogs/week-5/UI_game_menu_example.PNG" title="Sample Game Menu" /></p>
+<p>"But why stop here?", we thought. What we have listed is only ~5 GUI features and most engines have way more than that. If we are already taking cues from Unity, why not have the full functionality of their <a href="https://docs.unity3d.com/Manual/GUIScriptingGuide.html">GUI system</a>, especially because we have found some of their features very handy in making games? Plus, a "real" game engine would have much more than this to accommodate their developers, we don't want to just do the bare minimum.</p>
+<blockquote>
+<p>And although doing slightly more than the bare minimum is a good idea, we quickly realized this was a very poor mindset to have.</p>
+</blockquote>
+<h3 id="so-many-gui-options">So Many GUI Options<a class="headerlink" href="#so-many-gui-options" title="Permanent link">&para;</a></h3>
+<p>So even before laying out the needs of the game, we went shopping for a library. Although Horde3D doesn't have GUI by default (we were realizing how Horde3D was able to remain so lightweight), we found a <a href="http://horde3d.org/wiki/index.php5?title=GUI_Extension">Horde extension</a> that added 3D and 2D GUI to the rendering engine. When doing the initial research into the extension,  we found a few Horde3D forums that pointed to an extension. To our dismay, there were replies stating that it wasn't the best solution. In addition, the extension was written in 2010 (8 years ago at the time of writing) which we thought didn't bode well since Horde3D has changed a lot in that time. The lack of maintenance of the extension could cause a serious headache.  </p>
+<p>We then directed our attention to 2 other libraries: <a href="https://github.com/ocornut/imgui">Dear ImGui</a> (ImGui) and <a href="https://www.qt.io/">Qt</a>. We swiftly made a decision to use ImGui because Qt has an open source/commercial policy that we didn't want to accidentally break. ImGui also had the added benefit of looking simple to integrate with only a few files, and there were ample resources for the library. Both the FAQ on the Github page and the repo owner are currently very active. Another benefit is it is in C++, which meant we wouldn't need an interface with another language. We also looked at Unity's GUI system to see what features a "typical" engine has which acted as a baseline of what we thought we needed. ImGui has overlapping functionality with Unity, so it passed that check.</p>
+<h3 id="guimodule">GUIModule<a class="headerlink" href="#guimodule" title="Permanent link">&para;</a></h3>
+<p>Like our other modules, the GUI module was broken into the module class, <code>GUIModule</code> and an interface class, <code>GUI</code>, for the game developer. Using ImGui's GLFW OpenGL example, we were able to have ImGui and our demo running simultaneous, but not really fully connected. When deciding our <code>StartUp</code> hierarchy, we decided to keep it as a flat structure. This meant the window module needed to be started prior to the rendering/input so the window handle<sup id="fnref:321"><a class="footnote-ref" href="#fn:321" rel="footnote">4</a></sup> could be passed to those modules. This decision proved to be the right one when implementing the GUI system, because the GUI also needs the window handle which was easy to provide. The other benefit of doing the explicit ordering of the module's <code>StartUp</code>/<code>ShutDown</code>/<code>Update</code> is the GUI should be started after the window but also needs to be rendered (updated) after the render update otherwise the render module will clear what the GUI just displayed. The only hurdle which required redesign when integrating ImGui was that of the input system. ImGui handles its own input by setting the GLFW callbacks, however, our own input system also sets the GLFW callbacks. So depending on the startup order, one of the modules would clobber the other's callbacks in GLFW. ImGui was designed such that the callbacks could be optionally set on initialization, which allowed us to be able to add ImGui's callbacks to our own input system rather than on startup.</p>
+<h3 id="immediate-vs-retained-modes">Immediate vs Retained Modes<a class="headerlink" href="#immediate-vs-retained-modes" title="Permanent link">&para;</a></h3>
+<p>With ImGui minimally integrated the main discussion became on how we would like to use the GUI system (and in turn how the game developers would use it). We evaluated 2 options: <em>IMGUI</em> (not to be confused with ImGui) and <em>retained-mode</em> (although not knowing that's what it was called). <em>IMGUI</em> stands for immediate mode GUI which is a code-driven GUI system where on each rendering frame the application needs to issue the draw commands of the GUI (the GUI is not stored for multiple frames); where <em>retained</em>, also known as canvas/scene graph/object-based UI (this is how we originally labeled it), is where GUI is registered once and is displayed, "retained", on screen until it removes itself from rendering<sup id="fnref:100"><a class="footnote-ref" href="#fn:100" rel="footnote">5</a></sup>. An IMGUI system relies on the developer placing GUI code within something like an OnGUIUpdate method which is called each render frame, where retained-mode requires the developer to hold references to objects created such as <code>new Window</code>, <code>new Button</code>, etc. IMGUI is known to be good for developer tools and usually quicker to develop, however, it isn't as nice for doing something similar to Unity's canvas system which is a retained model. Initially we thought of implementing both, however, we could see that this could cause confusion for developers using the GUI, as well as our retained-mode would be more akin to a wrapper over immediate mode because the library we are using (it wouldn't really be retained). Although the retained mode is nice to use and what we are used to with Unity, we knew we wouldn't be using a designer tool to create our GUI (nor have the time to implement one) and prioritized speed of development over designer ease to design. In addition, Dear ImGui is set up for immediate mode (as per the name) and we knew fighting the library would cause more headache than actual benefit. This decision was reaffirmed in our interview with <a href="../../interviews/AmandineCoget-interview/">Amandine</a>, who said for a small scale/scope projects that immediate mode was the way to go. We also received similar advice from our conversation with <a href="../../interviews/WaltDestler-advice/">Walt Destler</a>, where he said that a retained-mode would be nice, but it wasn't worth the time to develop the tool to edit the UI (and he is making a game that will actually be published!).</p>
+<h3 id="wrapping-all-the-features">Wrapping All the Features<a class="headerlink" href="#wrapping-all-the-features" title="Permanent link">&para;</a></h3>
+<p>With the mode decided on how game developers will interact with the GUI module, we then needed to develop a wrapper to wrap ImGui so ImGui code wouldn't infect the game's codebase. The reason this is useful is so you have the ability to replace ImGui with another GUI renderer of your choice without changing the game codebase. And although this was the aim, doing this isn't a trivial task because our GUI system was set up to imitate ImGui's; not a generic GUI. ImGui was the readily available example that we had to model after. Plus, our sample game may be devoid of ImGui, however, we didn't completely replicate all functionality of a GUI, only the features needed for our game, so another game that uses the engine (if GUI isn't expanded) may need to use ImGui functions/functionality. For developing the wrapper, again we looked at Unity's system where all GUI functions were positioning absolutely from the top-left corner, use <code>Rect</code> for positioning and size, as well as for what features were available and what features we have used in our development. We then combed through the ImGui demo, picking out the features from ImGui that we thought would be useful to have in our engine, which as you could imagine ballooned our GUI system (way beyond the listed needed features). Reading through the ImGui demo allowed us to learn ImGui, though it was ultimately a waste of time to collect features that weren't necessary to our game and we wouldn't have time to wrap. </p>
+<p>Instead of trying to wrap all functionality, even ones we wouldn't use, we simplified to be only the functionality we knew we would use as well as a handful of additional functionalities. We suggest <em>starting with creating functionality that you need for this game.</em> If your next game needs more functionality you can add it then, we aren't creating Unity and if you are, you are still better off iterating features as they emerge rather than trying to fully cover the system. In our <code>GUI.h</code> you will find commented out functions and <code>TODO</code>'s scattered throughout, which are remnants of trying to fully wrap ImGui and aren't required for our game. If you would like to try your hand at creating wrapper functionality, you can easily add functions throughout this file (even make a pull request, we'll most likely accept it). To go even further would be to combine/expand ImGui features in a single <code>GUI</code> feature that you would want to use in a game.</p>
+<p>When implementing our wrapper, the functions and functionality of ImGui didn't map one-to-one with how we would like to do our GUI. This is another reason to have a wrapper. For each ImGui function that we had decided was needed, we merged some of those functions together and replaced the ImGui classes (ImVec2/ImVec4) with the Isetta classes (<code>Math::Vector2</code>/<code>Math::Vector4</code>/<code>Color</code>). The biggest difference from our wrapper to ImGui (and Unity to an extent) is each GUI function requires a position and size for the element as well as an anchor pivot location and a element pivot location to determine where the element is located on the screen (by default, ImGui positions GUI in rows/columns and groups). Because our GUI and ImGui position elements differently, this is one of the reason we don't want to restrict the use of ImGui in the game code; they have different functionality which a game developer may want to take advantage of. Another difference between ImGui and our GUI implementations is the "container" windows (ie. window/modal/popup). Whereas ImGui relies on the game developer to remember to end the window context after beginning window, our GUI wraps this functionality with lambda functions. We made it this way because we think this wouldn't be as taxing on the developer.</p>
+<h3 id="sort-of-related-lessons">Sort of Related Lessons<a class="headerlink" href="#sort-of-related-lessons" title="Permanent link">&para;</a></h3>
+<p>To reiterate the lessons from developing the GUI wrapper:</p>
+<ul>
+<li>Don't try to create/wrap all functionality for a system if it isn't needed for the game you are immediately making → make only what your game needs.<ul>
+<li>For us: Buttons/Labels/Text/Input/Drawing Quads</li>
+</ul>
+</li>
+<li>Don't think that what Unity or another engine has is what your engine needs.</li>
+<li>When you or a game developer needs a new feature, you can go back and add functionality.</li>
+</ul>
+<p>After completing the wrapper, or more accurately, while developing the wrapper, we continued to add functionality to the main engine loop as example code prove the features work and provide examples for everyone to see implementation. Here is a example of the UI running in the engine, with all implemented functionality displayed simultaneously.</p>
+<p><img alt="GUI-gif" src="../../images/blogs/week-5/isetta-gui.gif" title="Isetta GUI Features" /></p>
+<h2 id="more-on-horde3d">More on Horde3D<a class="headerlink" href="#more-on-horde3d" title="Permanent link">&para;</a></h2>
+<p>In our <a href="../week-1/#rendering">week 1 blog</a>, we mentioned that we chose Horde3D over Ogre 2.1 based on the fact that Horde3D has better documentation, is easier to build and is more lightweight. We thought it would give us good enough graphics with less cost importing the Horde3D library as our rendering engine. However, four weeks later, with integrating more modules into our game engine,  we found that Horde3D might have been less than ideal than we initially thought. It is lightweight for external function calling (the reason why it has fewer and clearer API in the documentation), but hides too much detail for a deeper integration.</p>
+<h3 id="gui-and-textures">GUI and Textures<a class="headerlink" href="#gui-and-textures" title="Permanent link">&para;</a></h3>
+<p>As mentioned before, as a part of graphics, we wanted to draw 2D overlays as in-game UI. However, Horde3D itself is such a "pure" rendering library that it isn't packaged with a UI utility. An extension can draw some UI, but because of the reasons listed above, we had to introduce one more third-party library. Stitching another library is not an easy task. We later found ImGui doesn't have its own texture loader, so we sought help from Horde3D since it can read an image from the disk as a texture. However, to our surprise, the texture decoding is hidden inside its <code>TextureResource</code> class instead of extracting it as a texture decoding<sup id="fnref:8383"><a class="footnote-ref" href="#fn:8383" rel="footnote">6</a></sup> utility for reuse, since it is not supposed to be used by external users. Luckily, we later found <code>h3dMapResStream</code>, so that we can let Horde3D load and decode the texture for us and map the pixel stream<sup id="fnref:838383"><a class="footnote-ref" href="#fn:838383" rel="footnote">7</a></sup> out later.</p>
+<h3 id="loading-nested-resources">Loading Nested Resources<a class="headerlink" href="#loading-nested-resources" title="Permanent link">&para;</a></h3>
+<p>Loading rendering resources like meshes and animations is a time-consuming part of a game. To hold this resource loading by ourselves, we implemented a filesystem that directly calls Windows API. This week, we started on integrating it into the rendering module. Horde3D provides an <code>h3dLoadResource</code> API which allows us to read the resource file by ourselves and send the data to Horde3D. However, this API hides a lot of details which caused a bit of confusion. </p>
+<p>Horde3D supports <code>.scene.xml</code> file to specify a scene node with mesh, material and its shader. A simple example of it is like this:</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;Model</span> <span class="na">name=</span><span class="s">&quot;sphere&quot;</span> <span class="na">geometry=</span><span class="s">&quot;models/sphere/sphere.geo&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Mesh</span> <span class="na">name=</span><span class="s">&quot;Sphere01&quot;</span> <span class="na">material=</span><span class="s">&quot;models/sphere/stones.material.xml&quot;</span> 
+    <span class="na">batchStart=</span><span class="s">&quot;0&quot;</span> <span class="na">batchCount=</span><span class="s">&quot;2880&quot;</span> <span class="na">vertRStart=</span><span class="s">&quot;0&quot;</span> <span class="na">vertREnd=</span><span class="s">&quot;587&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/Model&gt;</span>
+</pre></div>
+
+<p>As you can see, this file has nested containers and has multiple resources. This load resource function call will only load the "meta" file, and "secretly" add all nested resources into Horde3D's own resource manager but keep them unloaded, without notifying the developer. Even in its documentation, there is no mention about this:</p>
+<blockquote>
+<p>This function loads data for a resource that was previously added to the resource manager.  If data is a NULL-pointer, the resource manager is told that the resource doesn't have any data (e.g. the corresponding file was not found).  In this case, the resource remains in the unloaded state but is no longer returned when querying unloaded resources.  When the specified resource is already loaded, the function returns false.</p>
+</blockquote>
+<p>As a user, we have to manually check if there are any unloaded resources remaining in a while loop. The way to achieve that is to do a query by <code>h3dQueryUnloadedResource</code>. After we dug deeper into this function, we found out the internal implementation of this function wasn't ideal. </p>
+<div class="codehilite"><pre><span></span><span class="n">ResHandle</span> <span class="n">ResourceManager</span><span class="o">::</span><span class="n">queryUnloadedResource</span><span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span> <span class="n">uint32</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">_resources</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span><span class="p">(</span> <span class="n">_resources</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="mh">0x0</span> 
+          <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">_resources</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">_loaded</span> 
+          <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">_resources</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">_noQuery</span> <span class="p">)</span> <span class="p">{</span>   
+        <span class="k">if</span><span class="p">(</span> <span class="n">j</span> <span class="o">==</span> <span class="n">index</span> <span class="p">)</span> <span class="k">return</span> <span class="n">_resources</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">_handle</span><span class="p">;</span>
+        <span class="k">else</span> <span class="o">++</span><span class="n">j</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>What we want is a function that returns the newly nested resources added to the resource list (or the next unloaded resource in the list), while <code>queryUnloadedResource</code> goes through the whole list and returns the first one. It will be significantly slower if we have lots of resources to load. To fix this issue, we decided to assume that the resource handle is always increasing so that we can check the next resource by <code>h3dGetNextResource</code> and <code>h3dIsResLoaded</code> repeatedly until the handle reaches the end.</p>
+<h3 id="memory-anarchism">Memory Anarchism<a class="headerlink" href="#memory-anarchism" title="Permanent link">&para;</a></h3>
+<p>After loading the resources, we also want to manage the memory taken by the resources by our own memory manager. However, Horde3D 1.0 doesn't support custom memory allocators (they do have it as a feature for Horde3D 2.0 which is still not released yet, if it is—<a href="https://github.com/horde3d/Horde3D/releases/tag/v1.0.0">check here</a>—at the time you're reading this it can be an exercise for you to replace Horde3D 1.0 with 2.0 and use custom memory allocation!). All the memory allocations are done by Horde3D internally with <code>new</code>s. We can't bring our own memory manager without heavily modifying the source code of Horde3D which is near impossible for our semester-long project (it would counteract the reason why we chose Horde3D before). </p>
+<p>It's unfair to say choosing Horde3D was a bad idea, but the lightweight-ness we expected from Horde3D to be a benefit is putting the burden onto us since we have so many customized systems, like filesystem and memory manager. This week we are implementing the scene graph and hopefully, we can still use Horde3D organically.</p>
+<h2 id="memory">Memory<a class="headerlink" href="#memory" title="Permanent link">&para;</a></h2>
+<p>Starting from the last week, our team started integrating our own memory manager into the subsystems and 3<sup>rd</sup> party libraries (yay!). It's a very exciting task, but it exposed many issues and limitations of our memory manager. As others were busy integrating the memory manager, one of our developers spent time gathering and analyzing incoming requirements so that we could make some updates to our memory manager. </p>
+<h3 id="freedom-of-the-free-list-allocator">Freedom of The Free List Allocator<a class="headerlink" href="#freedom-of-the-free-list-allocator" title="Permanent link">&para;</a></h3>
+<p>The first thing is that the existing memory allocators are very limited and can't cover all of our usage scenarios. </p>
+<p>For example, our <code>GUIModule</code>'s <code>StartUp()</code> process involves a lot of dispersed allocation and deallocation of random sized memory, and is managed by ImGui so we can't easily change it. All we can give ImGui is an allocation callback and a freeing callback. As a stack allocator can only handle sequential alloc/free; pool allocator can only handle same sized alloc/free; dynamic arena can only be used with <code>ObjectHandle</code>s, there is no way to make this work without just wasting memory.</p>
+<p>In addition, the networking module needs to allocate memory for each client connected to the server at runtime for receiving messages, etc. That means the memory needs to be persistent, so the single frame and double buffers are out. Memory arena (refers to our defragmentated memory area as <a href="../week-4/#our-naive-naive-defragmentation">in last week's blog</a>) sounds like a good candidate for this, but the networking module needs to allocate memory for its <a href="../week-3/#data-structures">ring buffer</a> data structures, which holds an array buffer. Uh oh! Our <code>ObjectHandle</code> is not well-prepared to work with arrays. </p>
+<p><img alt="Memory Layout week 2" src="../../images/blogs/week-5/memory_layout_week_2.png" title="Memory Layout Proposed in Week 2 Blog" /></p>
+<p>All of these signals are suggesting that we need a more versatile and flexible allocator. After some research, the <em>free list allocator</em> seems to be a good solution. Unlike stack allocators and pool allocators, free list allocators give flexibility to the user in terms of the size and order of allocations/frees. It works by:</p>
+<ul>
+<li>Keeping a linked list (sorted by memory address) of free memory chunks. </li>
+<li>Each time memory is requested, it goes through the linked list, find a large enough chunk and returns it to the caller. <ul>
+<li>There are also options like find first fit (loop through the list and find the first big enough node, prioritize speed) and best fit (loop through the whole list, find those big enough ones, and choose the smallest one among them, prioritize low fragmentation) for free list allocators for different scenarios. </li>
+</ul>
+</li>
+<li>When a memory is freed, the free list adds that chunk back to the free list for further requests and tries to consolidate it with adjacent chunks to reduce fragmentation. It doesn't try to defragment like the memory arena, because the chunks which are being used cannot be moved (the pointers remain static).</li>
+</ul>
+<p>As you can tell from the description, a free list can solve our speed and fragmentation problems to some degree. It's a bit slower than stack and pool allocators as we'll need to find memory chunk from the linked list and it may still cause some defragmentation, but the flexibility it brings is worth the tradeoffs.</p>
+<p>And here is how it works (you can take a look at the code if interested <a href="https://github.com/Isetta-Team/Isetta-Engine/blob/week-5/Isetta/Isetta/Core/Memory/FreeListAllocator.h"><code>FreeListAllocator.h</code></a>):</p>
+<p>The class and <code>Node</code> struct are defined as below. We won't include alignment here so things are easier to explain.</p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">FreeListAllocator</span> <span class="p">{</span>
+  <span class="kt">void</span><span class="o">*</span> <span class="n">Alloc</span><span class="p">(</span><span class="n">Size</span> <span class="n">size</span><span class="p">);</span>
+  <span class="kt">void</span> <span class="nf">free</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">memPtr</span><span class="p">);</span>
+  <span class="n">Node</span><span class="o">*</span> <span class="n">head</span><span class="p">;</span>
+  <span class="kt">void</span><span class="o">*</span> <span class="n">memHead</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+
+<div class="codehilite"><pre><span></span><span class="k">struct</span> <span class="n">Node</span> <span class="p">{</span>
+  <span class="n">Size</span> <span class="n">size</span><span class="p">;</span>
+  <span class="n">Node</span><span class="o">*</span> <span class="n">next</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+
+<p>First, a free list allocator will be initialized like this when constructed.</p>
+<p><img alt="Free List: New" src="../../images/blogs/week-5/freelist_1_new.png" title="Free List: New" /></p>
+<p>Here is what it looks like after allocating an object of size 200:</p>
+<p><img alt="Free List: Alloc p1" src="../../images/blogs/week-5/freelist_2_alloc_p1.png" title="Free List: Alloc p1" /></p>
+<p>The steps happened behind the scene are:</p>
+<ol>
+<li>Starting from <code>head</code>, find the first <code>Node</code> that's big enough to hold <code>p1</code> and an <code>AllocHeader</code></li>
+<li>Create a new <code>Node</code> after this allocation (in this case, at address 208)</li>
+<li>Remove the original <code>Node</code> from the linked list</li>
+<li>Construct an <code>AllocHeader</code> at the original <code>Node</code>'s address, this info will be used when freeing <code>p1</code></li>
+<li>After the <code>AllocHeader</code>, construct <code>p1</code> and return this pointer</li>
+</ol>
+<p>The <code>AllocHeader</code> is defined like this:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// sizeof(AllocHeader) is 8</span>
+<span class="k">struct</span> <span class="n">AllocHeader</span> <span class="p">{</span>
+  <span class="n">Size</span> <span class="n">size</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+
+<p>Notice we just buried an <code>AllocHeader</code> in memory and didn't keep a pointer to it, it will be used during the freeing process. Then allocating another chunk will be similar to this one.</p>
+<p><img alt="Free List: Alloc p2" src="../../images/blogs/week-5/freelist_3_alloc_p2.png" title="Free List: Alloc p2" /></p>
+<p>Here is what it looks like after freeing p1:</p>
+<p><img alt="Free List: Free p1" src="../../images/blogs/week-5/freelist_4_free_p1.png" title="Free List: Free p1" /></p>
+<p>The freeing process is more interesting as here we mine out the <code>AllocHeader</code> buried before and use it to determine the size of the object to free. Here is what happened behind the scenes:
+1.  Starting from <code>p1</code>'s memory address, find the <code>AllocHeader</code> we buried before it
+1.  As we know the size now, create a new <code>Node</code> with that size and add it to the linked list (remember the linked list is always sorted by memory address)
+1.  Try to merge with the next and last <code>Node</code>. In this case, the new node is head and not adjacent to the next node, so we can't merge</p>
+<p>Let's see an example where we need to loop through the list to find a chunk that fits, and an example where we can merge the freed memory.</p>
+<p><img alt="Free List: Alloc p3" src="../../images/blogs/week-5/freelist_5_alloc_p3.png" title="Free List: Alloc p3" /></p>
+<p>^ We used the second node to satisfy this request as the first node is not big enough</p>
+<p><img alt="Free List: Free p2" src="../../images/blogs/week-5/freelist_6_free_p2.png" title="Free List: Free p2" /></p>
+<p>^ We are halfway through freeing p2, the new node is just created here. It's adjacent to the node on its left so we can merge them, like shown below.</p>
+<p><img alt="Free List: Free p2 - Merge" src="../../images/blogs/week-5/freelist_7_free_p2_merge.png" title="Free List: Free p2 - Merge" /></p>
+<p>Our current implementation of the free list allocator is by no means optimal. Allocation and free are both of O(n) time complexity because of searching and keeping the list sorted. If time permits, we will optimize the underlying structure from using a linked list to a tree, so we can reduce the time complexity from O(n) to O(logn).</p>
+<h3 id="the-almighty-alloc-updates-on-memory-api-design">The Almighty <code>Alloc</code> - Updates on Memory API Design<a class="headerlink" href="#the-almighty-alloc-updates-on-memory-api-design" title="Permanent link">&para;</a></h3>
+<p>We also updated our API to make it easier for the team to use. During the process, we had a big discussion on how to design one of the most fundamental APIs: How to alloc on the LSR and level data area (look at our <a href="../week-2/#proposed-memory-management-patterns-in-our-engine">week 2 memory section</a> for a review!). As a recap, the difference between this two memory areas is that, level data memory will be cleared at the end of each level, and LSR will only be cleared when the game shuts down. We have two choices.</p>
+<p>One is to make things <em>explicit</em> and have both <code>AllocOnLSR</code> and <code>AllocOnLevelData</code> functions. These two functions will take care of their respective areas of the stack, and assert if called incorrectly. For example, if you try to allocate something on LSR after the level starts, it will pass an exception, as the main "big stack" is already in the stage of allocating level memory or other things. Similarly, if you try to allocate on the level before the level starts. This method prevents misuses of both functions by creating errors to ensure the developer knows what they are doing and when they are using a function incorrectly. However, the downside is that in the future, we may have more allocation types other than just LSR and level (sublevel for example) and it will be taxing for programmers to remember when to use each as well as tedious for module upkeep.</p>
+<p>The other way is to make things <em>implicit</em> and only have one <code>Alloc</code> function, which by itself determines where the new memory request should go. Different from our explicit approach, <code>Alloc</code> won't cause errors in any scenario. If a programmer allocated something in level data memory but assumed it's was located on LSR, then tried to use it in a later level, the game will probably crash. The advantage is that the API will be super clean and future additions of allocation types will be handled elegantly by this method. However, this approach assumes we have a team of programmers who know the API and understand the memory layout, if not, bugs would be very hard to catch.</p>
+<p>We chose the implicit solution for several reasons. First, we only have 4 programmers working in the same room so everyone is aware of how to properly use this API. Second, LSR memory allocation requests are mostly made in the <code>StartUp</code> methods of each module, and level data request will be made in the level's initialization function. The probably of misusing is low, if you are in <code>StartUp</code> you will be using LSR and if not you will be using level is simple enough to remember. Almighty <code>Alloc</code> for the win!</p>
+<h3 id="abandoning-the-all-static-fantasy">Abandoning the "all static" fantasy<a class="headerlink" href="#abandoning-the-all-static-fantasy" title="Permanent link">&para;</a></h3>
+<p>In our <a href="../week-2/#proposed-memory-management-patterns-in-our-engine">week 2 blog</a>, we said we wanted to achieve zero memory allocation after game <code>StartUp</code> and satisfy all memory requests with our memory manager. However, as fantastic as that sounds, it's been giving us a lot of headaches. We find it hard to predict how much memory we will need throughout the entire game, and how to make sure all systems run with enough memory. The audio system is a great example of this: there is no good way to determine its memory demand other than relentless iteration.</p>
+<p>Fortunately, we have our free list allocator now! Although not implemented yet, the free list will grow in size when it requires more memory. This method isn't as detrimental as new/delete or malloc/free because instead of getting more memory each call and switching between kernel and user mode, the free list will allocate chunks of memory to be used. Therefore, it naturally became our ideal solution to the problems mentioned before for the systems whose memory usage is hard to predict before runtime, we will use a free list allocator. This decision surely breaks our "all static" fantasy, but it seems to be more practical and still keeps us away from our two problems, again, they are speed and fragmentation. </p>
+<h2 id="networking">Networking<a class="headerlink" href="#networking" title="Permanent link">&para;</a></h2>
+<h3 id="an-overview-of-the-future">An Overview of the Future<a class="headerlink" href="#an-overview-of-the-future" title="Permanent link">&para;</a></h3>
+<p>Network programming has taken the back seat to other development recently, mainly because we hadn't nailed down our game object model yet. After all, unless we want to bake all of our systems code inside of our network code, then we need to have some sort of messaging protocol to make sure the right objects and functions are receiving the right packets. We also depend on object serialization and replication, but fortunately, <a href="https://github.com/networkprotocol/yojimbo">yojimbo</a> handles some of that for us and we can solely focus on the data flow through our engine. If you aren't using yojimbo or another networking library for your game, you can learn more about object serialization and world state replication in Chapters 4 and 5 of <em>Multiplayer Game Programming</em> by Joshua Glazer and Sanjay Madhav.</p>
+<p>With our final product being a game engine, it's important to abstract the network code as much as possible so that it's applicable across many games made using the engine. Some of the obvious use cases that our <a href="../week-0/#the-example-game">sample game</a> highlights are object spawning, object destruction, object behavior change (targeting a different location), and data updates (changing health and score), just to name a few. Other potential needs might come in the form of remote procedure calls, where we can invoke functions across the network.</p>
+<p>Bearing those thoughts in mind, we've nailed down more of our game object model and have begun work on our scene graph system, so you'll see the network code of our engine start to build out these concepts more in the coming weeks.</p>
+<h3 id="reworking-the-networking">Reworking the Networking<a class="headerlink" href="#reworking-the-networking" title="Permanent link">&para;</a></h3>
+<p>In the meantime, many of our systems are out of sync with each other, so we took the time this week to update our memory management within the networking module. Up until now we have been using the standard dynamic memory allocation of C++ with <code>new</code> and <code>delete</code>, but having full control of memory allocation, defragmentation, and access (as well as avoiding context switches!) is too great a benefit to a high-performance system like a game engine. Much of the networking system uses significant chunks of memory, such as the messaging buffers<sup id="fnref:832988"><a class="footnote-ref" href="#fn:832988" rel="footnote">8</a></sup> and the socket-level packet queues<sup id="fnref:34902"><a class="footnote-ref" href="#fn:34902" rel="footnote">9</a></sup>. And if you're hosting a server, then you need that much memory for each of your clients!</p>
+<p>As with some of our earlier development, we needed to alter the yojimbo library in order to comply with our own systems. This was only a couple of tweaks from pass-by-reference to pointer types instead, as our engine uses a lot of pointers so we can delay object initialization to our own execution order. Beyond this, we also got some more exposure to the packet serialization and streaming backend to the yojimbo library, so we may be more prepared to make adjustments at the low-level in the future if we need to.</p>
+<p>Beyond that, we need to allocate memory for a client and possibly a server on a single machine, plus the <code>RingBuffer</code> objects for queuing up messages with both. Everything within <code>NetworkingModule</code>'s <code>StartUp</code> function is allocated using the <code>MemoryManager::AllocOnStack</code> function, but it's less straightforward than if we were an entirely homebrew engine. yojimbo uses custom <code>Allocator</code> classes to divvy out memory to its <code>Client</code> and <code>Server</code> objects, so we are effectively pre-allocating a bunch of memory then passing pointers around until everyone is satisfied and on their merry way. One reason why it doesn't sound more complicated is that it, very luckily, isn't; yojimbo has a TLSF<sup id="fnref:837294"><a class="footnote-ref" href="#fn:837294" rel="footnote">10</a></sup> allocator implementation that it uses for packet-level allocations, and that allocator can be restricted to the memory defined by our own custom allocator! So in the end, our memory management is only at the high level for the module, but we still get efficiency. We can have our cake and eat it, too!</p>
+<p>One of the quirks that we had to deal with when swapping out the memory allocators was how we are currently handling our memory chunks. We have a config file in which we specify how big our stack and list memory allocations are for each category of allocation, which is good when we want to do some regression testing<sup id="fnref:3902832"><a class="footnote-ref" href="#fn:3902832" rel="footnote">11</a></sup> on our memory systems but bad for any type of general usage whatsoever! For instance, while we were refactoring our client and server memory to the new memory system, strange errors came from within the yojimbo library. After digging into it some more, we discovered that yojimbo was simply doing its best to allocate more memory for packets but we didn't give it enough memory! Everything was fine after updating the config file, but it took quite a bit of time to realize that the config held the solution. Afterwards, we had some discussions about allowing free growth of some stacks and heaps, but we running into this problem actually highlighted a bigger architecture problem for us to tackle.</p>
+<h3 id="mo-players-mo-problems">Mo' Players, Mo' Problems<a class="headerlink" href="#mo-players-mo-problems" title="Permanent link">&para;</a></h3>
+<p>A lot of this memory is currently what we call LSR memory, so we allocate it onto our lowest level memory stack and just keep it there until we're done running the engine. Unfortunately, there are two problems with this:</p>
+<ol>
+<li>Game developers should be able to determine if they are running a server or not <em>during runtime</em>. Right now, since we are allocating the server memory at the lowest level of the stack, we need to know if they're running the server at startup.</li>
+<li>Game developers should be able to have single player modes and multiplayer modes within the same game. Our initial design was strictly online multiplayer, but it's not a stretch to think we could make a single player game with our engine. However, what if the developer wanted to allow gamers to go online after playing a single player mode? We currently assume that the developer always needs client memory (let's not even think about running a headless server), so that's allocated on the stack, but if they aren't receiving any networked messages then they shouldn't have to waste that memory!</li>
+</ol>
+<p>These problems exist solely because we're trying to be coy about our static memory allocation at startup. That's indeed a noble goal to shoot for, but there are appropriate cases and inappropriate cases. For networking, it's not unreasonable to expect the game developer to allocate and prepare the networking system during "downtime" in the game as opposed during important runtime when context switching and dynamic allocation would really pose a problem.</p>
+<p>This means that our solution is the simplest one: Just allocate any of our networking memory in our free list, a.k.a. our own custom heap space. This will give game developers the freedom to determine if they even need any networking memory at all, and if so, when it gets allocated. We expect to not have any significant memory fragmentation issues with this method either, since we just ask for a couple of large chunks of memory and will only ever remove the entire chunks.</p>
+<h2 id="patch-notes">Patch Notes<a class="headerlink" href="#patch-notes" title="Permanent link">&para;</a></h2>
+<h3 id="explicit-startup-update-shutdown">Explicit <code>StartUp</code>, <code>Update</code>, <code>ShutDown</code><a class="headerlink" href="#explicit-startup-update-shutdown" title="Permanent link">&para;</a></h3>
+<p>Earlier this week a member of the team was merging code and ran into a problem. The build successfully compiled and worked until the window was closed but then it crashed. The crash was involving the <code>AudioModule</code>, but wasn't clear why it was broken. By stepping through the call stack, we saw the bug occured in the <code>ShutDown</code> function and the error was almost immediately noticeable. Here see if you can see the error:</p>
+<p><img alt="ShutDown Bug" src="../../images/blogs/week-5/spot-the-bug.png" title="Spot the ShutDown Bug" /></p>
+<p>Were you able to? The <code>AudioModule</code> is attempting to <code>ShutDown</code> twice, which obviously won't work. This is just to show the added benefit of having the modules listed in this fashion rather than being put into a stack or list. To be fair this example might not have happened with a list because of the merge, but there is a likely scenario where a module gets added twice. Then you have the headache of searching and debugging rather than being able to visually spot it.</p>
+<h3 id="memory-updates">Memory Updates<a class="headerlink" href="#memory-updates" title="Permanent link">&para;</a></h3>
+<p>We also made some other minor changes to the memory manager, and they are:</p>
+<ul>
+<li>Create new utilities for creating objects and arrays in different memory areas with <a href="https://en.cppreference.com/w/cpp/language/parameter_pack">variadic templates</a>. For example, you can use <code>MemoryManager::NewSingleFrame&lt;MyObj&gt;(param1, param2...)</code> to create a new <code>MyObj</code> object on the single frame area, and use <code>MemoryManager::NewArrOnFreeList&lt;MyObj&gt;(100)</code> to create an array of 100 <code>MyObj</code>s.</li>
+<li>We used to have some "magic numbers"s in the memory manager to specify the default alignment of memory allocation. Those magic numbers are now abstracted out and shared by everyone using it. This will allow for easy changes in the future and prevent inconsistency.</li>
+<li>We used to have a slot in the config file that specifies the size of our LSR and level data memory area. We now allow each submodule to have a function that calculates their memory need. And the memory manager just call each of the functions and determine the total size needed. Some modules will need to read something from the config file in their calculation function, but our start up sequence perfectly supports this: the config file is read before anything else starts. The main reason why we did this was because it's very hard and tedious to calculate memory usage of each subsystem by hand and modifying the corresponding entry in the config file. This also makes each module's memory usage more transparent.</li>
+</ul>
+<p>Enough with our additions and patches. Now let's switch to one of our memory manager users and see what they have to say about our latest changes!</p>
+<blockquote>
+<p><strong>RingBuffer gets Homegrown</strong></p>
+<p>One of our anticipated tasks after fleshing out the memory module was to go through the rest of our systems and update their memory allocation to use our own memory allocators. The best place for us to start was, of course, our data structures!</p>
+<p>Our RingBuffer uses big contiguous chunks of memory for array allocation, so we swapped out any of our array <code>new</code> calls with <code>MemoryManager::NewArrOnFreeList</code> so that we could also avoid trying to defragment the big pieces of memory. This mimics the standard <code>new</code> way of doing things, but instead, we now get full knowledge and control of the memory. Our method also prevents half-baked usage of our system, because any memory of ours that is free'd using <code>delete</code> will crash the engine!</p>
+<p>Would recommend!</p>
+</blockquote>
+<h2 id="coming-soon">Coming Soon<a class="headerlink" href="#coming-soon" title="Permanent link">&para;</a></h2>
+<p>Go check out our interview with <a href="../../interviews/TommyRefenes-interview/">Tommy Refenes</a> from Team Meat!</p>
+<p>Last week we had a great conversation with <a href="../../interviews/AliceChing-advice/">Alice Ching</a> from Funomena and will be publishing the advice she gave us soon as well! We are still working on editing <a href="../../interviews/AmandineCoget-interview/">Amandine Coget's</a> interview, stay tuned for that. And this past week we also spoke with Martin Middleton, co-founder of Funomena, and will be working on transcribing and editing that in the coming weeks! Subscribe to our mailing list to get updates on all of these interviews as well as our blogs (we won't spam you, we promise)!</p>
+<h2 id="resources"><a href="../../resources/">Resources</a><a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
+<p>From development we are acquiring a lot of great resources from where we learned certain topics, and as much as we try to synthesize things in our blogs you may be interested in the originals, which is why we have a page full of links for you to browse.</p>
+<p><em>Originally Published October 5, 2018.</em></p>
+<!-- GD2md-html version 1.0β13 -->
+
+<p><br></p>
+<!-- Begin MailChimp Signup Form -->
+
+<p><link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+<div id="mc_embed_signup" style="margin-top: -20px">
+    <form action="https://isetta.us19.list-manage.com/subscribe/post?u=1d83cb806c55e205be26db856&amp;id=860c7d79cf" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+            <h3>Subscribe to our mailing list</h3>
+            <p style="margin-bottom: -22px;">Get notifications about the upcoming blogs and interviews!</p>
+            <br><br>
+            <div class="mc-field-group">
+                <label for="mce-EMAIL"> </label>
+                <input type="email" placeholder="Email Address..." name="EMAIL" class="required email" id="mce-EMAIL">
+            </div>
+            <div id="mce-responses" class="clear">
+                <div class="response" id="mce-error-response" style="display:none"></div>
+                <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <input type="text" name="b_1d83cb806c55e205be26db856_860c7d79cf" tabindex="-1" value="">
+            </div>
+            <div class="clear" id="submit-button">
+                <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+            </div>
+        </div>
+    </form>
+</div>
+<!--End mc_embed_signup--></p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:877">
+<p><strong>Deterministic behaviour</strong> is a process whose resulting state is determined by the initial state and inputs. It is heavily reliant on having a fixed-time so each step is performing the same amount of "work".&#160;<a class="footnote-backref" href="#fnref:877" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:32402">
+<p><strong>Data locality</strong> is essentially accessing data in as nearby of code as possible to utilize caches most effectively. Robert Nystrom covers it really well in <a href="http://gameprogrammingpatterns.com/data-locality.html">this chapter from Game Programming Patterns</a>.&#160;<a class="footnote-backref" href="#fnref:32402" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:74893">
+<p><strong>Branching</strong> in code is when the processor needs to evaluate something in order to determine what code to run next. It tends to be very wasteful of processing time because of the typical <a href="https://en.wikipedia.org/wiki/Instruction_pipelining">instruction pipeline</a> on a computer.&#160;<a class="footnote-backref" href="#fnref:74893" rev="footnote" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:321">
+<p>The <strong>window handle</strong> is a GLFW construct can be passed to objects and functions to allow them to hook into a particular window from the operating system.&#160;<a class="footnote-backref" href="#fnref:321" rev="footnote" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:100">
+<p>For more information on <a href="https://docs.microsoft.com/en-us/windows/desktop/learnwin32/retained-mode-versus-immediate-mode">Retained Mode versus Immediate Mode</a>.&#160;<a class="footnote-backref" href="#fnref:100" rev="footnote" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:8383">
+<p>Typically, textures are stored in compressed formats like .png, to read the pixels from the image file, we need to decode the texture from compressed to pixels.&#160;<a class="footnote-backref" href="#fnref:8383" rev="footnote" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:838383">
+<p>A <strong>pixel stream</strong> is a stream of pixel data, typically as four floating point numbers or integers representing red, green, blue, and opacity/alpha.&#160;<a class="footnote-backref" href="#fnref:838383" rev="footnote" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+<li id="fn:832988">
+<p>A <strong>messaging buffer</strong> is just a queue of messages that are buffered prior to being sent. Sending can be expensive and complicated, so buffering messages eases the messaging process.&#160;<a class="footnote-backref" href="#fnref:832988" rev="footnote" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+</li>
+<li id="fn:34902">
+<p>A <strong>packet queue</strong> is a queue of packets, which are small chunks of an original, bigger message. These are sent out in-batch because of packet size limitations over internet networks.&#160;<a class="footnote-backref" href="#fnref:34902" rev="footnote" title="Jump back to footnote 9 in the text">&#8617;</a></p>
+</li>
+<li id="fn:837294">
+<p><strong><a href="https://github.com/mattconte/tlsf">Two-Level Segregate Fit</a></strong> (TLSF) is a memory allocation scheme meant for use in video games because of its fast and efficient memory usage.&#160;<a class="footnote-backref" href="#fnref:837294" rev="footnote" title="Jump back to footnote 10 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3902832">
+<p><strong>Regression testing</strong> is the process of testing changes in software to make sure functionality is not broken when updating the software.&#160;<a class="footnote-backref" href="#fnref:3902832" rev="footnote" title="Jump back to footnote 11 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+                
+                  
+                
+              
+              
+                
+
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://isetta.io/blogs/week-5/";
+      this.page.identifier =
+        "blogs/week-5/";
+    };
+    (function() {
+      var d = document, s = d.createElement("script");
+      s.src = "//isetta-engine.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../week-4/" title="[Week 4] Buried in Comments" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                [Week 4] Buried in Comments
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../week-6/" title="[Week 6] We Think It's Playable" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                [Week 6] We Think It's Playable
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2019 Isetta Team
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.css">
+    
+      <a href="mailto:isetta.engine@gmail.com" class="md-footer-social__link fa fa-envelope"></a>
+    
+      <a href="https://twitter.com/IsettaEngine" class="md-footer-social__link fa fa-twitter"></a>
+    
+      <a href="https://github.com/Isetta-Team" class="md-footer-social__link fa fa-github"></a>
+    
+  </div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      
+      <script>app.initialize({version:"1.0.2",url:{base:"../.."}})</script>
+      
+        <script src="../../extra.js"></script>
+      
+    
+    
+      
+        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-124729724-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      
+    
+  </body>
+</html>
