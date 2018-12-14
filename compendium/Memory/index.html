@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../images/isetta_icon.ico">
-      <meta name="generator" content="mkdocs-1.0, mkdocs-material-3.0.3">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.1.0">
     
     
       
@@ -46,7 +46,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.11e41852.css">
       
         <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
       
@@ -57,16 +57,17 @@
       
     
     
-      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+      <script src="../../assets/javascripts/modernizr.20ef595d.js"></script>
     
     
-      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
       
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Source+Code+Pro">
         <style>body,input{font-family:"Lato","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Source Code Pro","Courier New",Courier,monospace}</style>
       
     
     <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
     
       <link rel="stylesheet" href="../../extra.css">
     
@@ -106,7 +107,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="../../#memory" tabindex="1" class="md-skip">
+      <a href="#memory" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -996,8 +997,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#postmortem-in-progress" title="Postmortem (IN-PROGRESS)" class="md-nav__link">
-    Postmortem (IN-PROGRESS)
+  <a href="#postmortem" title="Postmortem" class="md-nav__link">
+    Postmortem
   </a>
   
 </li>
@@ -2182,8 +2183,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#postmortem-in-progress" title="Postmortem (IN-PROGRESS)" class="md-nav__link">
-    Postmortem (IN-PROGRESS)
+  <a href="#postmortem" title="Postmortem" class="md-nav__link">
+    Postmortem
   </a>
   
 </li>
@@ -2276,8 +2277,16 @@
 <ul>
 <li><a href="../../interviews/AmandineCoget-interview/#parallelism-and-data-oriented-design">Parallelism and Data-Oriented Design</a></li>
 </ul>
-<h2 id="postmortem-in-progress">Postmortem (IN-PROGRESS)<a class="headerlink" href="#postmortem-in-progress" title="Permanent link">&para;</a></h2>
-<p>-- TODO --</p>
+<h2 id="postmortem">Postmortem<a class="headerlink" href="#postmortem" title="Permanent link">&para;</a></h2>
+<p><strong>Writing your own memory manager will be a good use of time if you're trying to learn low-level programming.</strong> It requires a wide breadth of low-level topics, including how <code>malloc</code> and <code>free</code> work; the performance implications of memory allocation (and garbage collectors); the layout of memory and details regarding that like cache, alignment, and structure padding; and a deeper understanding of C++, like how to use placement <code>new</code>, how to manually call destructors on objects, and where different types of objects are allocated (stack, heap, data segment).</p>
+<p>This might seem intimidating on first glance, but it's not if you give yourself plenty of time to research, implement, and reimplement. We didn't even come close to getting it right the first time—in fact, we probably still have a couple fatal bugs within our memory management system that we haven't sussed out yet. But because the memory manager was used by practically everything in the engine, we had plenty of opportunities to test and iterate on it, which resulted in a more robust and functional memory manager than if we had tried to design a good one outright.</p>
+<p><strong>Writing your own memory manager may not be a good use of time if you need results quick.</strong> We appreciated developing our own as part of our project because it definitely yielded growth to our programmers, and we did see notable performance gains as a result of making one ourselves, but we had to spend a large amount of our time developing the memory manager or fixing it, and that portion of time was even more significant due to how short our project was. On a project that has the same timeline that we had for this engine (about 15 weeks), we would probably opt to not make a memory manager so that we could just go straight into developing higher level systems sooner. If you're targeting modern PCs, then you won't even really have to worry about stringent memory requirements either, so optimizing the development will likely still be more important than optimizing your memory accesses.</p>
+<p><strong>More things to know:</strong></p>
+<ul>
+<li>Be comprehensive with performance benchmarking for memory management systems. We benchmarked our allocators individually, but we failed to benchmark the performance of the entire system in use in a game so we couldn't see if our time investments were worthwhile. It will be tempting to see that individual allocators do well and just believe that results in overall better performance, but overhead can easily be introduced when you have multiple different subsystems to manage in a system.</li>
+<li>Be careful of using templates in a memory manager, including variadic templates. These not only utterly <em>destroyed</em> our compile time and broke Intellisense when using <code>new</code> (we couldn't tell what parameters were used in a constructor because they were hidden by the variadic templates), but they also made tracking down errors excruciatingly difficult because the error message would come from the memory allocator implementation and we wouldn't know which templated usage of that allocator was really failing.</li>
+<li>The impact of different allocation patterns (like pool, single-frame, double-frame, etc.) is more important than blindly trying to make every memory allocation in your system "statically allocated." For example, in our engine, using a pool allocator for our entities improved our performance dramatically. The pool allocator also gives us more flexibility regarding how that memory is used, and we can reason about other optimizations we can make on it in the future as well.</li>
+</ul>
                 
                   
                 
@@ -2380,16 +2389,16 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      <script src="../../assets/javascripts/application.9e1f3b71.js"></script>
       
-      <script>app.initialize({version:"1.0",url:{base:"../.."}})</script>
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
       
         <script src="../../extra.js"></script>
       
     
     
       
-        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-124729724-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-124729724-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(a){a.host!=document.location.host&&a.addEventListener("click",function(){var e=a.getAttribute("data-md-action")||"follow";ga("send","event","outbound",e,a.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
       
     
   </body>
