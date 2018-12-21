@@ -12,7 +12,7 @@ html {
     padding: 0;
 }
 
-#new-here, h1#where-are-we-now, h1#isetta-timeline, h1#what-is-there-to-see {
+#new-here, h1#where-are-we-now, h1#isetta-timeline, h2#what-is-there-to-see {
 	background-color: #d6f2ff;
 	padding-left: 5px;
 }
