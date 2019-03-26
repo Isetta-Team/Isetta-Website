@@ -2748,7 +2748,7 @@ Your browser does not support the video tag.
 <p>With <code>NetworkDiscovery</code>, we no longer rely on specifying server IP address in the config because it's included in the broadcast message. This will definitely create a better experience for our demo game's players, and be useful for developers who want to implement similar functionality — even though it can be used for a lot more!</p>
 <h2 id="monitoring-memory-leaks">Monitoring Memory Leaks<a class="headerlink" href="#monitoring-memory-leaks" title="Permanent link">&para;</a></h2>
 <p>One of the side effects of having our own memory manager is that we never realized how much memory can be leaking on the freelist because it's just always silent. Good news is that we can easily track every single allocation and free! By doing that we can not only dump all of the memory leaks and blame the developers, but also provide valuable information for them to find and fix them! </p>
-<p>Even a small feature like this took us some iterations to get right. In the beginning, we were only tracking <code>Freelist::Alloc</code> and <code>Freelist::Free</code>. It does provide us with <em>some</em> information, but I would say it helps much when all it presents is something like this:</p>
+<p>Even a small feature like this took us some iterations to get right. In the beginning, we were only tracking <code>Freelist::Alloc</code> and <code>Freelist::Free</code>. It does provide <em>some</em> information, but I wouldn't say it helps much when all it presents is something like this:</p>
 <p><img alt="Memory Leaks Alloc" src="../../images/blogs/week-13/memory_leak_1.png" /></p>
 <blockquote>
 <p>See the nice arrows?! Yeah, it took us a good 10 minutes to find their Unicode and figure out how to print them.</p>
