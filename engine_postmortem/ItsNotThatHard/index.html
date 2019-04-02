@@ -2,7 +2,7 @@
 
 
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="no-js">
   <head>
     
@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../images/isetta_icon.ico">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.1.0">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.2.0">
     
     
       
@@ -46,7 +46,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.11e41852.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.572ca0f0.css">
       
         <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
       
@@ -57,7 +57,7 @@
       
     
     
-      <script src="../../assets/javascripts/modernizr.20ef595d.js"></script>
+      <script src="../../assets/javascripts/modernizr.8c900955.js"></script>
     
     
       
@@ -1890,11 +1890,14 @@
                 
                   <h1>It's Not That Hard</h1>
                 
-                <p><em>Rather than thinking of an engine as the monolith that games need to function, it is better said to be a collection of small, achievable subsystems.</em> The reason we find the need to state this is twofold: 1) starting this project each programmer was intimidated by the prospect of developing a game engine and 2) while doing research the internet oozes an elitist attitude about those who've developed an engine. What we pictured to be hard coming into the project was finding what system should be the first designed/implemented, figuring out where to start, and beyond that was figuring out how to develop and integrate each subsystem. The reason for our fear came from trying to learn about engine development in the past, which was to google "how to develop an engine" This isn't what you want to google. As we've stated throughout our project, there are relatively few resources that speak of the engine development process and as a whole (<a href="http://isetta.io">Isetta.io</a> can be added to that list now). Searching engine development just won't get you that far and will leave you with questions.</p>
-<p>Like any big problem, engine development can be deconstructed into manageable systems. For us, the process revolved around understanding some base engine vocabulary and a high level understanding of what functionality modules have, answering what features make an engine. From there we were able to deconstruct a game into mechanics, mechanics into a list of engine features, and engine features into dependency chart. By having a sense of what your dependencies are you will be able to select a system and start working on one that is near the bottom; don't be afraid that you are missing systems because you probably are, you are probably are also including systems that aren't needed. Your diagram, much like our was, will be wrong and you will have to iterate on it as you develop. What we want you to know, and wish someone told us, was that you may feel you architecture is wrong or you aren't doing things right but there isn't a right answer, just compromises. This applies beyond just planning and architecture but to all decisions you make on your engine.</p>
-<p>Researching engine development can still prove to be useful as you will get a sense of the vocabulary typically used with engines. Most of this vocabulary revolves around the programming and design patterns used in engines, as well as the different paradigms, like data-oriented vs. object-oriented. While it is certainly useful to understand this terminology, trying to implement the latest craze in engine development can be intimidating. It is typically the latest thing because there are nuances to it and the professionals are still working to understand it better. For us, sticking with something that was tried and true, as well as what we were more familiar and comfortable with, proved to be a better idea for our first engine. Something one of faculty members has said is, you have a limited amount of innovation "points" on a project; don't spend time trying to innovate on every aspect of a project, that will lead to overscoping.</p>
-<p>While game engines aren't a searchable subject, the subsystems of the architecture are easily searchable. Systems like graphics, physics, file I/O, memory, etc. aren't just game engine topics, they are software topics which have tutorials, examples, and well-documented knowledge on. As one of our faculty members put it, intelligent people have already captured the tech details of game engines and made them accessible for novices. Solving subsystems isn't a difficult process, it may take time to learn, however the implementation is something that can be iterated on. If your implementation isn't right (in either correctness, performance, memory) it can be fixed. The engine won't implode from a bad implementation.</p>
-<p>The subsystems are the puzzle pieces and the integration of the engine is like the picture of the completed puzzle. It takes some work to find a certain piece of the puzzle, but is doable; however without the picture it is difficult to assemble the puzzle at all. </p>
+                <p><img alt="Staxxx" src="../../images/postmortems/Pancakes.png" />
+<em>This may look like a daunting stack, but all you need to do is handle it one layer at a time</em></p>
+<p><em>Rather than thinking of an engine as the monolith that games need in order to function, it is better thought of as a collection of small, achievable subsystems.</em> The reason we find the need to state this is twofold: 1) starting this project, each programmer was intimidated by the prospect of developing a game engine and 2) while doing research for the project, the internet oozedan elitist attitude about those who've developed an engine. What we imagined being hard coming into the project was finding what system should be implemented first, and beyond that was figuring out how to develop and integrate each subsystem. The reason for our fear came from trying to learn about engine development in the past, which was to Google "how to develop a game engine" This isn't what you want to Google. As we've stated throughout our project, there are relatively few resources that speak of the engine development process and as a whole (<a href="http://isetta.io">isetta.io</a> can be added to that list now!). Searching engine development just won't get you that far and often leaves you with more questions.</p>
+<p>Like any big problem, game engine development can be deconstructed into manageable subsections. For us, the process revolved around understanding some base engine vocabulary and getting a high level understanding of what functionality our modules need to have, answering what features make an engine for us. From there, we were able to deconstruct a game into mechanics, mechanics into a list of engine features, and engine features into dependency chart. By having a sense of what your dependencies were, you should be able to select a system and start working on one that is near the bottom; don't be afraid about missing systems because you probably are, and you're probably also including systems that aren't needed. Your diagram, much like ours, will be wrong, and you will have to iterate on it as you develop. What we want you to know, and wish someone told us, was that you may feel your architecture is wrong or you aren't doing things right but there is almost never a right answer, just compromises. This applies beyond just planning and architecture to all decisions you make on your engine.</p>
+<p><img alt="Bad Staxxx" src="../../images/postmortems/Bad_Pancakes.png" />
+<em>Sometimes they just won't look right, so you gotta toss it and try again</em></p>
+<p>Researching engine development can still prove to be useful as you will get a sense of the vocabulary typically used with engines. Most of this vocabulary revolves around the programming and design patterns used in engines, as well as the different paradigms, like data-oriented vs. object-oriented. While it is certainly useful to understand this terminology, trying to implement the latest craze in engine development can be intimidating and frankly a bad idea. It's usually the latest thing because there are incredible nuances to it, and the industry is still working to understand it better. For us, sticking with something that was tried and true, as well as what we were more familiar and comfortable with, proved to be a better idea for our first engine. Something one of faculty members told us was, "you have a limited amount of innovation 'points' on a project; don't spend time trying to innovate on every aspect of a project, that will lead to overscoping."</p>
+<p>While game engines aren't a searchable subject, its subsystems certainly are. Systems like graphics and rendering, physics simulation, file I/O, memory management, etc., aren't just game engine topics, they're software topics which have tutorials, examples, and well-documented knowledge. As one of our faculty members put it, "intelligent people have already captured the tech details of game engines and made them accessible for novices." Solving subsystems isn't a difficult process; it may take time to learn, but the implementation is something that can be iterated on. If your implementation isn't right (in either correctness, runtime performance, or memory performance), it can be fixed. The engine won't implode from a bad implementation.</p>
                 
                   
                 
@@ -1997,7 +2000,7 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application.9e1f3b71.js"></script>
+      <script src="../../assets/javascripts/application.b41f3d20.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
       
@@ -2006,7 +2009,8 @@
     
     
       
-        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-124729724-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(a){a.host!=document.location.host&&a.addEventListener("click",function(){var e=a.getAttribute("data-md-action")||"follow";ga("send","event","outbound",e,a.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+        <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-124729724-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(a){a.host!=document.location.host&&a.addEventListener("click",function(){var e=a.getAttribute("data-md-action")||"follow";ga("send","event","outbound",e,a.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
   </body>
