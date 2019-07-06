@@ -89,7 +89,6 @@ h1, h2, h3, h4 {
 /*#region Interviews */
 .video-wrapper {
 	position: relative;
-	display: block;
 	height: 0;
 	padding: 0;
 	overflow: hidden;
@@ -139,6 +138,9 @@ h1, h2, h3, h4 {
 
 /*#endregion*/
 
+.md-typeset h1 {
+	margin: -2rem 0 2rem 0;
+}
 
 article .md-typeset__table {
 	width: 100% !important;
@@ -148,9 +150,42 @@ article .md-typeset__table table th, article .md-typeset__table table td{
 	font-size: 1.6rem;
 }
 
+.md-header-nav__title {
+	padding: 0 1rem;
+}
+
+@media only screen and (min-width: 76.25em) {
+.md-header-nav__title {
+	padding: 1rem;
+}
+}
+
+.md-header-nav__button.md-logo {
+	display: inline-block;
+}
+
 .md-logo img {
+	margin: -.4rem 0 0 0;
 	min-height: 32px;
 	min-width: 32px;
+}
+
+@media only screen and (min-width: 76.25em) {
+.md-logo img {
+	margin: -.2rem 0;
+	min-height: 48px;
+	min-width: 48px;
+}
+}
+
+@media only screen and (max-width: 76.1875em) {
+	html .md-nav--primary .md-nav__title {
+		padding: 0;
+		height: auto;
+		padding-left: 8rem;
+		line-height: 7rem;
+		font-size: 2rem;
+	}
 }
 
 .cursor_pointer {
